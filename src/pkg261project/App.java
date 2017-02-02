@@ -9,13 +9,15 @@ package pkg261project;
  *
  * @author ajl5735
  */
-public class Main {
+public class App {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        MainView mView = new MainView();
+        mView.DoStuff();
+
     }
-    
+
 }
