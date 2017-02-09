@@ -21,9 +21,18 @@ public class NavView extends JFrame {
 
     public void switchToMainPanel(CreateView m_view) {
         nVpanel.removeSplash();
-
+        nVpanel.removeMasterView();
+        nVpanel.removeMain();
         nVpanel.addMain(m_view);
     }
+
+    public void switchToMasterLoginViewPanel(MasterLoginView masterView) {
+        nVpanel.removeSplash();
+        nVpanel.removeMasterView();
+        nVpanel.removeMain();
+        nVpanel.addMasterView(masterView);
+    }
+
     
     
     public void addOptionsButtonListener(ActionListener al) {

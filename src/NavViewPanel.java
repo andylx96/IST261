@@ -7,21 +7,22 @@ import javax.swing.JPanel;
 public class NavViewPanel extends JPanel {
 
     NavViewBottomMenuPanel menu;
+    SplashScreenView splashScreen_view;
     MasterLoginView masterLogin_view;
-
    
     CreateView m_view;
-   
+    
+    
     public NavViewPanel() {
         super();
         setLayout(new BorderLayout());
         menu = new NavViewBottomMenuPanel();
-        masterLogin_view = new MasterLoginView();
+        splashScreen_view = new SplashScreenView();
         
-        masterLogin_view.addLoginAccountListener(new masterLoginButtonListener());
+
         
         add(menu, BorderLayout.SOUTH);
-        add(masterLogin_view, BorderLayout.CENTER);
+        add(splashScreen_view, BorderLayout.CENTER);
     }
 
     //Note: Splash scrren is only shown on startup.  No need to navigate back to it.
@@ -39,25 +40,43 @@ public class NavViewPanel extends JPanel {
         repaint();
     }
 
+    
+        public void addMasterView(MasterLoginView masterView) {
+        add(masterView, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
 
     public void removeMain() {
         if (this.m_view != null) {
             remove(this.m_view);
         }
     }
-
-    public void removeSplash() {
-        remove(masterLogin_view);
-    }
     
     
-        class masterLoginButtonListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            //Pass a Main View object to our Navigation View
-            //DO SOME SORT OF VALIDATE
-            
+    public void removeMasterView() {
+        if (this.masterLogin_view != null) {
+            remove(this.masterLogin_view);
+            System.out.println("removed");
         }
     }
+
+    
+    public void removeSplash() {
+    if (this.splashScreen_view != null) {
+            remove(this.splashScreen_view);
+        }
+    }
+    
+//    
+//        class masterLoginButtonListener implements ActionListener {
+//
+//        public void actionPerformed(ActionEvent e) {
+//            //Pass a Main View object to our Navigation View
+//            //DO SOME SORT OF VALIDATE
+//            
+//        }
+//    }
 
 }
