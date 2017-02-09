@@ -1,11 +1,13 @@
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 public class NavViewPanel extends JPanel {
 
     NavViewBottomMenuPanel menu;
-    SplashScreenPanel splash;
+    MasterLoginView masterLogin_view;
 
    
     CreateView m_view;
@@ -14,9 +16,12 @@ public class NavViewPanel extends JPanel {
         super();
         setLayout(new BorderLayout());
         menu = new NavViewBottomMenuPanel();
-        splash = new SplashScreenPanel();
+        masterLogin_view = new MasterLoginView();
+        
+        masterLogin_view.addLoginAccountListener(new masterLoginButtonListener());
+        
         add(menu, BorderLayout.SOUTH);
-        add(splash, BorderLayout.CENTER);
+        add(masterLogin_view, BorderLayout.CENTER);
     }
 
     //Note: Splash scrren is only shown on startup.  No need to navigate back to it.
@@ -42,7 +47,17 @@ public class NavViewPanel extends JPanel {
     }
 
     public void removeSplash() {
-        remove(splash);
+        remove(masterLogin_view);
+    }
+    
+    
+        class masterLoginButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            //Pass a Main View object to our Navigation View
+            //DO SOME SORT OF VALIDATE
+            
+        }
     }
 
 }
