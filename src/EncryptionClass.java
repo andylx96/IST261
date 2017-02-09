@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg261project;
-
 /**
  *
  * @author ajl5735
  */
-public class Model {
+public class EncryptionClass {
     
 }

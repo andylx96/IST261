@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg261project;
+
+import javax.swing.JPanel;
 
 /**
  *
  * @author ajl5735
  */
-public class MainController {
-    
+public class LoginView extends JPanel {
     
 }
