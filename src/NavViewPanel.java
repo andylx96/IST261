@@ -41,7 +41,8 @@ public class NavViewPanel extends JPanel {
     }
 
     
-        public void addMasterView(MasterLoginView masterView) {
+    public void addMasterView(MasterLoginView masterView) {
+        this.masterLogin_view = masterView;
         add(masterView, BorderLayout.CENTER);
         revalidate();
         repaint();

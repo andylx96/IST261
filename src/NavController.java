@@ -18,13 +18,15 @@ public class NavController {
     
     CreateView c_view;
     MasterLoginView masterLogin_view;
-
+    GeneratePass g;
+    
     public NavController(NavModel n_model, NavView n_view) {
         this.n_model = n_model;
         this.n_view = n_view;
 
         c_view = new CreateView();
         masterLogin_view = new MasterLoginView();
+        g = new GeneratePass();
 
         n_view.addOptionsButtonListener(new MasterLoginViewListener());
 
@@ -62,7 +64,7 @@ public class NavController {
 
         public void actionPerformed(ActionEvent e) {
 
-            c_view.getPassword().setText("Random Password");
+            c_view.getPassword().setText(g.GenPass(10));
         }
 
     }
