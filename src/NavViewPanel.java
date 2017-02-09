@@ -7,6 +7,14 @@ import javax.swing.JPanel;
 public class NavViewPanel extends JPanel {
 
     NavViewBottomMenuPanel menu;
+
+    public NavViewBottomMenuPanel getMenu() {
+        return menu;
+    }
+
+    public void setMenu(NavViewBottomMenuPanel menu) {
+        this.menu = menu;
+    }
     SplashScreenView splashScreen_view;
     MasterLoginView masterLogin_view;
    
@@ -59,7 +67,6 @@ public class NavViewPanel extends JPanel {
     public void removeMasterView() {
         if (this.masterLogin_view != null) {
             remove(this.masterLogin_view);
-            System.out.println("removed");
         }
     }
 

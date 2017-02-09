@@ -60,4 +60,12 @@ public class NavView extends JFrame {
     
 
     //TODO: Add listeners to switch to other Panels
+
+    public NavViewPanel getnVpanel() {
+        return nVpanel;
+    }
+
+    public void setnVpanel(NavViewPanel nVpanel) {
+        this.nVpanel = nVpanel;
+    }
 }

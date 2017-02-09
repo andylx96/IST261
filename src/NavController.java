@@ -77,6 +77,14 @@ public class NavController {
         c_view.addCreateAccountListener(new CreateAccountButtonListener());
         c_view.addgenRandPassAccountListener(new GenRandPassButtonListener());
         
+        
+        n_view.nVpanel.getMenu().getOptionsButton().setVisible(false);
+        n_view.nVpanel.getMenu().getMainButton().setVisible(true);
+        n_view.nVpanel.getMenu().getInstructionsButton().setVisible(true);
+        n_view.nVpanel.getMenu().getHighScoreButton().setVisible(true);
+        n_view.nVpanel.getMenu().getCreditsButton().setVisible(true);
+        
+        
         }
 
     }
