@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  * @author ajl5735
  */
-public class AccountModel {
+public class Accounts {
         String masterUserName;
     String masterUserPassword;
     String domainName;
@@ -18,7 +18,7 @@ public class AccountModel {
     String userPass;
     Scanner scan = new Scanner(System.in);
 
-    public AccountModel(String userName, String userPass, String domainName){
+    public Accounts(String userName, String userPass, String domainName){
     this.userName = userName;
     this.userPass = userPass;
     this.domainName = domainName;
