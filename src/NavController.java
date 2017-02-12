@@ -21,6 +21,7 @@ public class NavController {
     GeneratePass g;
     ArrayList<Accounts> accountsArray;
     Accounts masterAccount;
+    SearchView search_view;
 
     public NavController(NavModel n_model, NavView n_view) {
         this.n_model = n_model;
@@ -29,9 +30,12 @@ public class NavController {
         c_view = new CreateView();
         masterLogin_view = new MasterLoginView();
         g = new GeneratePass();
+        search_view = new SearchView();
 
         n_view.addOptionsButtonListener(new MasterLoginViewListener());
 
+        
+            search_view.getFindButton().addActionListener(new FindButtonListener());
         masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
 
     }
@@ -44,6 +48,14 @@ public class NavController {
         }
     }
 
+    class SearchButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            //Pass a Main View object to our Navigation View
+            n_view.switchToSearchViewPanel(search_view);
+        }
+    }
+
     class MasterLoginViewListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -51,12 +63,47 @@ public class NavController {
             n_view.switchToMasterLoginViewPanel(masterLogin_view);
         }
     }
+    
+    
+      class FindButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            int selected = search_view.accounts.getSelectedIndex();
+            search_view.getPasswords().setText(search_view.getAccountsArrayPassword().get(selected));
+            search_view.getSource().setText(search_view.getAccountsArraySource().get(selected));
+        }
+    }
 
     class CreateAccountButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
+            FileWriter fout;
+            try {
+                fout = new FileWriter("src/Accounts.txt");
 
-            c_view.getCreateAccount().setText("Done");
+                fout.write(c_view.getUserName().getText() + "\n");
+                fout.write(c_view.getPassword().getText() + "\n");
+                fout.write(c_view.getSource().getText() + "\n");
+
+                c_view.getCreateAccount().setText("Account Created");
+
+                fout.close();
+                fout.flush();
+            } catch (IOException ex) {
+            }
+
+//            String username = "", password = "", source = "";
+//            try {
+//                FileReader fin = new FileReader("src/Accounts.txt");
+//                Scanner scan = new Scanner(fin);
+//
+//                username = scan.nextLine();
+//                password = scan.nextLine();
+//                source = scan.nextLine();
+//
+//            } catch (FileNotFoundException ex) {
+//                System.out.println("LoginNot Found");
+//            }
         }
     }
 
@@ -114,19 +161,19 @@ public class NavController {
                 n_view.addMainButtonListener(new MainButtonListener());
                 c_view.addCreateAccountListener(new CreateAccountButtonListener());
                 c_view.addgenRandPassAccountListener(new GenRandPassButtonListener());
+                n_view.addSearchButtonListener(new SearchButtonListener());
 
                 n_view.nVpanel.getMenu().getOptionsButton().setVisible(false);
                 n_view.nVpanel.getMenu().getMainButton().setVisible(true);
                 n_view.nVpanel.getMenu().getInstructionsButton().setVisible(true);
                 n_view.nVpanel.getMenu().getHighScoreButton().setVisible(true);
-                n_view.nVpanel.getMenu().getCreditsButton().setVisible(true);
+                n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
 
-            masterLogin_view.getLoginStatus().setText("Logged In");
-                
-            }else {
-            masterLogin_view.getLoginStatus().setText("Error, Wronge Password or Username");
+                masterLogin_view.getLoginStatus().setText("Logged In");
+
+            } else {
+                masterLogin_view.getLoginStatus().setText("Error, Wronge Password or Username");
             }
-            
 
         }
 

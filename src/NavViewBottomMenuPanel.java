@@ -8,7 +8,7 @@ public class NavViewBottomMenuPanel extends JPanel {
     JButton mainButton;
     JButton optionsButton;
     JButton instructionsButton;
-    JButton creditsButton;
+    JButton searchButton;
     JButton highScoreButton;
     
     public NavViewBottomMenuPanel() {
@@ -17,19 +17,19 @@ public class NavViewBottomMenuPanel extends JPanel {
         optionsButton = new JButton("LOGIN");
         mainButton = new JButton("Create Account");
         instructionsButton = new JButton("Delete Account");
-        creditsButton = new JButton("Search Account");
+        searchButton = new JButton("Search Account");
         highScoreButton = new JButton("View All");
         
         mainButton.setVisible(false);
         instructionsButton.setVisible(false);
         highScoreButton.setVisible(false);
-        creditsButton.setVisible(false);
+        searchButton.setVisible(false);
         
         add(optionsButton);
         add(mainButton);
         add(instructionsButton);
         add(highScoreButton);
-        add(creditsButton);
+        add(searchButton);
         
     }
 
@@ -57,13 +57,15 @@ public class NavViewBottomMenuPanel extends JPanel {
         this.instructionsButton = instructionsButton;
     }
 
-    public JButton getCreditsButton() {
-        return creditsButton;
+    public JButton getSearchButton() {
+        return searchButton;
     }
 
-    public void setCreditsButton(JButton creditsButton) {
-        this.creditsButton = creditsButton;
+    public void setSearchButton(JButton searchButton) {
+        this.searchButton = searchButton;
     }
+
+ 
 
     public JButton getHighScoreButton() {
         return highScoreButton;
