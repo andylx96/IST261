@@ -54,30 +54,36 @@ public class NavController {
         public void actionPerformed(ActionEvent e) {
             //Pass a Main View object to our Navigation View
             n_view.switchToSearchViewPanel(search_view);
-            
-            
-            
+
+            search_view.getAccountsArrayUsername().clear();
+            search_view.getAccountsArrayPassword().clear();
+            search_view.getAccountsArraySource().clear();
+            search_view.getAccounts().removeAllItems();
             String username = "", password = "", source = "";
             try {
                 FileReader fin = new FileReader("src/Accounts.txt");
                 Scanner scan = new Scanner(fin);
 
-                username = scan.nextLine();
-                password = scan.nextLine();
-                source = scan.nextLine();
-                
+                while (scan.hasNextLine()) {
 
+                    username = scan.nextLine();
+                    password = scan.nextLine();
+                    source = scan.nextLine();
+
+                    search_view.getAccountsArray().get(0).add(username);
+                    search_view.getAccountsArray().get(1).add(password);
+                    search_view.getAccountsArray().get(2).add(source);
+
+                    search_view.accounts.addItem(username);
+
+                }
             } catch (FileNotFoundException ex) {
                 System.out.println("LoginNot Found");
             }
-            search_view.getAccountsArray().get(0).add(username);
-            search_view.getAccountsArray().get(1).add(password);
-            search_view.getAccountsArray().get(2).add(source);
 
 //            search_view.setAccounts(new JComboBox(search_view.getAccountsArray().get(0).toArray()));
 //            System.out.println(search_view.getAccountsArray().get(0));
 //            search_view.addNewCombo(new JComboBox(search_view.getAccountsArray().get(0).toArray()));
-            
         }
     }
 
@@ -103,7 +109,7 @@ public class NavController {
         public void actionPerformed(ActionEvent e) {
 
             try {
-                fout = new FileWriter("src/Accounts.txt");
+                fout = new FileWriter("src/Accounts.txt", true);
 
                 fout.write(c_view.getUserName().getText() + "\n");
                 fout.write(c_view.getPassword().getText() + "\n");
