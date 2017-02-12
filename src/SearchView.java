@@ -145,6 +145,9 @@ public class SearchView extends JPanel  {
     public void setSource(JLabel source) {
         this.source = source;
     }
+    public void addNewCombo(JComboBox<String> newAdd){
+    add(newAdd);
+    }
     
                 
                 

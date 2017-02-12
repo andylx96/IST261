@@ -4,92 +4,77 @@
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author ajl5735
  */
 public class Accounts {
-        String masterUserName;
-    String masterUserPassword;
-    String domainName;
-    String userName;
-    String userPass;
-    Scanner scan = new Scanner(System.in);
 
-    public Accounts(String userName, String userPass, String domainName){
-    this.userName = userName;
-    this.userPass = userPass;
-    this.domainName = domainName;
-    
-    }
+    JTextArea textbox;
+    ArrayList<ArrayList> accountsArray;
+    ArrayList<String> accountsArrayUsername;
+    ArrayList<String> accountsArrayPassword;
+    ArrayList<String> accountsArraySource;
 
-    public String getMasterUserName() {
-        return masterUserName;
-    }
+    public Accounts() {
+//        accountsArray = new ArrayList();
+//        accountsArrayUsername = new ArrayList();
+//        accountsArrayPassword = new ArrayList();
+//        accountsArraySource = new ArrayList();
+//
+//        accountsArrayUsername.add("TesterUserName1");
+//        accountsArrayPassword.add("TestPassword1");
+//        accountsArraySource.add("TestSource1");
+//
+//        accountsArrayUsername.add("TesterUserName2");
+//        accountsArrayPassword.add("TestPassword2");
+//        accountsArraySource.add("TestSource2");
+//
+//        accountsArrayUsername.add("TesterUserName3");
+//        accountsArrayPassword.add("TestPassword3");
+//        accountsArraySource.add("TestSource3");
+//
+//        accountsArray.add(accountsArrayUsername);
+//        accountsArray.add(accountsArrayPassword);
+//        accountsArray.add(accountsArraySource);
 
-    public void setMasterUserName(String masterUserName) {
-        this.masterUserName = masterUserName;
-    }
-
-    public String getMasterUserPassword() {
-        return masterUserPassword;
-    }
-
-    public void setMasterUserPassword(String masterUserPassword) {
-        this.masterUserPassword = masterUserPassword;
-    }
-
-    public String getDomainName() {
-        return domainName;
     }
 
-    public void setDomainName(String domainName) {
-        this.domainName = domainName;
+    public ArrayList<ArrayList> getAccountsArray() {
+        return accountsArray;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setAccountsArray(ArrayList<ArrayList> accountsArray) {
+        this.accountsArray = accountsArray;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public ArrayList<String> getAccountsArrayUsername() {
+        return accountsArrayUsername;
     }
 
-    public String getUserPass() {
-        return userPass;
+    public void setAccountsArrayUsername(ArrayList<String> accountsArrayUsername) {
+        this.accountsArrayUsername = accountsArrayUsername;
     }
 
-    public void setUserPass(String userPass) {
-        this.userPass = userPass;
+    public ArrayList<String> getAccountsArrayPassword() {
+        return accountsArrayPassword;
     }
 
-    public Scanner getScan() {
-        return scan;
+    public void setAccountsArrayPassword(ArrayList<String> accountsArrayPassword) {
+        this.accountsArrayPassword = accountsArrayPassword;
     }
 
-    public void setScan(Scanner scan) {
-        this.scan = scan;
+    public ArrayList<String> getAccountsArraySource() {
+        return accountsArraySource;
     }
-    
-    public void DoStuff() {
-        
-        System.out.println("Enter user master password");
-        masterUserName = scan.nextLine();
-        System.out.println("Enter user password");
-        masterUserPassword = scan.nextLine();
-        System.out.println("Enter UserName");
-        userName = scan.nextLine();
-        System.out.println("Enter Password");
-        userPass = scan.nextLine();
-        System.out.println("Name Of Site");
-        userPass = scan.nextLine();
-        
-        
-        System.out.println(masterUserName);
-        System.out.println(masterUserPassword);
-        System.out.println(userName);
-        System.out.println(userPass);
+
+    public void setAccountsArraySource(ArrayList<String> accountsArraySource) {
+        this.accountsArraySource = accountsArraySource;
     }
+
+  
 }
