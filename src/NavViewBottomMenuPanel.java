@@ -5,56 +5,56 @@ import javax.swing.JPanel;
 
 public class NavViewBottomMenuPanel extends JPanel {
     
-    JButton mainButton;
-    JButton optionsButton;
-    JButton instructionsButton;
+    JButton createButton;
+    JButton loginButton;
+    JButton deleteButton;
     JButton searchButton;
-    JButton highScoreButton;
+    JButton viewButton;
     
     public NavViewBottomMenuPanel() {
         super();
         
-        optionsButton = new JButton("LOGIN");
-        mainButton = new JButton("Create Account");
-        instructionsButton = new JButton("Delete Account");
+        loginButton = new JButton("LOGIN");
+        createButton = new JButton("Create Account");
+        deleteButton = new JButton("Delete Account");
         searchButton = new JButton("Search Account");
-        highScoreButton = new JButton("View All");
+        viewButton = new JButton("View All");
         
-        mainButton.setVisible(false);
-        instructionsButton.setVisible(false);
-        highScoreButton.setVisible(false);
+        createButton.setVisible(false);
+        deleteButton.setVisible(false);
+        viewButton.setVisible(false);
         searchButton.setVisible(false);
         
-        add(optionsButton);
-        add(mainButton);
-        add(instructionsButton);
-        add(highScoreButton);
+        add(loginButton);
+        add(createButton);
+        add(deleteButton);
+        add(viewButton);
         add(searchButton);
         
     }
 
-    public JButton getMainButton() {
-        return mainButton;
+    public JButton getCreateButton() {
+        return createButton;
     }
 
-    public void setMainButton(JButton mainButton) {
-        this.mainButton = mainButton;
+    public void setCreateButton(JButton createButton) {
+        this.createButton = createButton;
     }
 
-    public JButton getOptionsButton() {
-        return optionsButton;
+    public JButton getLoginButton() {
+        return loginButton;
     }
 
-    public void setOptionsButton(JButton optionsButton) {
-        this.optionsButton = optionsButton;
+    public void setLoginButton(JButton loginButton) {
+        this.loginButton = loginButton;
     }
 
-    public JButton getInstructionsButton() {
-        return instructionsButton;
+    public JButton getDeleteButton() {
+        return deleteButton;
     }
 
-    public void setInstructionsButton(JButton instructionsButton) {
-        this.instructionsButton = instructionsButton;
+    public void setDeleteButton(JButton deleteButton) {
+        this.deleteButton = deleteButton;
     }
 
     public JButton getSearchButton() {
@@ -65,13 +65,13 @@ public class NavViewBottomMenuPanel extends JPanel {
         this.searchButton = searchButton;
     }
 
- 
-
-    public JButton getHighScoreButton() {
-        return highScoreButton;
+    public JButton getViewButton() {
+        return viewButton;
     }
 
-    public void setHighScoreButton(JButton highScoreButton) {
-        this.highScoreButton = highScoreButton;
+    public void setViewButton(JButton viewButton) {
+        this.viewButton = viewButton;
     }
+
+
 }

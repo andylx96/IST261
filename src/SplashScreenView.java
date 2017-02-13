@@ -10,19 +10,19 @@ public class SplashScreenView extends JPanel {
 
     JLabel splashButton;
     JLabel optionsLabel;
-    JButton welcomeButton;
-    JLabel hint;
+    JButton welcome;
+    JLabel description;
    
     SplashScreenView() {
         setLayout(new BorderLayout());
         splashButton = new JLabel(new ImageIcon("src/Images/key.png"));
-        welcomeButton = new JButton("Welcome");
-        hint = new JLabel("Welcome");
+        welcome = new JButton("Welcome");
+        description = new JLabel("Welcome");
         
         
-        add(welcomeButton, BorderLayout.NORTH);
+        add(welcome, BorderLayout.NORTH);
         add(splashButton, BorderLayout.CENTER);
-        add(hint, BorderLayout.SOUTH);
+        add(description, BorderLayout.SOUTH);
         setSize(900, 700);
         
     }

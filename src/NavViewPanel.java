@@ -17,39 +17,34 @@ public class NavViewPanel extends JPanel {
     }
     SplashScreenView splashScreen_view;
     MasterLoginView masterLogin_view;
-   
-    CreateView m_view;
-       SearchView search_view;
 
-    
+    CreateView create_view;
+    SearchView search_view;
+
     public NavViewPanel() {
         super();
         setLayout(new BorderLayout());
         menu = new NavViewBottomMenuPanel();
         splashScreen_view = new SplashScreenView();
-        
 
-        
         add(menu, BorderLayout.SOUTH);
         add(splashScreen_view, BorderLayout.CENTER);
     }
 
-    //Note: Splash scrren is only shown on startup.  No need to navigate back to it.
-   
-    public void addMain(CreateView m_view) {
-        this.m_view = m_view;  //maintain handle to this view so we can remove it
-        add(m_view, BorderLayout.CENTER);
+    public void addCreate(CreateView create_view) {
+        this.create_view = create_view;  //maintain handle to this view so we can remove it
+        add(create_view, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
-    
-    public void addSearch(SearchView search_view){
-    
+
+    public void addSearch(SearchView search_view) {
+
         this.search_view = search_view;  //maintain handle to this view so we can remove it
         add(search_view, BorderLayout.CENTER);
         revalidate();
         repaint();
-    
+
     }
 
     public void addSplash(NavView n_view) {
@@ -58,7 +53,6 @@ public class NavViewPanel extends JPanel {
         repaint();
     }
 
-    
     public void addMasterView(MasterLoginView masterView) {
         this.masterLogin_view = masterView;
         add(masterView, BorderLayout.CENTER);
@@ -66,40 +60,28 @@ public class NavViewPanel extends JPanel {
         repaint();
     }
 
-
-    public void removeMain() {
-        if (this.m_view != null) {
-            remove(this.m_view);
+    public void removeCreate() {
+        if (this.create_view != null) {
+            remove(this.create_view);
         }
     }
-    
-       public void removeSearch() {
+
+    public void removeSearch() {
         if (this.search_view != null) {
             remove(this.search_view);
         }
     }
-    
+
     public void removeMasterView() {
         if (this.masterLogin_view != null) {
             remove(this.masterLogin_view);
         }
     }
 
-    
     public void removeSplash() {
-    if (this.splashScreen_view != null) {
+        if (this.splashScreen_view != null) {
             remove(this.splashScreen_view);
         }
     }
-    
-//    
-//        class masterLoginButtonListener implements ActionListener {
-//
-//        public void actionPerformed(ActionEvent e) {
-//            //Pass a Main View object to our Navigation View
-//            //DO SOME SORT OF VALIDATE
-//            
-//        }
-//    }
 
 }

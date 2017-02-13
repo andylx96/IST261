@@ -11,29 +11,28 @@ import javax.swing.JTextArea;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author zabuz
  */
 public class MasterLoginView extends JPanel {
+
     JTextArea userName, password;
     JButton loginButton;
     JLabel loginStatus;
-    
-    MasterLoginView(){
-    setLayout(new GridLayout(10,1));
+
+    MasterLoginView() {
+        setLayout(new GridLayout(10, 1));
         userName = new JTextArea("UserName");
-    password = new JTextArea("Password");
-    loginButton = new JButton("Login");
-    loginStatus = new JLabel("Not Logged In");
-    
-    
-    add(userName);
-    add(password);
-    add(loginButton);
-    add(loginStatus);
-    
+        password = new JTextArea("Password");
+        loginButton = new JButton("Login");
+        loginStatus = new JLabel("Not Logged In");
+
+        add(userName);
+        add(password);
+        add(loginButton);
+        add(loginStatus);
+
     }
 
     public JTextArea getUserName() {
@@ -67,12 +66,9 @@ public class MasterLoginView extends JPanel {
     public void setLoginButton(JButton loginButton) {
         this.loginButton = loginButton;
     }
-    
+
     public void addMasterLoginListener(ActionListener al) {
         this.loginButton.addActionListener(al);
     }
-    
-    
-    
-    
+
 }

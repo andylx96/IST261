@@ -15,7 +15,6 @@ public class GeneratePass {
     
     public GeneratePass()
     {
-        
     }
         
     final String chara = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$";

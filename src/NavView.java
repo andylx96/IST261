@@ -8,7 +8,7 @@ public class NavView extends JFrame {
     NavViewPanel nVpanel;
 
     NavView(NavModel model) {
-        super("Welcome to TRIvia Home Page");
+        super("Account Manager");
         this.model = model;
 
         setSize(700, 500);
@@ -19,19 +19,18 @@ public class NavView extends JFrame {
         add(nVpanel);
     }
 
-    public void switchToMainPanel(CreateView m_view) {
+    public void switchToCreateViewPanel(CreateView create_view) {
         nVpanel.removeSplash();
         nVpanel.removeMasterView();
-        nVpanel.removeMain();
+        nVpanel.removeCreate();
         nVpanel.removeSearch();
-        nVpanel.addMain(m_view);
+        nVpanel.addCreate(create_view);
     }
 
     public void switchToMasterLoginViewPanel(MasterLoginView masterView) {
         nVpanel.removeSplash();
         nVpanel.removeMasterView();
-        nVpanel.removeMain();
-        
+        nVpanel.removeCreate(); 
         nVpanel.removeSearch();
         nVpanel.addMasterView(masterView);
     }
@@ -39,26 +38,21 @@ public class NavView extends JFrame {
     public void switchToSearchViewPanel(SearchView search_view) {
         nVpanel.removeSplash();
         nVpanel.removeMasterView();
-        nVpanel.removeMain();
+        nVpanel.removeCreate();
         nVpanel.removeSearch();
         nVpanel.addSearch(search_view);
     }
-    
-    
 
-    
-    
     public void addOptionsButtonListener(ActionListener al) {
-        nVpanel.menu.optionsButton.addActionListener(al);
+        nVpanel.menu.loginButton.addActionListener(al);
     }
     
-    
     public void addHighScoreButtonListener(ActionListener al) {
-        nVpanel.menu.highScoreButton.addActionListener(al);
+        nVpanel.menu.viewButton.addActionListener(al);
     }
 
     public void addMainButtonListener(ActionListener al) {
-        nVpanel.menu.mainButton.addActionListener(al);
+        nVpanel.menu.createButton.addActionListener(al);
     }
 
     public void addCreditsButtonLIstener(ActionListener al) {
@@ -66,15 +60,11 @@ public class NavView extends JFrame {
     }
 
     public void addInstructionsButtonListener(ActionListener al) {
-        nVpanel.menu.instructionsButton.addActionListener(al);
+        nVpanel.menu.deleteButton.addActionListener(al);
     }
       public void addSearchButtonListener(ActionListener al) {
         nVpanel.menu.searchButton.addActionListener(al);
     }
-    
-    
-
-    //TODO: Add listeners to switch to other Panels
 
     public NavViewPanel getnVpanel() {
         return nVpanel;
