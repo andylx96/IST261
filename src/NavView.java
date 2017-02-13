@@ -21,7 +21,7 @@ public class NavView extends JFrame {
 
     public void switchToCreateViewPanel(CreateView create_view) {
         nVpanel.removeSplash();
-        nVpanel.removeMasterView();
+        nVpanel.removeMaster();
         nVpanel.removeCreate();
         nVpanel.removeSearch();
         nVpanel.addCreate(create_view);
@@ -29,7 +29,7 @@ public class NavView extends JFrame {
 
     public void switchToMasterLoginViewPanel(MasterLoginView masterView) {
         nVpanel.removeSplash();
-        nVpanel.removeMasterView();
+        nVpanel.removeMaster();
         nVpanel.removeCreate(); 
         nVpanel.removeSearch();
         nVpanel.addMasterView(masterView);
@@ -37,31 +37,28 @@ public class NavView extends JFrame {
     
     public void switchToSearchViewPanel(SearchView search_view) {
         nVpanel.removeSplash();
-        nVpanel.removeMasterView();
+        nVpanel.removeMaster();
         nVpanel.removeCreate();
         nVpanel.removeSearch();
         nVpanel.addSearch(search_view);
     }
 
-    public void addOptionsButtonListener(ActionListener al) {
+    public void addMasterButtonListener(ActionListener al) {
         nVpanel.menu.loginButton.addActionListener(al);
     }
     
-    public void addHighScoreButtonListener(ActionListener al) {
+    public void addViewButtonListener(ActionListener al) {
         nVpanel.menu.viewButton.addActionListener(al);
     }
 
-    public void addMainButtonListener(ActionListener al) {
+    public void addCreateButtonListener(ActionListener al) {
         nVpanel.menu.createButton.addActionListener(al);
     }
 
-    public void addCreditsButtonLIstener(ActionListener al) {
+    public void addDeleteButtonLIstener(ActionListener al) {
         nVpanel.menu.searchButton.addActionListener(al);
     }
 
-    public void addInstructionsButtonListener(ActionListener al) {
-        nVpanel.menu.deleteButton.addActionListener(al);
-    }
       public void addSearchButtonListener(ActionListener al) {
         nVpanel.menu.searchButton.addActionListener(al);
     }

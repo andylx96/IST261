@@ -72,7 +72,7 @@ public class NavViewPanel extends JPanel {
         }
     }
 
-    public void removeMasterView() {
+    public void removeMaster() {
         if (this.masterLogin_view != null) {
             remove(this.masterLogin_view);
         }

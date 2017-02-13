@@ -32,7 +32,7 @@ public class NavController {
         g = new GeneratePass();
         search_view = new SearchView();
         
-        n_view.addOptionsButtonListener(new MasterLoginViewListener());
+        n_view.addMasterButtonListener(new MasterLoginViewListener());
         search_view.getFindButton().addActionListener(new FindButtonListener());
         masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
 
@@ -71,7 +71,7 @@ public class NavController {
                     search_view.getAccountsArray().get(2).add(source);
 
                     search_view.accounts.addItem(username);
-
+                        
                 }
             } catch (FileNotFoundException ex) {
                 System.out.println("LoginNot Found");
@@ -90,9 +90,10 @@ public class NavController {
     class FindButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            int selected = search_view.accounts.getSelectedIndex();
+            int selected = search_view.getAccounts().getSelectedIndex();
             search_view.getPasswords().setText(search_view.getAccountsArrayPassword().get(selected));
             search_view.getSource().setText(search_view.getAccountsArraySource().get(selected));
+            System.out.println(selected);
         }
     }
 
@@ -140,7 +141,7 @@ public class NavController {
             }
             if (masterLogin_view.getUserName().getText().equalsIgnoreCase(username) && masterLogin_view.getPassword().getText().equalsIgnoreCase(password)) {
 
-                n_view.addMainButtonListener(new CreateViewButtonListener());
+                n_view.addCreateButtonListener(new CreateViewButtonListener());
                 c_view.addCreateAccountListener(new CreateAccountButtonListener());
                 c_view.addgenRandPassAccountListener(new GenRandPassButtonListener());
                 n_view.addSearchButtonListener(new SearchButtonListener());
