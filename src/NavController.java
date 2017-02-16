@@ -2,12 +2,15 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 
 public class NavController {
@@ -32,9 +35,11 @@ public class NavController {
         g = new GeneratePass();
         search_view = new SearchView();
         
-        n_view.addMasterButtonListener(new MasterLoginViewListener());
-        search_view.getFindButton().addActionListener(new FindButtonListener());
+        
         masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
+        n_view.addCreateButtonListener(new MasterLoginViewListener());
+        n_view.addCreateMasterButtonListener(new CreateNewMasterButtonListener());
+        search_view.getFindButton().addActionListener(new FindButtonListener());
 
     }
 
@@ -96,6 +101,17 @@ public class NavController {
             System.out.println(selected);
         }
     }
+    
+     class CreateNewMasterButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+           
+                File file = new File("src/MasterLogin.txt");
+                file.delete();
+            
+            System.out.println("deleted");
+        }
+    }
 
     class CreateAccountButtonListener implements ActionListener {
 
@@ -135,11 +151,10 @@ public class NavController {
 
                 username = scan.nextLine();
                 password = scan.nextLine();
-
             } catch (FileNotFoundException ex) {
                 System.out.println("LoginNot Found");
             }
-            if (masterLogin_view.getUserName().getText().equalsIgnoreCase(username) && masterLogin_view.getPassword().getText().equalsIgnoreCase(password)) {
+            if (masterLogin_view.getUserName().getText().equalsIgnoreCase(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equalsIgnoreCase(password)) {
 
                 n_view.addCreateButtonListener(new CreateViewButtonListener());
                 c_view.addCreateAccountListener(new CreateAccountButtonListener());

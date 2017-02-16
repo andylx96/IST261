@@ -62,6 +62,10 @@ public class NavView extends JFrame {
       public void addSearchButtonListener(ActionListener al) {
         nVpanel.menu.searchButton.addActionListener(al);
     }
+      
+         public void addCreateMasterButtonListener(ActionListener al) {
+        nVpanel.menu.createMaster.addActionListener(al);
+    }
 
     public NavViewPanel getnVpanel() {
         return nVpanel;

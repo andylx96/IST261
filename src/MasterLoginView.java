@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 
 /*
@@ -17,14 +18,15 @@ import javax.swing.JTextArea;
  */
 public class MasterLoginView extends JPanel {
 
-    JTextArea userName, password;
+    JTextArea userName; 
+    JPasswordField password;
     JButton loginButton;
     JLabel loginStatus;
 
     MasterLoginView() {
         setLayout(new GridLayout(10, 1));
         userName = new JTextArea("UserName");
-        password = new JTextArea("Password");
+        password = new JPasswordField("Password");
         loginButton = new JButton("Login");
         loginStatus = new JLabel("Not Logged In");
 
@@ -43,7 +45,7 @@ public class MasterLoginView extends JPanel {
         this.userName = userName;
     }
 
-    public JTextArea getPassword() {
+    public JPasswordField getPassword() {
         return password;
     }
 
@@ -55,7 +57,7 @@ public class MasterLoginView extends JPanel {
         this.loginStatus = loginStatus;
     }
 
-    public void setPassword(JTextArea password) {
+    public void setPassword(JPasswordField password) {
         this.password = password;
     }
 

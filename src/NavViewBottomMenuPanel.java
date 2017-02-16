@@ -1,5 +1,4 @@
 
-import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -10,15 +9,15 @@ public class NavViewBottomMenuPanel extends JPanel {
     JButton deleteButton;
     JButton searchButton;
     JButton viewButton;
-    
+    JButton createMaster;
     public NavViewBottomMenuPanel() {
         super();
-        
         loginButton = new JButton("LOGIN");
         createButton = new JButton("Create Account");
         deleteButton = new JButton("Delete Account");
         searchButton = new JButton("Search Account");
         viewButton = new JButton("View All");
+        createMaster = new JButton("Create New Master Account");
         
         createButton.setVisible(false);
         deleteButton.setVisible(false);
@@ -30,7 +29,7 @@ public class NavViewBottomMenuPanel extends JPanel {
         add(deleteButton);
         add(viewButton);
         add(searchButton);
-        
+        add(createMaster);
     }
 
     public JButton getCreateButton() {
@@ -71,6 +70,14 @@ public class NavViewBottomMenuPanel extends JPanel {
 
     public void setViewButton(JButton viewButton) {
         this.viewButton = viewButton;
+    }
+
+    public JButton getCreateMaster() {
+        return createMaster;
+    }
+
+    public void setCreateMaster(JButton createMaster) {
+        this.createMaster = createMaster;
     }
 
 
