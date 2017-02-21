@@ -25,7 +25,18 @@ public class NavView extends JFrame {
         nVpanel.removeCreate();
         nVpanel.removeSearch();
         nVpanel.removeViewAll();
+        nVpanel.removeCreateMasterLoginView();
         nVpanel.addCreate(create_view);
+    }
+    
+    public void switchToCreateMasterLoginViewPanel(CreateMasterLoginView createMasterLogin_view) {
+        nVpanel.removeSplash();
+        nVpanel.removeMaster();
+        nVpanel.removeCreate();
+        nVpanel.removeSearch();
+        nVpanel.removeViewAll();
+        nVpanel.removeCreateMasterLoginView();
+        nVpanel.addCreateMasterLoginView(createMasterLogin_view);
     }
 
     public void switchToMasterLoginViewPanel(MasterLoginView masterView) {
@@ -34,6 +45,7 @@ public class NavView extends JFrame {
         nVpanel.removeCreate(); 
         nVpanel.removeSearch();
         nVpanel.removeViewAll();
+        nVpanel.removeCreateMasterLoginView();
         nVpanel.addMasterView(masterView);
     }
     
@@ -42,6 +54,8 @@ public class NavView extends JFrame {
         nVpanel.removeMaster();
         nVpanel.removeCreate();
         nVpanel.removeSearch();
+        nVpanel.removeViewAll();
+        nVpanel.removeCreateMasterLoginView();
         nVpanel.addSearch(search_view);
     }
     
@@ -51,6 +65,7 @@ public class NavView extends JFrame {
         nVpanel.removeCreate();
         nVpanel.removeSearch();
         nVpanel.removeViewAll();
+        nVpanel.removeCreateMasterLoginView();
         nVpanel.addViewAllView(viewAll_view);
     }
 

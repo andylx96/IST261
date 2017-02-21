@@ -21,6 +21,7 @@ public class NavViewPanel extends JPanel {
     CreateView create_view;
     SearchView search_view;
     ViewAllView viewAll_view;
+    CreateMasterLoginView createMasterLogin_view;
 
     public NavViewPanel() {
         super();
@@ -67,6 +68,13 @@ public class NavViewPanel extends JPanel {
         revalidate();
         repaint();
     }
+    
+     public void addCreateMasterLoginView(CreateMasterLoginView createMasterLogin_view) {
+        this.createMasterLogin_view = createMasterLogin_view;
+        add(createMasterLogin_view, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
 
     public void removeCreate() {
         if (this.create_view != null) {
@@ -86,6 +94,12 @@ public class NavViewPanel extends JPanel {
         }
     }
 
+              public void removeCreateMasterLoginView() {
+        if (this.createMasterLogin_view != null) {
+            remove(this.createMasterLogin_view);
+        }
+    }
+        
     public void removeMaster() {
         if (this.masterLogin_view != null) {
             remove(this.masterLogin_view);

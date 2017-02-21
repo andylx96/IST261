@@ -27,7 +27,8 @@ public class NavController {
     FileWriter fout;
     
     ViewAllView viewAll_view;
-
+    CreateMasterLoginView createMasterLogin_view;
+    
     public NavController(NavModel n_model, NavView n_view) {
         this.n_model = n_model;
         this.n_view = n_view;
@@ -37,6 +38,7 @@ public class NavController {
         g = new GeneratePass();
         search_view = new SearchView();
         viewAll_view = new ViewAllView();
+        createMasterLogin_view = new CreateMasterLoginView();
         
         masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
         
@@ -44,10 +46,25 @@ public class NavController {
         
         n_view.addMasterButtonListener(new MasterLoginViewListener());
         n_view.addCreateMasterButtonListener(new CreateNewMasterButtonListener());
+        createMasterLogin_view.addCreateMasterLoginListener(new CreateMasterLoginButtonListener());
         search_view.getFindButton().addActionListener(new FindButtonListener());
 
     }
+    class CreateMasterLoginButtonListener implements ActionListener {
 
+        public void actionPerformed(ActionEvent e) {
+            
+            try {
+                fout = new FileWriter("src/MasterLogin.txt", true);
+                fout.write(createMasterLogin_view.getUserName().getText() + "\n");
+                fout.write(createMasterLogin_view.getPassword().getText() + "\n");
+                createMasterLogin_view.getCreateStatus().setText("account created");
+                fout.close();
+                fout.flush();
+            } catch (IOException ex) {
+            }
+        }
+    }
     class CreateViewButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -115,6 +132,8 @@ public class NavController {
                 file.delete();
             
             System.out.println("deleted");
+            
+            n_view.switchToCreateMasterLoginViewPanel(createMasterLogin_view);
         }
     }
 
@@ -178,6 +197,8 @@ public class NavController {
                 n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
 
                 n_view.nVpanel.getMenu().getLoginButton().setVisible(false);
+                
+                n_view.nVpanel.getMenu().createMaster.setVisible(false);
                 n_view.nVpanel.getMenu().getCreateButton().setVisible(true);
                 n_view.nVpanel.getMenu().getDeleteButton().setVisible(true);
                 n_view.nVpanel.getMenu().getViewButton().setVisible(true);
