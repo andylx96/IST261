@@ -196,8 +196,64 @@ public class NavController {
     class GenRandPassButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-
-            c_view.getPassword().setText(g.GenPass(10));
+            if (c_view.lower().isSelected())
+            {
+                c_view.getPassword().setText(g.GenLower(10));
+            }
+            if (c_view.upper().isSelected())
+            {
+                c_view.getPassword().setText(g.GenUpper(10));
+            }
+            if (c_view.numbers().isSelected())
+            {
+                c_view.getPassword().setText(g.GenNum(10));
+            }
+            if (c_view.special().isSelected())
+            {
+                c_view.getPassword().setText(g.GenSpecial(10));
+            }
+            if (c_view.lower().isSelected() && c_view.upper().isSelected())
+            {
+                c_view.getPassword().setText(g.GenLowerUpper(10));
+            }
+            if (c_view.lower().isSelected() && c_view.numbers().isSelected())
+            {
+                c_view.getPassword().setText(g.GenLowerNums(10));
+            }
+            if (c_view.lower().isSelected() && c_view.special().isSelected())
+            {
+                c_view.getPassword().setText(g.GenLowerSpecial(10));
+            }
+            if (c_view.upper().isSelected() && c_view.numbers().isSelected())
+            {
+                c_view.getPassword().setText(g.GenUpperNums(10));
+            }
+            if (c_view.upper().isSelected() && c_view.special().isSelected())
+            {
+                c_view.getPassword().setText(g.GenUpperSpecial(10));
+            }
+            if (c_view.numbers().isSelected() && c_view.special().isSelected())
+            {
+                c_view.getPassword().setText(g.GenNumsSpecial(10));
+            }
+            if (c_view.lower().isSelected() && c_view.upper().isSelected() && c_view.numbers().isSelected())
+            {
+                c_view.getPassword().setText(g.GenLowerUpperNums(10));
+            }
+            if (c_view.lower().isSelected() && c_view.upper().isSelected() && c_view.special().isSelected())
+            {
+                c_view.getPassword().setText(g.GenLowerUpperSpecial(10));
+            }
+            if (c_view.lower().isSelected() && c_view.numbers().isSelected() && c_view.special().isSelected())
+            {
+                c_view.getPassword().setText(g.GenLowerNumsSpecial(10));
+            }
+            if (c_view.upper().isSelected() && c_view.numbers().isSelected() && c_view.special().isSelected())
+            {
+                c_view.getPassword().setText(g.GenUpperNumsSpecial(10));
+            }
+            else
+                c_view.getPassword().setText(g.GenPass(10));
         }
     }
 
