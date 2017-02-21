@@ -24,6 +24,7 @@ public class NavView extends JFrame {
         nVpanel.removeMaster();
         nVpanel.removeCreate();
         nVpanel.removeSearch();
+        nVpanel.removeViewAll();
         nVpanel.addCreate(create_view);
     }
 
@@ -32,6 +33,7 @@ public class NavView extends JFrame {
         nVpanel.removeMaster();
         nVpanel.removeCreate(); 
         nVpanel.removeSearch();
+        nVpanel.removeViewAll();
         nVpanel.addMasterView(masterView);
     }
     
@@ -41,6 +43,15 @@ public class NavView extends JFrame {
         nVpanel.removeCreate();
         nVpanel.removeSearch();
         nVpanel.addSearch(search_view);
+    }
+    
+      public void switchToViewAllViewPanel(ViewAllView viewAll_view) {
+        nVpanel.removeSplash();
+        nVpanel.removeMaster();
+        nVpanel.removeCreate();
+        nVpanel.removeSearch();
+        nVpanel.removeViewAll();
+        nVpanel.addViewAllView(viewAll_view);
     }
 
     public void addMasterButtonListener(ActionListener al) {
@@ -66,6 +77,11 @@ public class NavView extends JFrame {
          public void addCreateMasterButtonListener(ActionListener al) {
         nVpanel.menu.createMaster.addActionListener(al);
     }
+         
+         public void addViewAllViewButtonListener(ActionListener al){
+         nVpanel.menu.viewButton.addActionListener(al);
+         }
+      
 
     public NavViewPanel getnVpanel() {
         return nVpanel;

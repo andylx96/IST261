@@ -25,6 +25,8 @@ public class NavController {
     Accounts masterAccount;
     SearchView search_view;
     FileWriter fout;
+    
+    ViewAllView viewAll_view;
 
     public NavController(NavModel n_model, NavView n_view) {
         this.n_model = n_model;
@@ -34,10 +36,13 @@ public class NavController {
         masterLogin_view = new MasterLoginView();
         g = new GeneratePass();
         search_view = new SearchView();
-        
+        viewAll_view = new ViewAllView();
         
         masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
-        n_view.addCreateButtonListener(new MasterLoginViewListener());
+        
+        
+        
+        n_view.addMasterButtonListener(new MasterLoginViewListener());
         n_view.addCreateMasterButtonListener(new CreateNewMasterButtonListener());
         search_view.getFindButton().addActionListener(new FindButtonListener());
 
@@ -129,6 +134,16 @@ public class NavController {
             }
         }
     }
+    
+    
+        class ViewAllViewButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+               n_view.switchToViewAllViewPanel(viewAll_view);
+        }
+    }
+
 
     class GenRandPassButtonListener implements ActionListener {
 
@@ -160,6 +175,7 @@ public class NavController {
                 c_view.addCreateAccountListener(new CreateAccountButtonListener());
                 c_view.addgenRandPassAccountListener(new GenRandPassButtonListener());
                 n_view.addSearchButtonListener(new SearchButtonListener());
+                n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
 
                 n_view.nVpanel.getMenu().getLoginButton().setVisible(false);
                 n_view.nVpanel.getMenu().getCreateButton().setVisible(true);

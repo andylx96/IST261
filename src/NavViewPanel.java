@@ -20,6 +20,7 @@ public class NavViewPanel extends JPanel {
 
     CreateView create_view;
     SearchView search_view;
+    ViewAllView viewAll_view;
 
     public NavViewPanel() {
         super();
@@ -59,6 +60,13 @@ public class NavViewPanel extends JPanel {
         revalidate();
         repaint();
     }
+    
+    public void addViewAllView(ViewAllView viewAllView) {
+        this.viewAll_view = viewAllView;
+        add(viewAllView, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
 
     public void removeCreate() {
         if (this.create_view != null) {
@@ -69,6 +77,12 @@ public class NavViewPanel extends JPanel {
     public void removeSearch() {
         if (this.search_view != null) {
             remove(this.search_view);
+        }
+    }
+    
+        public void removeViewAll() {
+        if (this.viewAll_view != null) {
+            remove(this.viewAll_view);
         }
     }
 
