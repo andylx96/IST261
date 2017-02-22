@@ -80,18 +80,38 @@ public class CreateView extends JPanel {
     }
     
     public JCheckBox lower() {
-        return a;
+        if (a.isSelected())
+        {
+            return a;
+        }
+        else 
+            return null;
     }
     
     public JCheckBox upper() {
-        return b;
+        if (b.isSelected())
+        {
+            return b;
+        }
+        else
+            return null;
     }
     
     public JCheckBox numbers() {
-        return c;
+        if (c.isSelected())
+        {
+            return c;
+        }
+        else
+            return null;
     }
     
     public JCheckBox special() {
-        return d;
+        if (d.isSelected())
+        {
+            return d;
+        }
+        else
+            return d;
     }
 }
