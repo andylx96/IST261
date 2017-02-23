@@ -74,7 +74,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(u));
+            c = upperAlpha.charAt(r.nextInt(u));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -85,7 +85,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(n));
+            c = nums.charAt(r.nextInt(n));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -96,7 +96,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(s));
+            c = special.charAt(r.nextInt(s));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -107,7 +107,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(lu));
+            c = lowerupper.charAt(r.nextInt(lu));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -118,7 +118,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(ln));
+            c = lowernums.charAt(r.nextInt(ln));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -129,7 +129,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(ls));
+            c = lowerspecial.charAt(r.nextInt(ls));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -140,7 +140,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(un));
+            c = uppernums.charAt(r.nextInt(un));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -151,7 +151,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(us));
+            c = upperspecial.charAt(r.nextInt(us));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -162,7 +162,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(ns));
+            c = numsspecial.charAt(r.nextInt(ns));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -173,7 +173,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(lun));
+            c = loweruppernums.charAt(r.nextInt(lun));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -184,7 +184,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(lus));
+            c = lowerupperspecial.charAt(r.nextInt(lus));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -195,7 +195,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(lns));
+            c = lowernumsspecial.charAt(r.nextInt(lns));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }
@@ -206,7 +206,7 @@ public class GeneratePass {
         String newPass = "";
         int i = 0;
         while (i < q) {
-            c = lowerAlpha.charAt(r.nextInt(uns));
+            c = uppernumsspecial.charAt(r.nextInt(uns));
             newPass = newPass.concat(String.valueOf(c));
             i++;
         }

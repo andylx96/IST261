@@ -199,16 +199,16 @@ public class NavController {
     class GenRandPassButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            if (c_view.getLower().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLower(10));
-            } else if (c_view.getUpper().isSelected() == true) {
-                c_view.getPassword().setText(g.GenUpper(10));
-            } else if (c_view.getNumber().isSelected() == true) {
-                c_view.getPassword().setText(g.GenNum(10));
-            } else if (c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenSpecial(10));
-            } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerUpper(10));
+            if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
+                c_view.getPassword().setText(g.GenPass(10));
+            } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true) {
+                c_view.getPassword().setText(g.GenLowerUpperNums(10));
+            } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getSpecial().isSelected() == true) {
+                c_view.getPassword().setText(g.GenLowerUpperSpecial(10));
+            } else if (c_view.getLower().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
+                c_view.getPassword().setText(g.GenLowerNumsSpecial(10));
+            } else if (c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
+                c_view.getPassword().setText(g.GenUpperNumsSpecial(10));
             } else if (c_view.getLower().isSelected() == true && c_view.getNumber().isSelected() == true) {
                 c_view.getPassword().setText(g.GenLowerNums(10));
             } else if (c_view.getLower().isSelected() == true && c_view.getSpecial().isSelected() == true) {
@@ -219,15 +219,18 @@ public class NavController {
                 c_view.getPassword().setText(g.GenUpperSpecial(10));
             } else if (c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(g.GenNumsSpecial(10));
-            } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerUpperNums(10));
-            } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerUpperSpecial(10));
-            } else if (c_view.getLower().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerNumsSpecial(10));
-            } else if (c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenUpperNumsSpecial(10));
-            } else {
+            } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true) {
+                c_view.getPassword().setText(g.GenLowerUpper(10));
+            } else if (c_view.getLower().isSelected() == true) {
+                c_view.getPassword().setText(g.GenLower(10));
+            } else if (c_view.getNumber().isSelected() == true) {
+                c_view.getPassword().setText(g.GenNum(10));
+            } else if (c_view.getUpper().isSelected() == true) {
+                c_view.getPassword().setText(g.GenUpper(10));
+            } else if (c_view.getSpecial().isSelected() == true) {
+                c_view.getPassword().setText(g.GenSpecial(10));
+            }
+            else {
                 c_view.getPassword().setText(g.GenPass(10));
             }
         }
@@ -265,7 +268,7 @@ public class NavController {
 
                 masterLogin_view.getLoginStatus().setText("Logged In");
             } else {
-                masterLogin_view.getLoginStatus().setText("Error, Wronge Password or Username");
+                masterLogin_view.getLoginStatus().setText("Error, Wrong Password or Username");
                 try {
                     FileReader fin = new FileReader("src/MasterLogin.txt");
                 } catch (FileNotFoundException ex) {
