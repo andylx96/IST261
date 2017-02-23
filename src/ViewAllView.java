@@ -1,8 +1,10 @@
 
 import java.awt.BorderLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -20,10 +22,13 @@ public class ViewAllView extends JPanel {
     Object[][] data = {{"User1", "Pass1", "Source"}, {"User2", "Pass2", "Source2"}};
     DefaultTableModel model;
     JScrollPane scrollPane;
+    JTextArea searchArea;
+    JButton searchButton;
     
+    ViewAllSearchPanel viewAllSearchPanel;
     ViewAllView() {
         setLayout(new BorderLayout());
-
+        viewAllSearchPanel = new ViewAllSearchPanel();
         
         String[] columnName = {"UserName", "Password", "Source"};
 
@@ -34,8 +39,14 @@ public class ViewAllView extends JPanel {
         table.setDefaultEditor(Object.class, null);
         
         scrollPane = new JScrollPane(table);
+    
+        searchArea = new JTextArea("");
+        
+        searchButton = new JButton("Search");
+        
         
         add(scrollPane, BorderLayout.CENTER);
+        add(viewAllSearchPanel, BorderLayout.SOUTH);
     }
 
     public JTable getTable() {
@@ -67,6 +78,38 @@ public class ViewAllView extends JPanel {
         this.table = table;
 //        this.remove(table);
 //        this.add(table);
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
+
+    public JTextArea getSearchArea() {
+        return searchArea;
+    }
+
+    public void setSearchArea(JTextArea searchArea) {
+        this.searchArea = searchArea;
+    }
+
+    public JButton getSearchButton() {
+        return searchButton;
+    }
+
+    public void setSearchButton(JButton searchButton) {
+        this.searchButton = searchButton;
+    }
+
+    public ViewAllSearchPanel getViewAllSearchPanel() {
+        return viewAllSearchPanel;
+    }
+
+    public void setViewAllSearchPanel(ViewAllSearchPanel viewAllSearchPanel) {
+        this.viewAllSearchPanel = viewAllSearchPanel;
     }
 
 }

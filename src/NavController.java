@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 public class NavController {
@@ -41,6 +42,7 @@ public class NavController {
         viewAll_view = new ViewAllView();
         createMasterLogin_view = new CreateMasterLoginView();
 
+        
         masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
 
         n_view.addMasterButtonListener(new MasterLoginViewListener());
@@ -48,6 +50,7 @@ public class NavController {
         createMasterLogin_view.addCreateMasterLoginListener(new CreateMasterLoginButtonListener());
         search_view.getFindButton().addActionListener(new FindButtonListener());
 
+            viewAll_view.getViewAllSearchPanel().addSearchButtonListener(new ViewAllSearchButtonListener());
     }
 
     class CreateMasterLoginButtonListener implements ActionListener {
@@ -73,6 +76,13 @@ public class NavController {
         }
     }
 
+     class ViewAllSearchButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Stuff");
+        }
+    }
+    
     class SearchButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -128,13 +138,19 @@ public class NavController {
     class CreateNewMasterButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
+            JOptionPane pane = new JOptionPane("are you sure?");
+            int resp = JOptionPane.showConfirmDialog(null, "Are You Sure?\n This Will DELETE ALL saved passwords!");
 
-            File file = new File("src/MasterLogin.txt");
-            file.delete();
+            if (resp == JOptionPane.YES_OPTION) {
+                File masterLoginFile = new File("src/MasterLogin.txt");
+                masterLoginFile.delete();
+                File accountsFile = new File("src/Accounts.txt");
+                accountsFile.delete();
 
-            System.out.println("deleted");
+                System.out.println("deleted");
 
-            n_view.switchToCreateMasterLoginViewPanel(createMasterLogin_view);
+                n_view.switchToCreateMasterLoginViewPanel(createMasterLogin_view);
+            }
         }
     }
 
@@ -166,12 +182,10 @@ public class NavController {
             search_view.getAccountsArrayUsername().clear();
             search_view.getAccountsArrayPassword().clear();
             search_view.getAccountsArraySource().clear();
-            int tempCounter = 0;
             viewAll_view.getModel().setRowCount(0);
             try {
                 FileReader fin = new FileReader("src/Accounts.txt");
                 Scanner scan = new Scanner(fin);
-//                Object[][] tempObject = new Object[100][3];
                 while (scan.hasNextLine()) {
 
                     tempUsername = scan.nextLine();
@@ -182,14 +196,11 @@ public class NavController {
                     search_view.getAccountsArray().get(1).add(tempPassword);
                     search_view.getAccountsArray().get(2).add(tempSource);
 
-//                    tempObject = new Object[search_view.getAccountsArray().size()][3];
                     viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
-                    
-                    tempCounter++;
+
                 }
                 viewAll_view.setTable(new JTable(viewAll_view.getModel()));
                 viewAll_view.updateTableView(viewAll_view.getTable());
-//                viewAll_view.setData(tempObject);
             } catch (FileNotFoundException ex) {
                 System.out.println("InfoNotFound");
             }
@@ -229,18 +240,17 @@ public class NavController {
                 c_view.getPassword().setText(g.GenUpper(10));
             } else if (c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(g.GenSpecial(10));
-            }
-            else {
+            } else {
                 c_view.getPassword().setText(g.GenPass(10));
             }
         }
     }
-    
+
     class GenRandUserButtonListener implements ActionListener {
-        
-         public void actionPerformed(ActionEvent e) {
-             c_view.getUserName().setText(g.GenLowerUpperNums(10));
-         }
+
+        public void actionPerformed(ActionEvent e) {
+            c_view.getUserName().setText(g.GenLowerUpperNums(10));
+        }
     }
 
     class MasterPassButtonListener implements ActionListener {

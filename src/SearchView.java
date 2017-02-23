@@ -17,53 +17,48 @@ import javax.swing.JTextArea;
  *
  * @author ajl5735
  */
-public class SearchView extends JPanel  {
+public class SearchView extends JPanel {
+
     JTextArea textbox;
-        ArrayList<ArrayList> accountsArray;
-        ArrayList<String> accountsArrayUsername;
-        ArrayList<String> accountsArrayPassword;
-        ArrayList<String> accountsArraySource;
-        
-        
-        
-        JComboBox<String> accounts;
-        JLabel passwords, source;
-        JButton findButton;
-        
-        JTable table;
-        SearchView(){
-        
-            
-            setLayout(new GridLayout(10,1));
-        
-               table = new JTable();
-               
-            accountsArray = new ArrayList();
-            accountsArrayUsername = new ArrayList();
-            accountsArrayPassword = new ArrayList();
-            accountsArraySource = new ArrayList();
-            
-            accountsArray.add(accountsArrayUsername);
-            accountsArray.add(accountsArrayPassword);
-            accountsArray.add(accountsArraySource);
-            
-            accounts = new JComboBox(accountsArray.get(0).toArray());
-            
-            passwords = new JLabel();
-            source = new JLabel();
-            findButton = new JButton("Search");
-            
-            add(accounts);
-            add(passwords);
-            add(source);
-            add(findButton);
-            add(table);
-            
-            
-            
-            
-            
-        }
+    ArrayList<ArrayList> accountsArray;
+    ArrayList<String> accountsArrayUsername;
+    ArrayList<String> accountsArrayPassword;
+    ArrayList<String> accountsArraySource;
+
+    JComboBox<String> accounts;
+    JLabel passwords, source;
+    JButton findButton;
+
+    JTable table;
+
+    SearchView() {
+
+        setLayout(new GridLayout(10, 1));
+
+        table = new JTable();
+
+        accountsArray = new ArrayList();
+        accountsArrayUsername = new ArrayList();
+        accountsArrayPassword = new ArrayList();
+        accountsArraySource = new ArrayList();
+
+        accountsArray.add(accountsArrayUsername);
+        accountsArray.add(accountsArrayPassword);
+        accountsArray.add(accountsArraySource);
+
+        accounts = new JComboBox(accountsArray.get(0).toArray());
+
+        passwords = new JLabel();
+        source = new JLabel();
+        findButton = new JButton("Search");
+
+        add(accounts);
+        add(passwords);
+        add(source);
+        add(findButton);
+        add(table);
+
+    }
 
     public JButton getFindButton() {
         return findButton;
@@ -72,7 +67,8 @@ public class SearchView extends JPanel  {
     public void setFindButton(JButton findButton) {
         this.findButton = findButton;
     }
-           public void addfindButtonListener(ActionListener al) {
+
+    public void addfindButtonListener(ActionListener al) {
         this.findButton.addActionListener(al);
     }
 
@@ -139,7 +135,13 @@ public class SearchView extends JPanel  {
     public void setSource(JLabel source) {
         this.source = source;
     }
-    
-                
-                
+
+    public JTable getTable() {
+        return table;
+    }
+
+    public void setTable(JTable table) {
+        this.table = table;
+    }
+
 }
