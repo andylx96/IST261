@@ -235,6 +235,13 @@ public class NavController {
             }
         }
     }
+    
+    class GenRandUserButtonListener implements ActionListener {
+        
+         public void actionPerformed(ActionEvent e) {
+             c_view.getUserName().setText(g.GenLowerUpperNums(10));
+         }
+    }
 
     class MasterPassButtonListener implements ActionListener {
 
@@ -255,6 +262,7 @@ public class NavController {
                 n_view.addCreateButtonListener(new CreateViewButtonListener());
                 c_view.addCreateAccountListener(new CreateAccountButtonListener());
                 c_view.addgenRandPassAccountListener(new GenRandPassButtonListener());
+                c_view.addgenRandUserAccountListener(new GenRandUserButtonListener());
                 n_view.addSearchButtonListener(new SearchButtonListener());
                 n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
 

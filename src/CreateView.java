@@ -12,7 +12,7 @@ import javax.swing.JTextArea;
 public class CreateView extends JPanel {
 
     JTextArea userName, password, source;
-    JButton genRandPass, createAccount;
+    JButton genRandPass, createAccount, genRandUser;
     JCheckBox lower, upper, number, special;
 
     CreateView() {
@@ -25,6 +25,7 @@ public class CreateView extends JPanel {
         number = new JCheckBox("Numbers");
         special = new JCheckBox("Special Characters");
         genRandPass = new JButton("Generate Random Password");
+        genRandUser = new JButton("Generate Random Username");
         createAccount = new JButton("Create Account");
 
         add(userName);
@@ -35,6 +36,7 @@ public class CreateView extends JPanel {
         add(number);
         add(special);
         add(genRandPass);
+        add(genRandUser);
         add(createAccount);
 
     }
@@ -45,6 +47,14 @@ public class CreateView extends JPanel {
 
     public void setGenRandPass(JButton genRandPass) {
         this.genRandPass = genRandPass;
+    }
+    
+    public JButton getGenRandUser(){
+        return genRandUser;
+    }
+    
+    public void setGenRandUser(JButton genRandUser){
+        this.genRandUser = genRandUser;
     }
 
     public JCheckBox getLower() {
@@ -85,6 +95,10 @@ public class CreateView extends JPanel {
 
     public void addgenRandPassAccountListener(ActionListener al) {
         this.genRandPass.addActionListener(al);
+    }
+    
+    public void addgenRandUserAccountListener(ActionListener al) {
+        this.genRandUser.addActionListener(al);
     }
 
     public JTextArea getUserName() {
