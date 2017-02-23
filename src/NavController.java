@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 
 public class NavController {
 
@@ -160,35 +161,38 @@ public class NavController {
 
             n_view.switchToViewAllViewPanel(viewAll_view);
 
-//            String tempUsername, tempPassword, tempSource;
-//
-//            search_view.getAccountsArrayUsername().clear();
-//            search_view.getAccountsArrayPassword().clear();
-//            search_view.getAccountsArraySource().clear();
-//            try {
-//                FileReader fin = new FileReader("src/Accounts.txt");
-//                Scanner scan = new Scanner(fin);
-//
-//                while (scan.hasNextLine()) {
-//
-//                    tempUsername = scan.nextLine();
-//                    tempPassword = scan.nextLine();
-//                    tempSource = scan.nextLine();
-//
-//                    search_view.getAccountsArray().get(0).add(tempUsername);
-//                    search_view.getAccountsArray().get(1).add(tempPassword);
-//                    search_view.getAccountsArray().get(2).add(tempSource);
-//                    
-//                    Object[][] tempObject = new Object[search_view.getAccountsArray().size()][3]; 
-//                    
-//                    for(int i =0; i < tempObject.length; i++){
-//                    tempObject[i][search_view.getAccountsArray().get(0)];
-//                    }
-//                
-//                }
-//            } catch (FileNotFoundException ex) {
-//                System.out.println("InfoNotFound");
-//            }
+            String tempUsername, tempPassword, tempSource;
+
+            search_view.getAccountsArrayUsername().clear();
+            search_view.getAccountsArrayPassword().clear();
+            search_view.getAccountsArraySource().clear();
+            int tempCounter = 0;
+            viewAll_view.getModel().setRowCount(0);
+            try {
+                FileReader fin = new FileReader("src/Accounts.txt");
+                Scanner scan = new Scanner(fin);
+//                Object[][] tempObject = new Object[100][3];
+                while (scan.hasNextLine()) {
+
+                    tempUsername = scan.nextLine();
+                    tempPassword = scan.nextLine();
+                    tempSource = scan.nextLine();
+
+                    search_view.getAccountsArray().get(0).add(tempUsername);
+                    search_view.getAccountsArray().get(1).add(tempPassword);
+                    search_view.getAccountsArray().get(2).add(tempSource);
+
+//                    tempObject = new Object[search_view.getAccountsArray().size()][3];
+                    viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
+                    
+                    tempCounter++;
+                }
+                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
+                viewAll_view.updateTableView(viewAll_view.getTable());
+//                viewAll_view.setData(tempObject);
+            } catch (FileNotFoundException ex) {
+                System.out.println("InfoNotFound");
+            }
         }
     }
 
@@ -197,44 +201,31 @@ public class NavController {
         public void actionPerformed(ActionEvent e) {
             if (c_view.getLower().isSelected() == true) {
                 c_view.getPassword().setText(g.GenLower(10));
-            }
-            else if (c_view.getUpper().isSelected()== true) {
+            } else if (c_view.getUpper().isSelected() == true) {
                 c_view.getPassword().setText(g.GenUpper(10));
-            }
-            else if (c_view.getNumber().isSelected()== true) {
+            } else if (c_view.getNumber().isSelected() == true) {
                 c_view.getPassword().setText(g.GenNum(10));
-            }
-            else if (c_view.getSpecial().isSelected()== true) {
+            } else if (c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(g.GenSpecial(10));
-            }
-            else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected()== true) {
+            } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true) {
                 c_view.getPassword().setText(g.GenLowerUpper(10));
-            }
-            else if (c_view.getLower().isSelected()== true && c_view.getNumber().isSelected()== true) {
+            } else if (c_view.getLower().isSelected() == true && c_view.getNumber().isSelected() == true) {
                 c_view.getPassword().setText(g.GenLowerNums(10));
-            }
-            else if (c_view.getLower().isSelected()== true && c_view.getSpecial().isSelected()== true) {
+            } else if (c_view.getLower().isSelected() == true && c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(g.GenLowerSpecial(10));
-            }
-            else if (c_view.getUpper().isSelected()== true && c_view.getNumber().isSelected()== true) {
+            } else if (c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true) {
                 c_view.getPassword().setText(g.GenUpperNums(10));
-            }
-            else if (c_view.getUpper().isSelected()== true && c_view.getSpecial().isSelected()== true) {
+            } else if (c_view.getUpper().isSelected() == true && c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(g.GenUpperSpecial(10));
-            }
-            else if (c_view.getNumber().isSelected()== true && c_view.getSpecial().isSelected()== true) {
+            } else if (c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(g.GenNumsSpecial(10));
-            }
-            else if (c_view.getLower().isSelected()== true && c_view.getUpper().isSelected()== true && c_view.getNumber().isSelected()== true) {
+            } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true) {
                 c_view.getPassword().setText(g.GenLowerUpperNums(10));
-            }
-            else if (c_view.getLower().isSelected()== true && c_view.getUpper().isSelected()== true && c_view.getSpecial().isSelected()== true) {
+            } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(g.GenLowerUpperSpecial(10));
-            }
-            else if (c_view.getLower().isSelected()== true && c_view.getNumber().isSelected()== true && c_view.getSpecial().isSelected()== true) {
+            } else if (c_view.getLower().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(g.GenLowerNumsSpecial(10));
-            }
-            else if (c_view.getUpper().isSelected()== true && c_view.getNumber().isSelected()== true && c_view.getSpecial().isSelected()== true) {
+            } else if (c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(g.GenUpperNumsSpecial(10));
             } else {
                 c_view.getPassword().setText(g.GenPass(10));
