@@ -58,7 +58,7 @@ public class NavController {
         createMasterLogin_view.addCreateMasterLoginListener(new CreateMasterLoginButtonListener());
         search_view.getFindButton().addActionListener(new FindButtonListener());
 
-//        viewAll_view.getViewAllSearchPanel().addSearchButtonListener(new ViewAllSearchButtonListener());
+        viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
     }
 
     class CreateMasterLoginButtonListener implements ActionListener {
@@ -84,127 +84,23 @@ public class NavController {
         }
     }
 
-    class ViewAllSearchButtonListener implements ActionListener {
+    class ViewAllDeleteButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-
-
-
-
-//TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(viewAll_view.getTable().getModel());
-//    viewAll_view.getTable().setRowSorter(sorter);
-//  if (viewAll_view.viewAllSearchPanel.getUsernameField().getText().length() == 0) {
-//          sorter.setRowFilter(null);
-//        } else {
-//          sorter.setRowFilter(RowFilter.regexFilter(viewAll_view.viewAllSearchPanel.getUsernameField().getText()));
-//        }
-//            System.out.println("working");
-////
-////            
-//        String value = viewAll_view.getViewAllSearchPanel().getUsernameField().getText();
-//
-//        for (int row = 0; row <= viewAll_view.getTable().getRowCount() - 1; row++) {
-//
-//            for (int col = 0; col <= viewAll_view.getTable().getColumnCount() - 1; col++) {
-//
-//                if (value.equals(viewAll_view.getTable().getValueAt(row, col))) {
-//
-//                    // this will automatically set the view of the scroll in the location of the value
-//                    viewAll_view.getTable().scrollRectToVisible(viewAll_view.getTable().getCellRect(row, 0, true));
-//
-//                    // this will automatically set the focus of the searched/selected row/value
-//                    viewAll_view.getTable().setRowSelectionInterval(row, row);
-//
-//                    for (int i = 0; i <= viewAll_view.getTable().getColumnCount() - 1; i++) {
-//
-//                        viewAll_view.getTable().getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
-//                    }
-//                }
-//            }
-//        }
-////    }
-//}
+            System.out.println("Delete Working");
+            int tempRow = viewAll_view.getTable().getSelectedRow();
+            int tempColumn = viewAll_view.getTable().convertRowIndexToModel( 3);
+            System.out.println("Selected row, column" + tempRow + tempColumn);
             
-//            Object[][] tempData = new Object[viewAll_view.getTable().getColumnCount()][viewAll_view.getTable().getRowCount()];
-//            String[] columnName = {"UserName", "Password", "Source"};
-//            DefaultTableModel tempModel;
-//            JTable tempTable;
-//            tempModel = new DefaultTableModel(tempData, columnName);
-//
-//            tempTable = new JTable(tempModel);
-//
-//            int rowCounter = 0;
-//            String value = viewAll_view.getViewAllSearchPanel().usernameField.getText();
-//            for (int row = 0; row <= viewAll_view.getTable().getRowCount() - 1; row++) {
-//
-//                for (int col = 0; col <= viewAll_view.getTable().getColumnCount() - 1; col++) {
-//
-//                    if (value.equals(viewAll_view.getTable().getValueAt(row, col))) {
-//                        System.out.println("found");
-//                        
-//                        
-//                        
-//                         tempData[rowCounter][col] =value;
-//                         rowCounter++;
-//
-//                }
-//                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
-//                viewAll_view.updateTableView(viewAll_view.getTable());
-//                        
-//                        tempTable
-//                        rowCounter ++;
-//
-////                        // this will automatically set the view of the scroll in the location of the value
-////                        viewAll_view.getTable().scrollRectToVisible(viewAll_view.getTable().getCellRect(row, 0, true));
-////
-////                        // this will automatically set the focus of the searched/selected row/value
-////                        viewAll_view.getTable().setRowSelectionInterval(row, row);
-////
-////                        for (int i = 0; i <= viewAll_view.getTable().getColumnCount() - 1; i++) {
-////
-////                            viewAll_view.getTable().getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-////                        }
-//                    }
-//                }
-//            }
+            
+//            viewAll_view.getTable().removeRowSelectionInterval(tempRow, tempRow);
 
-//            TableRowSorter<TableModel> rowSorter
-//            = new TableRowSorter<>(viewAll_view.getTable().getModel());
-//            viewAll_view.getTable().setRowSorter(rowSorter);
-//            rowSorter.setRowFilter(RowFilter.regexFilter(viewAll_view.getViewAllSearchPanel().usernameField.getText()));
-//            
-//            
-//            System.out.println("working");
-//            viewAll_view.getTable().setRowSelectionInterval(10, 10);
-//            viewAll_view.getViewAllSearchPanel().getUsernameField().getDocument().addDocumentListener(new DocumentListener() {
-//                @Override
-//                  public void insertUpdate(DocumentEvent e) {
-//                String text = viewAll_view.getViewAllSearchPanel().getUsernameField().getText();
-//
-//                if (text.trim().length() == 0) {
-//                    rowSorter.setRowFilter(null);
-//                } else {
-//                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-//                }
-//            }
-//
-//
-//                @Override
-//              public void removeUpdate(DocumentEvent e) {
-//                String text = viewAll_view.getViewAllSearchPanel().getUsernameField().getText();
-//
-//                if (text.trim().length() == 0) {
-//                    rowSorter.setRowFilter(null);
-//                } else {
-//                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-//                }
-//            }
-//
-//                @Override
-//                public void changedUpdate(DocumentEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                }
-//            });
+DefaultTableModel modelTable = (DefaultTableModel) viewAll_view.getTable().getModel();
+int SelectedRow = viewAll_view.getTable().getSelectedRow();
+            System.out.println(SelectedRow);
+//modelTable.removeRow(SelectedRow);
+
+
         }
     }
 

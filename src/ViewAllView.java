@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,7 +34,7 @@ public class ViewAllView extends JPanel {
 
     ViewAllSearchPanel viewAllSearchPanel;
 
-        String[] columnName = {"UserName", "Password", "Source"};
+    String[] columnName = {"UserName", "Password", "Source"};
     DefaultTableModel model = new DefaultTableModel(data, columnName);
     JTable table = new JTable(model);
 
@@ -41,7 +42,7 @@ public class ViewAllView extends JPanel {
             = new TableRowSorter<>(table.getModel());
 
     private JTextField jtfFilter = new JTextField();
-    
+JPanel panel;
 //    ViewAllView() {
 //        setLayout(new BorderLayout());
 //        viewAllSearchPanel = new ViewAllSearchPanel();
@@ -59,18 +60,17 @@ public class ViewAllView extends JPanel {
 //        add(scrollPane, BorderLayout.CENTER);
 //        add(viewAllSearchPanel, BorderLayout.SOUTH);
 //    }
-    
-     public ViewAllView() {
-         
-             table.setDefaultEditor(Object.class, null);
+    public ViewAllView() {
+        viewAllSearchPanel = new ViewAllSearchPanel();
+//        table.setDefaultEditor(Object.class, null);
 
         searchArea = new JTextArea("");
 
         searchButton = new JButton("Search");
-        
-        table.setRowSorter(rowSorter);
 
-        JPanel panel = new JPanel(new BorderLayout());
+        table.setRowSorter(rowSorter);
+table.setColumnSelectionAllowed(true);
+        panel = new JPanel(new BorderLayout());
         panel.add(new JLabel("Specify a word to match:"),
                 BorderLayout.WEST);
         panel.add(searchArea, BorderLayout.CENTER);
@@ -78,8 +78,9 @@ public class ViewAllView extends JPanel {
         setLayout(new BorderLayout());
         add(panel, BorderLayout.SOUTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
+        add(viewAllSearchPanel, BorderLayout.WEST);
 
-        searchArea.getDocument().addDocumentListener(new DocumentListener(){
+        searchArea.getDocument().addDocumentListener(new DocumentListener() {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -110,7 +111,14 @@ public class ViewAllView extends JPanel {
 
         });
     }
-    
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
 
     public JTable getTable() {
         return table;
@@ -176,8 +184,3 @@ public class ViewAllView extends JPanel {
     }
 
 }
-
-
-
-   
-    
