@@ -258,6 +258,7 @@ public class NavController {
         public void actionPerformed(ActionEvent e) {
 
             String username = "", password = "";
+            String tempUsername, tempPassword, tempSource;
             try {
                 FileReader fin = new FileReader("src/MasterLogin.txt");
                 Scanner scan = new Scanner(fin);
@@ -283,6 +284,32 @@ public class NavController {
                 n_view.nVpanel.getMenu().getDeleteButton().setVisible(true);
                 n_view.nVpanel.getMenu().getViewButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
+                
+                File file = new File("src/Accounts1.txt");
+                file.delete();
+                
+                try {
+                    FileReader fin1 = new FileReader("src/Accounts.txt");
+                    Scanner scn = new Scanner(fin1);
+                    while(scn.hasNextLine())
+                    {
+                        fout = new FileWriter("src/Accounts1.txt", true);
+                        tempUsername = scn.nextLine();
+                        tempPassword = scn.nextLine();
+                        tempSource = scn.nextLine();
+                        
+                        fout.write(tempUsername + "\n");
+                        fout.write(tempPassword + "\n");
+                        fout.write(tempSource + "\n");
+                        fout.flush();
+                    }
+                    
+                }
+                catch (FileNotFoundException ex){
+                    
+                } catch (IOException ex) {
+                    
+                }
 
                 masterLogin_view.getLoginStatus().setText("Logged In");
             } else {
