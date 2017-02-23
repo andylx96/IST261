@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
@@ -42,7 +43,7 @@ public class ViewAllView extends JPanel {
             = new TableRowSorter<>(table.getModel());
 
     private JTextField jtfFilter = new JTextField();
-JPanel panel;
+    JPanel panel;
 //    ViewAllView() {
 //        setLayout(new BorderLayout());
 //        viewAllSearchPanel = new ViewAllSearchPanel();
@@ -60,21 +61,26 @@ JPanel panel;
 //        add(scrollPane, BorderLayout.CENTER);
 //        add(viewAllSearchPanel, BorderLayout.SOUTH);
 //    }
+
     public ViewAllView() {
         viewAllSearchPanel = new ViewAllSearchPanel();
-//        table.setDefaultEditor(Object.class, null);
+        table.setDefaultEditor(Object.class, null);
 
         searchArea = new JTextArea("");
 
         searchButton = new JButton("Search");
 
         table.setRowSorter(rowSorter);
-table.setColumnSelectionAllowed(true);
+        table.setColumnSelectionAllowed(true);
         panel = new JPanel(new BorderLayout());
         panel.add(new JLabel("Specify a word to match:"),
                 BorderLayout.WEST);
         panel.add(searchArea, BorderLayout.CENTER);
 
+        table.getCellSelectionEnabled();
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
         setLayout(new BorderLayout());
         add(panel, BorderLayout.SOUTH);
         add(new JScrollPane(table), BorderLayout.CENTER);

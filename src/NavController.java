@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -59,6 +61,7 @@ public class NavController {
         search_view.getFindButton().addActionListener(new FindButtonListener());
 
         viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
+        viewAll_view.getTable().addMouseListener(new MouseClickListener());
     }
 
     class CreateMasterLoginButtonListener implements ActionListener {
@@ -84,22 +87,49 @@ public class NavController {
         }
     }
 
+    class MouseClickListener implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getModifiers() == MouseEvent.BUTTON1_MASK) {
+                if (e.getClickCount() == 2) {
+                    e.consume();
+                    int selRow = viewAll_view.getTable().getSelectedRow();
+                    System.out.println("GridReport double clicked on row=" + selRow);
+                }
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {System.out.println("Null"); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {System.out.println("Null"); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {System.out.println("Null"); }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            System.out.println("Null");
+        }
+    }
+
     class ViewAllDeleteButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             System.out.println("Delete Working");
             int tempRow = viewAll_view.getTable().getSelectedRow();
-            int tempColumn = viewAll_view.getTable().convertRowIndexToModel( 3);
+            int tempColumn = viewAll_view.getTable().getSelectedColumn();
             System.out.println("Selected row, column" + tempRow + tempColumn);
-            
-            
+            System.out.println(viewAll_view.getTable().getRowCount());
 //            viewAll_view.getTable().removeRowSelectionInterval(tempRow, tempRow);
-
-DefaultTableModel modelTable = (DefaultTableModel) viewAll_view.getTable().getModel();
-int SelectedRow = viewAll_view.getTable().getSelectedRow();
+            DefaultTableModel modelTable = (DefaultTableModel) viewAll_view.getTable().getModel();
+            int SelectedRow = viewAll_view.getTable().getSelectedRow();
             System.out.println(SelectedRow);
+            System.out.println("STUFF " +viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow()));
 //modelTable.removeRow(SelectedRow);
-
 
         }
     }
@@ -305,31 +335,29 @@ int SelectedRow = viewAll_view.getTable().getSelectedRow();
                 n_view.nVpanel.getMenu().getDeleteButton().setVisible(true);
                 n_view.nVpanel.getMenu().getViewButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
-                
+
                 File file = new File("src/Accounts1.txt");
                 file.delete();
-                
+
                 try {
                     FileReader fin1 = new FileReader("src/Accounts.txt");
                     Scanner scn = new Scanner(fin1);
-                    while(scn.hasNextLine())
-                    {
+                    while (scn.hasNextLine()) {
                         fout = new FileWriter("src/Accounts1.txt", true);
                         tempUsername = scn.nextLine();
                         tempPassword = scn.nextLine();
                         tempSource = scn.nextLine();
-                        
+
                         fout.write(tempUsername + "\n");
                         fout.write(tempPassword + "\n");
                         fout.write(tempSource + "\n");
                         fout.flush();
                     }
-                    
-                }
-                catch (FileNotFoundException ex){
-                    
+
+                } catch (FileNotFoundException ex) {
+
                 } catch (IOException ex) {
-                    
+
                 }
 
                 masterLogin_view.getLoginStatus().setText("Logged In");
