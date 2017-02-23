@@ -13,30 +13,70 @@ public class CreateView extends JPanel {
 
     JTextArea userName, password, source;
     JButton genRandPass, createAccount;
-    JCheckBox a,b,c,d;
+    JCheckBox lower, upper, number, special;
 
     CreateView() {
         setLayout(new GridLayout(10, 1));
         userName = new JTextArea("Enter Username");
         password = new JTextArea("Enter Password");
         source = new JTextArea("Enter Source");
-        a = new JCheckBox ("Lower Case");
-        b = new JCheckBox ("Upper Case");
-        c = new JCheckBox ("Numbers");
-        d = new JCheckBox ("Special Characters");
+        lower = new JCheckBox("Lower Case");
+        upper = new JCheckBox("Upper Case");
+        number = new JCheckBox("Numbers");
+        special = new JCheckBox("Special Characters");
         genRandPass = new JButton("Generate Random Password");
         createAccount = new JButton("Create Account");
 
         add(userName);
         add(password);
         add(source);
-        add(a);
-        add(b);
-        add(c);
-        add(d);
+        add(lower);
+        add(upper);
+        add(number);
+        add(special);
         add(genRandPass);
         add(createAccount);
 
+    }
+
+    public JButton getGenRandPass() {
+        return genRandPass;
+    }
+
+    public void setGenRandPass(JButton genRandPass) {
+        this.genRandPass = genRandPass;
+    }
+
+    public JCheckBox getLower() {
+        return lower;
+    }
+
+    public void setLower(JCheckBox lower) {
+        this.lower = lower;
+    }
+
+    public JCheckBox getUpper() {
+        return upper;
+    }
+
+    public void setUpper(JCheckBox upper) {
+        this.upper = upper;
+    }
+
+    public JCheckBox getNumber() {
+        return number;
+    }
+
+    public void setNumber(JCheckBox number) {
+        this.number = number;
+    }
+
+    public JCheckBox getSpecial() {
+        return special;
+    }
+
+    public void setSpecial(JCheckBox special) {
+        this.special = special;
     }
 
     public void addCreateAccountListener(ActionListener al) {
@@ -78,40 +118,5 @@ public class CreateView extends JPanel {
     public void setCreateAccount(JButton createAccount) {
         this.createAccount = createAccount;
     }
-    
-    public JCheckBox lower() {
-        if (a.isSelected())
-        {
-            return a;
-        }
-        else 
-            return null;
-    }
-    
-    public JCheckBox upper() {
-        if (b.isSelected())
-        {
-            return b;
-        }
-        else
-            return null;
-    }
-    
-    public JCheckBox numbers() {
-        if (c.isSelected())
-        {
-            return c;
-        }
-        else
-            return null;
-    }
-    
-    public JCheckBox special() {
-        if (d.isSelected())
-        {
-            return d;
-        }
-        else
-            return d;
-    }
+
 }

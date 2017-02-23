@@ -189,79 +189,62 @@ public class NavController {
 //            } catch (FileNotFoundException ex) {
 //                System.out.println("InfoNotFound");
 //            }
-
         }
     }
 
     class GenRandPassButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            if (c_view.lower().isSelected())
-            {
+            if (c_view.getLower().isSelected() == true) {
                 c_view.getPassword().setText(g.GenLower(10));
             }
-            if (c_view.upper().isSelected())
-            {
+            else if (c_view.getUpper().isSelected()== true) {
                 c_view.getPassword().setText(g.GenUpper(10));
             }
-            if (c_view.numbers().isSelected())
-            {
+            else if (c_view.getNumber().isSelected()== true) {
                 c_view.getPassword().setText(g.GenNum(10));
             }
-            if (c_view.special().isSelected())
-            {
+            else if (c_view.getSpecial().isSelected()== true) {
                 c_view.getPassword().setText(g.GenSpecial(10));
             }
-            if (c_view.lower().isSelected() && c_view.upper().isSelected())
-            {
+            else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected()== true) {
                 c_view.getPassword().setText(g.GenLowerUpper(10));
             }
-            if (c_view.lower().isSelected() && c_view.numbers().isSelected())
-            {
+            else if (c_view.getLower().isSelected()== true && c_view.getNumber().isSelected()== true) {
                 c_view.getPassword().setText(g.GenLowerNums(10));
             }
-            if (c_view.lower().isSelected() && c_view.special().isSelected())
-            {
+            else if (c_view.getLower().isSelected()== true && c_view.getSpecial().isSelected()== true) {
                 c_view.getPassword().setText(g.GenLowerSpecial(10));
             }
-            if (c_view.upper().isSelected() && c_view.numbers().isSelected())
-            {
+            else if (c_view.getUpper().isSelected()== true && c_view.getNumber().isSelected()== true) {
                 c_view.getPassword().setText(g.GenUpperNums(10));
             }
-            if (c_view.upper().isSelected() && c_view.special().isSelected())
-            {
+            else if (c_view.getUpper().isSelected()== true && c_view.getSpecial().isSelected()== true) {
                 c_view.getPassword().setText(g.GenUpperSpecial(10));
             }
-            if (c_view.numbers().isSelected() && c_view.special().isSelected())
-            {
+            else if (c_view.getNumber().isSelected()== true && c_view.getSpecial().isSelected()== true) {
                 c_view.getPassword().setText(g.GenNumsSpecial(10));
             }
-            if (c_view.lower().isSelected() && c_view.upper().isSelected() && c_view.numbers().isSelected())
-            {
+            else if (c_view.getLower().isSelected()== true && c_view.getUpper().isSelected()== true && c_view.getNumber().isSelected()== true) {
                 c_view.getPassword().setText(g.GenLowerUpperNums(10));
             }
-            if (c_view.lower().isSelected() && c_view.upper().isSelected() && c_view.special().isSelected())
-            {
+            else if (c_view.getLower().isSelected()== true && c_view.getUpper().isSelected()== true && c_view.getSpecial().isSelected()== true) {
                 c_view.getPassword().setText(g.GenLowerUpperSpecial(10));
             }
-            if (c_view.lower().isSelected() && c_view.numbers().isSelected() && c_view.special().isSelected())
-            {
+            else if (c_view.getLower().isSelected()== true && c_view.getNumber().isSelected()== true && c_view.getSpecial().isSelected()== true) {
                 c_view.getPassword().setText(g.GenLowerNumsSpecial(10));
             }
-            if (c_view.upper().isSelected() && c_view.numbers().isSelected() && c_view.special().isSelected())
-            {
+            else if (c_view.getUpper().isSelected()== true && c_view.getNumber().isSelected()== true && c_view.getSpecial().isSelected()== true) {
                 c_view.getPassword().setText(g.GenUpperNumsSpecial(10));
-            }
-            else
+            } else {
                 c_view.getPassword().setText(g.GenPass(10));
+            }
         }
     }
 
     class MasterPassButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-
-            String masterUsername, masterPassword, masterDomain;
 
             String username = "", password = "";
             try {
@@ -271,7 +254,7 @@ public class NavController {
                 username = scan.nextLine();
                 password = scan.nextLine();
             } catch (FileNotFoundException ex) {
-                System.out.println("LoginNot Found");
+                masterLogin_view.loginStatus.setText("Account Not Found");
             }
             if (masterLogin_view.getUserName().getText().equalsIgnoreCase(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equalsIgnoreCase(password)) {
 
@@ -292,6 +275,11 @@ public class NavController {
                 masterLogin_view.getLoginStatus().setText("Logged In");
             } else {
                 masterLogin_view.getLoginStatus().setText("Error, Wronge Password or Username");
+                try {
+                    FileReader fin = new FileReader("src/MasterLogin.txt");
+                } catch (FileNotFoundException ex) {
+                    masterLogin_view.loginStatus.setText("Account Not Found");
+                }
             }
 
         }
