@@ -1,11 +1,19 @@
-
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,36 +26,91 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ViewAllView extends JPanel {
 
-    JTable table;
     Object[][] data = {{"User1", "Pass1", "Source"}, {"User2", "Pass2", "Source2"}};
-    DefaultTableModel model;
     JScrollPane scrollPane;
     JTextArea searchArea;
     JButton searchButton;
-    
+
     ViewAllSearchPanel viewAllSearchPanel;
-    ViewAllView() {
-        setLayout(new BorderLayout());
-        viewAllSearchPanel = new ViewAllSearchPanel();
-        
+
         String[] columnName = {"UserName", "Password", "Source"};
+    DefaultTableModel model = new DefaultTableModel(data, columnName);
+    JTable table = new JTable(model);
 
-        model = new DefaultTableModel(data, columnName);
+    private TableRowSorter<TableModel> rowSorter
+            = new TableRowSorter<>(table.getModel());
 
-        table = new JTable(model);
-
-        table.setDefaultEditor(Object.class, null);
-        
-        scrollPane = new JScrollPane(table);
+    private JTextField jtfFilter = new JTextField();
     
+//    ViewAllView() {
+//        setLayout(new BorderLayout());
+//        viewAllSearchPanel = new ViewAllSearchPanel();
+//
+//
+//        
+//        table.setDefaultEditor(Object.class, null);
+//
+//        scrollPane = new JScrollPane(table);
+//
+//        searchArea = new JTextArea("");
+//
+//        searchButton = new JButton("Search");
+//
+//        add(scrollPane, BorderLayout.CENTER);
+//        add(viewAllSearchPanel, BorderLayout.SOUTH);
+//    }
+    
+     public ViewAllView() {
+         
+             table.setDefaultEditor(Object.class, null);
+
         searchArea = new JTextArea("");
-        
+
         searchButton = new JButton("Search");
         
-        
-        add(scrollPane, BorderLayout.CENTER);
-        add(viewAllSearchPanel, BorderLayout.SOUTH);
+        table.setRowSorter(rowSorter);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JLabel("Specify a word to match:"),
+                BorderLayout.WEST);
+        panel.add(searchArea, BorderLayout.CENTER);
+
+        setLayout(new BorderLayout());
+        add(panel, BorderLayout.SOUTH);
+        add(new JScrollPane(table), BorderLayout.CENTER);
+
+        searchArea.getDocument().addDocumentListener(new DocumentListener(){
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = searchArea.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = searchArea.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        });
     }
+    
 
     public JTable getTable() {
         return table;
@@ -113,3 +176,8 @@ public class ViewAllView extends JPanel {
     }
 
 }
+
+
+
+   
+    

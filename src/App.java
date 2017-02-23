@@ -19,6 +19,7 @@ public class App {
         NavView view = new NavView(model);
         NavController controller = new NavController(model, view);
         
+        
         view.setVisible(true);
         
         
