@@ -88,6 +88,7 @@ public class NavController {
     }
 
     class MouseClickListener implements MouseListener {
+
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getModifiers() == MouseEvent.BUTTON1_MASK) {
@@ -100,15 +101,19 @@ public class NavController {
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {System.out.println("Null"); //To change body of generated methods, choose Tools | Templates.
+        public void mousePressed(MouseEvent e) {
+            System.out.println("Null"); //To change body of generated methods, choose Tools | Templates.
         }
 
         @Override
-        public void mouseReleased(MouseEvent e) {System.out.println("Null"); //To change body of generated methods, choose Tools | Templates.
+        public void mouseReleased(MouseEvent e) {
+            System.out.println("Null"); //To change body of generated methods, choose Tools | Templates.
         }
 
         @Override
-        public void mouseEntered(MouseEvent e) {System.out.println("Null"); }
+        public void mouseEntered(MouseEvent e) {
+            System.out.println("Null");
+        }
 
         @Override
         public void mouseExited(MouseEvent e) {
@@ -120,16 +125,9 @@ public class NavController {
 
         public void actionPerformed(ActionEvent e) {
             System.out.println("Delete Working");
-            int tempRow = viewAll_view.getTable().getSelectedRow();
-            int tempColumn = viewAll_view.getTable().getSelectedColumn();
-            System.out.println("Selected row, column" + tempRow + tempColumn);
-            System.out.println(viewAll_view.getTable().getRowCount());
-//            viewAll_view.getTable().removeRowSelectionInterval(tempRow, tempRow);
-            DefaultTableModel modelTable = (DefaultTableModel) viewAll_view.getTable().getModel();
-            int SelectedRow = viewAll_view.getTable().getSelectedRow();
-            System.out.println(SelectedRow);
-            System.out.println("STUFF " +viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow()));
-//modelTable.removeRow(SelectedRow);
+            int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
+            int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
+            System.out.println("Row, " + tempRow +", "+ tempColumn) ;
 
         }
     }
@@ -250,8 +248,9 @@ public class NavController {
                     viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
 
                 }
-                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
-                viewAll_view.updateTableView(viewAll_view.getTable());
+                viewAll_view.setModel(viewAll_view.getModel());
+//                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
+//                viewAll_view.updateTableView(viewAll_view.getTable());
             } catch (FileNotFoundException ex) {
                 System.out.println("InfoNotFound");
             }
