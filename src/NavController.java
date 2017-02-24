@@ -36,7 +36,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
-
 public class NavController {
 
     NavModel n_model;
@@ -72,7 +71,8 @@ public class NavController {
         search_view.getFindButton().addActionListener(new FindButtonListener());
 
         viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
-        viewAll_view.getTable().addMouseListener(new MouseClickListener());
+        viewAll_view.getViewAllSearchPanel().addEditButtonListener(new ViewAllEditButtonListener());
+        viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
     }
 
     class CreateMasterLoginButtonListener implements ActionListener {
@@ -98,40 +98,6 @@ public class NavController {
         }
     }
 
-    class MouseClickListener implements MouseListener {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getModifiers() == MouseEvent.BUTTON1_MASK) {
-                if (e.getClickCount() == 2) {
-                    e.consume();
-                    int selRow = viewAll_view.getTable().getSelectedRow();
-                    System.out.println("GridReport double clicked on row=" + selRow);
-                }
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            System.out.println("Null"); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            System.out.println("Null"); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            System.out.println("Null");
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            System.out.println("Null");
-        }
-    }
-
     class ViewAllDeleteButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -140,6 +106,89 @@ public class NavController {
                 int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
                 int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
                 System.out.println("Row, " + tempRow + ", " + tempColumn);
+
+                try {
+                    fout = new FileWriter("src/Accounts.txt", true);
+                    for (int i = 0; i < viewAll_view.getTable().getRowCount(); i++) {
+
+                        for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
+
+                            
+
+                            if (i != tempRow && j != tempColumn) {
+                                System.out.println(viewAll_view.getTable().getValueAt(i, j));
+                                fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
+                            }
+                        }
+                    }
+                    c_view.getCreateAccount().setText("Account Created");
+                    fout.close();
+                    fout.flush();
+                } catch (IOException ex) {
+                }
+
+            }
+
+            String tempUsername, tempPassword, tempSource;
+
+            search_view.getAccountsArrayUsername().clear();
+            search_view.getAccountsArrayPassword().clear();
+            search_view.getAccountsArraySource().clear();
+            viewAll_view.getModel().setRowCount(0);
+            try {
+                FileReader fin = new FileReader("src/Accounts.txt");
+                Scanner scan = new Scanner(fin);
+                while (scan.hasNextLine()) {
+
+                    tempUsername = scan.nextLine();
+                    tempPassword = scan.nextLine();
+                    tempSource = scan.nextLine();
+
+                    search_view.getAccountsArray().get(0).add(tempUsername);
+                    search_view.getAccountsArray().get(1).add(tempPassword);
+                    search_view.getAccountsArray().get(2).add(tempSource);
+
+                    viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
+
+                }
+                viewAll_view.setModel(viewAll_view.getModel());
+//                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
+//                viewAll_view.updateTableView(viewAll_view.getTable());
+            } catch (FileNotFoundException ex) {
+                System.out.println("InfoNotFound");
+            }
+
+        }
+    }
+
+    class ViewAllEditButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+            System.out.println("Delete Working");
+            if (viewAll_view.getTable().getSelectedRow() != -1) {
+                int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
+                int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
+                System.out.println("Row, " + tempRow + ", " + tempColumn);
+            }
+            viewAll_view.getViewAllSearchPanel().getSaveEditButton().setVisible(true);
+        }
+    }
+
+    class ViewAllSaveEditButtonListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+            System.out.println("Delete Working");
+            if (viewAll_view.getTable().getSelectedRow() != -1) {
+                int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
+                int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
+                System.out.println("Row, " + tempRow + ", " + tempColumn);
+            }
+            int a = JOptionPane.showConfirmDialog(null, "Are You Sure");
+            if (a == JOptionPane.YES_OPTION) {
+                viewAll_view.getViewAllSearchPanel().getSaveEditButton().setVisible(false);
+                JOptionPane.showMessageDialog(null, "Saved");
             }
         }
     }
@@ -214,28 +263,25 @@ public class NavController {
             }
         }
     }
-    
+
     class SaveButtonListener implements ActionListener {
-        
+
         public void actionPerformed(ActionEvent e) {
             JOptionPane pane = new JOptionPane("Do you want to save?");
             int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it is safe to exit program.");
-            
-            if (resp == JOptionPane.YES_OPTION){
-                try
-                {
+
+            if (resp == JOptionPane.YES_OPTION) {
+                try {
                     String key = "squirrel123";
                     FileInputStream fis = new FileInputStream("Account1.txt");
                     FileOutputStream fos = new FileOutputStream("Accounts.txt");
                     encrypt(key, fis, fos);
-                }
-                catch(Throwable eo){
-                    
+                } catch (Throwable eo) {
+
                 }
             }
         }
     }
-
 
     class CreateAccountButtonListener implements ActionListener {
 
@@ -373,7 +419,6 @@ public class NavController {
 
                 File file = new File("src/Accounts1.txt");
                 file.delete();
-                
 
                 try {
                     FileReader fin1 = new FileReader("src/Accounts.txt");
@@ -409,42 +454,42 @@ public class NavController {
         }
 
     }
-    
+
     public static void encrypt(String key, InputStream is, OutputStream os) throws Throwable {
-	encryptOrDecrypt(key, Cipher.ENCRYPT_MODE, is, os);
+        encryptOrDecrypt(key, Cipher.ENCRYPT_MODE, is, os);
     }
-    
+
     public static void decrypt(String key, InputStream is, OutputStream os) throws Throwable {
-	encryptOrDecrypt(key, Cipher.DECRYPT_MODE, is, os);
+        encryptOrDecrypt(key, Cipher.DECRYPT_MODE, is, os);
     }
-    
+
     public static void encryptOrDecrypt(String key, int mode, InputStream is, OutputStream os) throws Throwable {
 
-	DESKeySpec dks = new DESKeySpec(key.getBytes());
-	SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
-	SecretKey desKey = skf.generateSecret(dks);
-	Cipher cipher = Cipher.getInstance("DES");
+        DESKeySpec dks = new DESKeySpec(key.getBytes());
+        SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
+        SecretKey desKey = skf.generateSecret(dks);
+        Cipher cipher = Cipher.getInstance("DES");
 
         if (mode == Cipher.ENCRYPT_MODE) {
-		cipher.init(Cipher.ENCRYPT_MODE, desKey);
-		CipherInputStream cis = new CipherInputStream(is, cipher);
-		doCopy(cis, os);
-	} else if (mode == Cipher.DECRYPT_MODE) {
-		cipher.init(Cipher.DECRYPT_MODE, desKey);
-		CipherOutputStream cos = new CipherOutputStream(os, cipher);
-		doCopy(is, cos);
-	}
+            cipher.init(Cipher.ENCRYPT_MODE, desKey);
+            CipherInputStream cis = new CipherInputStream(is, cipher);
+            doCopy(cis, os);
+        } else if (mode == Cipher.DECRYPT_MODE) {
+            cipher.init(Cipher.DECRYPT_MODE, desKey);
+            CipherOutputStream cos = new CipherOutputStream(os, cipher);
+            doCopy(is, cos);
+        }
     }
-    
+
     public static void doCopy(InputStream is, OutputStream os) throws IOException {
-	byte[] bytes = new byte[64];
-	int numBytes;
-	while ((numBytes = is.read(bytes)) != -1) {
-		os.write(bytes, 0, numBytes);
-	}
-	os.flush();
-	os.close();
-	is.close();
+        byte[] bytes = new byte[64];
+        int numBytes;
+        while ((numBytes = is.read(bytes)) != -1) {
+            os.write(bytes, 0, numBytes);
+        }
+        os.flush();
+        os.close();
+        is.close();
     }
 
 }
