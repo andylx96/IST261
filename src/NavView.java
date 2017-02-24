@@ -15,8 +15,8 @@ public class NavView extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         nVpanel = new NavViewPanel();
-setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         add(nVpanel);
     }
 
@@ -60,7 +60,7 @@ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         nVpanel.addSearch(search_view);
     }
     
-      public void switchToViewAllViewPanel(ViewAllView viewAll_view) {
+    public void switchToViewAllViewPanel(ViewAllView viewAll_view) {
         nVpanel.removeSplash();
         nVpanel.removeMaster();
         nVpanel.removeCreate();
@@ -86,18 +86,21 @@ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         nVpanel.menu.searchButton.addActionListener(al);
     }
 
-      public void addSearchButtonListener(ActionListener al) {
+    public void addSearchButtonListener(ActionListener al) {
         nVpanel.menu.searchButton.addActionListener(al);
     }
       
-         public void addCreateMasterButtonListener(ActionListener al) {
+    public void addCreateMasterButtonListener(ActionListener al) {
         nVpanel.menu.createMaster.addActionListener(al);
     }
          
-         public void addViewAllViewButtonListener(ActionListener al){
-         nVpanel.menu.viewButton.addActionListener(al);
-         }
-      
+    public void addViewAllViewButtonListener(ActionListener al){
+        nVpanel.menu.viewButton.addActionListener(al);
+    }
+    
+    public void addSaveButtonListener(ActionListener al) {
+        nVpanel.menu.saveButton.addActionListener(al);
+    }
 
     public NavViewPanel getnVpanel() {
         return nVpanel;

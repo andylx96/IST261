@@ -25,6 +25,17 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+
 
 public class NavController {
 
@@ -202,6 +213,28 @@ public class NavController {
             }
         }
     }
+    
+    class SaveButtonListener implements ActionListener {
+        
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane pane = new JOptionPane("Do you want to save?");
+            int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it is safe to exit program.");
+            
+            if (resp == JOptionPane.YES_OPTION){
+                try
+                {
+                    String key = "squirrel123";
+                    FileInputStream fis = new FileInputStream("Account1.txt");
+                    FileOutputStream fos = new FileOutputStream("Accounts.txt");
+                    encrypt(key, fis, fos);
+                }
+                catch(Throwable eo){
+                    
+                }
+            }
+        }
+    }
+
 
     class CreateAccountButtonListener implements ActionListener {
 
@@ -326,6 +359,7 @@ public class NavController {
                 c_view.addgenRandUserAccountListener(new GenRandUserButtonListener());
                 n_view.addSearchButtonListener(new SearchButtonListener());
                 n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
+                n_view.addSaveButtonListener(new SaveButtonListener());
 
                 n_view.nVpanel.getMenu().getLoginButton().setVisible(false);
 
@@ -334,9 +368,11 @@ public class NavController {
                 n_view.nVpanel.getMenu().getDeleteButton().setVisible(true);
                 n_view.nVpanel.getMenu().getViewButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
+                n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
 
                 File file = new File("src/Accounts1.txt");
                 file.delete();
+                
 
                 try {
                     FileReader fin1 = new FileReader("src/Accounts.txt");
@@ -371,6 +407,43 @@ public class NavController {
 
         }
 
+    }
+    
+    public static void encrypt(String key, InputStream is, OutputStream os) throws Throwable {
+	encryptOrDecrypt(key, Cipher.ENCRYPT_MODE, is, os);
+    }
+    
+    public static void decrypt(String key, InputStream is, OutputStream os) throws Throwable {
+	encryptOrDecrypt(key, Cipher.DECRYPT_MODE, is, os);
+    }
+    
+    public static void encryptOrDecrypt(String key, int mode, InputStream is, OutputStream os) throws Throwable {
+
+	DESKeySpec dks = new DESKeySpec(key.getBytes());
+	SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
+	SecretKey desKey = skf.generateSecret(dks);
+	Cipher cipher = Cipher.getInstance("DES");
+
+        if (mode == Cipher.ENCRYPT_MODE) {
+		cipher.init(Cipher.ENCRYPT_MODE, desKey);
+		CipherInputStream cis = new CipherInputStream(is, cipher);
+		doCopy(cis, os);
+	} else if (mode == Cipher.DECRYPT_MODE) {
+		cipher.init(Cipher.DECRYPT_MODE, desKey);
+		CipherOutputStream cos = new CipherOutputStream(os, cipher);
+		doCopy(is, cos);
+	}
+    }
+    
+    public static void doCopy(InputStream is, OutputStream os) throws IOException {
+	byte[] bytes = new byte[64];
+	int numBytes;
+	while ((numBytes = is.read(bytes)) != -1) {
+		os.write(bytes, 0, numBytes);
+	}
+	os.flush();
+	os.close();
+	is.close();
     }
 
 }
