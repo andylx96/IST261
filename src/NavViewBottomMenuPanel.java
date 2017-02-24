@@ -4,18 +4,14 @@ import javax.swing.JPanel;
 
 public class NavViewBottomMenuPanel extends JPanel {
     
-    JButton createButton;
-    JButton loginButton;
-    JButton deleteButton;
-    JButton searchButton;
-    JButton viewButton;
-    JButton createMaster;
+    JButton createButton, loginButton, deleteButton, searchButton, viewButton, createMaster, saveButton;
     public NavViewBottomMenuPanel() {
         super();
         loginButton = new JButton("LOGIN");
         createButton = new JButton("Create Account");
         deleteButton = new JButton("Delete Account");
         searchButton = new JButton("Search Account");
+        saveButton = new JButton("Save Accounts");
         viewButton = new JButton("View All");
         createMaster = new JButton("Create New Master Account");
         
@@ -23,6 +19,7 @@ public class NavViewBottomMenuPanel extends JPanel {
         deleteButton.setVisible(false);
         viewButton.setVisible(false);
         searchButton.setVisible(false);
+        saveButton.setVisible(false);
         
         
         add(loginButton);
@@ -30,7 +27,16 @@ public class NavViewBottomMenuPanel extends JPanel {
         add(deleteButton);
         add(viewButton);
         add(searchButton);
+        add(saveButton);
         add(createMaster);
+    }
+    
+    public JButton getSaveButton(){
+        return saveButton;
+    }
+    
+    public void setSaveButton(JButton saveButton){
+        this.saveButton = saveButton;
     }
 
     public JButton getCreateButton() {
