@@ -29,16 +29,23 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.AlgorithmParameters;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.InvalidParameterSpecException;
 import java.security.spec.KeySpec;
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -290,6 +297,34 @@ public class NavController {
                     KeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
                     SecretKey secretKey = factory.generateSecret(keySpec);
                     SecretKey secret = new SecretKeySpec(secretKey.getEncoded(), "AES");
+                    
+                    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                    cipher.init(Cipher.ENCRYPT_MODE, secret);
+                    AlgorithmParameters params = cipher.getParameters();
+                    
+                    FileOutputStream ivOutFile = new FileOutputStream("iv.enc");
+                    byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
+                    ivOutFile.write(iv);
+                    ivOutFile.close();
+                    
+                    byte[] input = new byte[64];
+                    int byteRead;
+                    
+                    while((byteRead = inFile.read(input)) != -1){
+                        byte[] output = cipher.update(input, 0 , byteRead);
+                        if (output != null){
+                            outFile.write(output);
+                        }
+                    }
+                    
+                    byte[] output = cipher.doFinal();
+                    if (output != null){
+                        outFile.write(output);
+                    }
+                    
+                    inFile.close();
+                    outFile.flush();
+                    outFile.close();
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
@@ -297,6 +332,16 @@ public class NavController {
                 } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InvalidKeySpecException ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NoSuchPaddingException ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidKeyException ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidParameterSpecException ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalBlockSizeException ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (BadPaddingException ex) {
                     Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
