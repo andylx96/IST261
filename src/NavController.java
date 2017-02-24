@@ -108,14 +108,12 @@ public class NavController {
                 System.out.println("Row, " + tempRow + ", " + tempColumn);
 
                 try {
-                    fout = new FileWriter("src/Accounts.txt", true);
+                    fout = new FileWriter("src/Accounts.txt");
                     for (int i = 0; i < viewAll_view.getTable().getRowCount(); i++) {
 
                         for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
 
-                            
-
-                            if (i != tempRow && j != tempColumn) {
+                            if (i != tempRow) {
                                 System.out.println(viewAll_view.getTable().getValueAt(i, j));
                                 fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
                             }
