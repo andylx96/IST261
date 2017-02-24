@@ -125,10 +125,11 @@ public class NavController {
 
         public void actionPerformed(ActionEvent e) {
             System.out.println("Delete Working");
-            int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
-            int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
-            System.out.println("Row, " + tempRow +", "+ tempColumn) ;
-
+            if (viewAll_view.getTable().getSelectedRow() != -1) {
+                int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
+                int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
+                System.out.println("Row, " + tempRow + ", " + tempColumn);
+            }
         }
     }
 
@@ -188,7 +189,7 @@ public class NavController {
 
         public void actionPerformed(ActionEvent e) {
             JOptionPane pane = new JOptionPane("are you sure?");
-            int resp = JOptionPane.showConfirmDialog(null, "Are You Sure?\n This Will DELETE ALL saved passwords!");
+            int resp = JOptionPane.showConfirmDialog(null, "Are You Sure?\nThis Will DELETE ALL saved passwords!");
 
             if (resp == JOptionPane.YES_OPTION) {
                 File masterLoginFile = new File("src/MasterLogin.txt");
