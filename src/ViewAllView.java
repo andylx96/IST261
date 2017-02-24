@@ -42,25 +42,8 @@ public class ViewAllView extends JPanel {
     private TableRowSorter<TableModel> rowSorter
             = new TableRowSorter<>(table.getModel());
 
-    private JTextField jtfFilter = new JTextField();
     JPanel panel;
-//    ViewAllView() {
-//        setLayout(new BorderLayout());
-//        viewAllSearchPanel = new ViewAllSearchPanel();
-//
-//
-//        
-//        table.setDefaultEditor(Object.class, null);
-//
-//        scrollPane = new JScrollPane(table);
-//
-//        searchArea = new JTextArea("");
-//
-//        searchButton = new JButton("Search");
-//
-//        add(scrollPane, BorderLayout.CENTER);
-//        add(viewAllSearchPanel, BorderLayout.SOUTH);
-//    }
+
 
     public ViewAllView() {
         viewAllSearchPanel = new ViewAllSearchPanel();
@@ -71,13 +54,13 @@ public class ViewAllView extends JPanel {
         searchButton = new JButton("Search");
 
         table.setRowSorter(rowSorter);
-        table.setColumnSelectionAllowed(true);
+        table.setRowSelectionAllowed(true);
         panel = new JPanel(new BorderLayout());
         panel.add(new JLabel("Specify a word to match:"),
                 BorderLayout.WEST);
         panel.add(searchArea, BorderLayout.CENTER);
 
-        table.getCellSelectionEnabled();
+     
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         

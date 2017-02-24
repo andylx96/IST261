@@ -20,14 +20,28 @@ import javax.swing.event.DocumentListener;
  */
 public class ViewAllSearchPanel extends JPanel {
 
-    JButton deleteButton;
+    JButton deleteButton, editButton, saveEditButton;
 
     public ViewAllSearchPanel() {
         deleteButton = new JButton("Delete");
+        editButton = new JButton("Edit");
+        saveEditButton = new JButton("save");
         add(deleteButton);
+        add(editButton);
+        add(saveEditButton);
+        saveEditButton.setVisible(false);
     }
+
     public void addDeleteButtonListener(ActionListener al) {
         this.deleteButton.addActionListener(al);
+    }
+
+    public void addEditButtonListener(ActionListener al) {
+        this.editButton.addActionListener(al);
+    }
+
+    public void addsaveEditButtonListener(ActionListener al) {
+        this.saveEditButton.addActionListener(al);
     }
 
     public JButton getDeleteButton() {
