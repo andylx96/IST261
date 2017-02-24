@@ -29,12 +29,18 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class NavController {
 
@@ -270,12 +276,28 @@ public class NavController {
 
             if (resp == JOptionPane.YES_OPTION) {
                 try {
-                    String key = "squirrel123";
-                    FileInputStream fis = new FileInputStream("Account1.txt");
-                    FileOutputStream fos = new FileOutputStream("Accounts.txt");
-                    encrypt(key, fis, fos);
-                } catch (Throwable eo) {
-
+                    FileInputStream inFile = new FileInputStream("Account1.txt");
+                    FileOutputStream outFile = new FileOutputStream("encryptedfile.des");
+                    String password = "javapaper";
+                    byte[] salt = new byte[8];
+                    SecureRandom secureRandom = new SecureRandom();
+                    secureRandom.nextBytes(salt);
+                    FileOutputStream saltOutFile = new FileOutputStream("salt.enc");
+                    saltOutFile.write(salt);
+                    saltOutFile.close();
+                    
+                    SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+                    KeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
+                    SecretKey secretKey = factory.generateSecret(keySpec);
+                    SecretKey secret = new SecretKeySpec(secretKey.getEncoded(), "AES");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidKeySpecException ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -451,43 +473,6 @@ public class NavController {
 
         }
 
-    }
-
-    public static void encrypt(String key, InputStream is, OutputStream os) throws Throwable {
-        encryptOrDecrypt(key, Cipher.ENCRYPT_MODE, is, os);
-    }
-
-    public static void decrypt(String key, InputStream is, OutputStream os) throws Throwable {
-        encryptOrDecrypt(key, Cipher.DECRYPT_MODE, is, os);
-    }
-
-    public static void encryptOrDecrypt(String key, int mode, InputStream is, OutputStream os) throws Throwable {
-
-        DESKeySpec dks = new DESKeySpec(key.getBytes());
-        SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
-        SecretKey desKey = skf.generateSecret(dks);
-        Cipher cipher = Cipher.getInstance("DES");
-
-        if (mode == Cipher.ENCRYPT_MODE) {
-            cipher.init(Cipher.ENCRYPT_MODE, desKey);
-            CipherInputStream cis = new CipherInputStream(is, cipher);
-            doCopy(cis, os);
-        } else if (mode == Cipher.DECRYPT_MODE) {
-            cipher.init(Cipher.DECRYPT_MODE, desKey);
-            CipherOutputStream cos = new CipherOutputStream(os, cipher);
-            doCopy(is, cos);
-        }
-    }
-
-    public static void doCopy(InputStream is, OutputStream os) throws IOException {
-        byte[] bytes = new byte[64];
-        int numBytes;
-        while ((numBytes = is.read(bytes)) != -1) {
-            os.write(bytes, 0, numBytes);
-        }
-        os.flush();
-        os.close();
-        is.close();
     }
 
 }
