@@ -126,9 +126,9 @@ public class NavController {
 
                         for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
 
-                            if (i != tempRow) {
-                                System.out.println(viewAll_view.getTable().getValueAt(i, j));
-                                fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
+                            if(i != tempRow){
+                            System.out.println(viewAll_view.getTable().getValueAt(i, j));
+                            fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
                             }
                         }
                     }
@@ -162,11 +162,15 @@ public class NavController {
                     viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
 
                 }
+                
                 viewAll_view.setModel(viewAll_view.getModel());
+                fin.close();
 //                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
 //                viewAll_view.updateTableView(viewAll_view.getTable());
             } catch (FileNotFoundException ex) {
                 System.out.println("InfoNotFound");
+            } catch (IOException ex) {
+                System.out.println("Cannot Close");
             }
 
         }
@@ -189,18 +193,62 @@ public class NavController {
     class ViewAllSaveEditButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-
             System.out.println("Delete Working");
             if (viewAll_view.getTable().getSelectedRow() != -1) {
                 int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
                 int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
                 System.out.println("Row, " + tempRow + ", " + tempColumn);
+
+                try {
+                    fout = new FileWriter("src/Accounts.txt");
+                    for (int i = 0; i < viewAll_view.getTable().getRowCount(); i++) {
+
+                        for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
+
+                            System.out.println(viewAll_view.getTable().getValueAt(i, j));
+                            fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
+                        }
+                    }
+                    c_view.getCreateAccount().setText("Account Created");
+                    fout.close();
+                    fout.flush();
+                } catch (IOException ex) {
+                }
+
             }
-            int a = JOptionPane.showConfirmDialog(null, "Are You Sure");
-            if (a == JOptionPane.YES_OPTION) {
-                viewAll_view.getViewAllSearchPanel().getSaveEditButton().setVisible(false);
-                JOptionPane.showMessageDialog(null, "Saved");
+
+            String tempUsername, tempPassword, tempSource;
+
+            search_view.getAccountsArrayUsername().clear();
+            search_view.getAccountsArrayPassword().clear();
+            search_view.getAccountsArraySource().clear();
+            viewAll_view.getModel().setRowCount(0);
+            try {
+                FileReader fin = new FileReader("src/Accounts.txt");
+                Scanner scan = new Scanner(fin);
+                while (scan.hasNextLine()) {
+
+                    tempUsername = scan.nextLine();
+                    tempPassword = scan.nextLine();
+                    tempSource = scan.nextLine();
+
+                    search_view.getAccountsArray().get(0).add(tempUsername);
+                    search_view.getAccountsArray().get(1).add(tempPassword);
+                    search_view.getAccountsArray().get(2).add(tempSource);
+
+                    viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
+
+                }
+                viewAll_view.setModel(viewAll_view.getModel());
+                  fin.close();
+//                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
+//                viewAll_view.updateTableView(viewAll_view.getTable());
+            } catch (FileNotFoundException ex) {
+                System.out.println("InfoNotFound");
+            } catch (IOException ex) {
+                System.out.println("InfoNotFound");
             }
+
         }
     }
 
@@ -292,36 +340,36 @@ public class NavController {
                     FileOutputStream saltOutFile = new FileOutputStream("salt.enc");
                     saltOutFile.write(salt);
                     saltOutFile.close();
-                    
+
                     SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
                     KeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
                     SecretKey secretKey = factory.generateSecret(keySpec);
                     SecretKey secret = new SecretKeySpec(secretKey.getEncoded(), "AES");
-                    
+
                     Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                     cipher.init(Cipher.ENCRYPT_MODE, secret);
                     AlgorithmParameters params = cipher.getParameters();
-                    
+
                     FileOutputStream ivOutFile = new FileOutputStream("iv.enc");
                     byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
                     ivOutFile.write(iv);
                     ivOutFile.close();
-                    
+
                     byte[] input = new byte[64];
                     int byteRead;
-                    
-                    while((byteRead = inFile.read(input)) != -1){
-                        byte[] output = cipher.update(input, 0 , byteRead);
-                        if (output != null){
+
+                    while ((byteRead = inFile.read(input)) != -1) {
+                        byte[] output = cipher.update(input, 0, byteRead);
+                        if (output != null) {
                             outFile.write(output);
                         }
                     }
-                    
+
                     byte[] output = cipher.doFinal();
-                    if (output != null){
+                    if (output != null) {
                         outFile.write(output);
                     }
-                    
+
                     inFile.close();
                     outFile.flush();
                     outFile.close();

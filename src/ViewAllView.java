@@ -47,7 +47,7 @@ public class ViewAllView extends JPanel {
 
     public ViewAllView() {
         viewAllSearchPanel = new ViewAllSearchPanel();
-        table.setDefaultEditor(Object.class, null);
+  //      table.setDefaultEditor(Object.class, null);
 
         searchArea = new JTextArea("");
 
