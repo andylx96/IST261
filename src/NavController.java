@@ -126,9 +126,9 @@ public class NavController {
 
                         for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
 
-                            if(i != tempRow){
-                            System.out.println(viewAll_view.getTable().getValueAt(i, j));
-                            fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
+                            if (i != tempRow) {
+                                System.out.println(viewAll_view.getTable().getValueAt(i, j));
+                                fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
                             }
                         }
                     }
@@ -162,7 +162,7 @@ public class NavController {
                     viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
 
                 }
-                
+
                 viewAll_view.setModel(viewAll_view.getModel());
                 fin.close();
 //                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
@@ -240,7 +240,7 @@ public class NavController {
 
                 }
                 viewAll_view.setModel(viewAll_view.getModel());
-                  fin.close();
+                fin.close();
 //                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
 //                viewAll_view.updateTableView(viewAll_view.getTable());
             } catch (FileNotFoundException ex) {
@@ -374,23 +374,32 @@ public class NavController {
                     outFile.flush();
                     outFile.close();
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Error1");                  
+//  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                      System.out.println("Error2");                  
+//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (NoSuchAlgorithmException ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                      System.out.println("Error3");                  
+//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InvalidKeySpecException ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                      System.out.println("Error4");                  
+//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (NoSuchPaddingException ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                      System.out.println("Error5");                  
+//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InvalidKeyException ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                      System.out.println("Error6");                  
+//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InvalidParameterSpecException ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                      System.out.println("Error7");                  
+//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IllegalBlockSizeException ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                      System.out.println("Error8");                  
+//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (BadPaddingException ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                      System.out.println("Error9");                  
+//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
