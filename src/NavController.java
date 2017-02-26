@@ -29,6 +29,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.security.AlgorithmParameters;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -65,13 +69,15 @@ public class NavController {
     ViewAllView viewAll_view;
     CreateMasterLoginView createMasterLogin_view;
     EncryptionClass1 tempE;
-    
-    public NavController(NavModel n_model, NavView n_view) {
+
+    String key = "squirrel123"; // needs to be at least 8 characters for DES
+
+    public NavController(NavModel n_model, NavView n_view) throws Throwable {
         this.n_model = n_model;
         this.n_view = n_view;
 
         tempE = new EncryptionClass1();
-        
+
         c_view = new CreateView();
         masterLogin_view = new MasterLoginView();
         g = new GeneratePass();
@@ -89,6 +95,7 @@ public class NavController {
         viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
         viewAll_view.getViewAllSearchPanel().addEditButtonListener(new ViewAllEditButtonListener());
         viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
+
     }
 
     class CreateMasterLoginButtonListener implements ActionListener {
@@ -124,7 +131,7 @@ public class NavController {
                 System.out.println("Row, " + tempRow + ", " + tempColumn);
 
                 try {
-                    fout = new FileWriter("src/Accounts.txt");
+                    fout = new FileWriter("src/temp.txt");
                     for (int i = 0; i < viewAll_view.getTable().getRowCount(); i++) {
 
                         for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
@@ -150,7 +157,7 @@ public class NavController {
             search_view.getAccountsArraySource().clear();
             viewAll_view.getModel().setRowCount(0);
             try {
-                FileReader fin = new FileReader("src/Accounts.txt");
+                FileReader fin = new FileReader("src/temp.txt");
                 Scanner scan = new Scanner(fin);
                 while (scan.hasNextLine()) {
 
@@ -203,7 +210,7 @@ public class NavController {
                 System.out.println("Row, " + tempRow + ", " + tempColumn);
 
                 try {
-                    fout = new FileWriter("src/Accounts.txt");
+                    fout = new FileWriter("src/temp.txt");
                     for (int i = 0; i < viewAll_view.getTable().getRowCount(); i++) {
 
                         for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
@@ -227,7 +234,7 @@ public class NavController {
             search_view.getAccountsArraySource().clear();
             viewAll_view.getModel().setRowCount(0);
             try {
-                FileReader fin = new FileReader("src/Accounts.txt");
+                FileReader fin = new FileReader("src/temp.txt");
                 Scanner scan = new Scanner(fin);
                 while (scan.hasNextLine()) {
 
@@ -267,7 +274,7 @@ public class NavController {
             search_view.getAccounts().removeAllItems();
             String username = "", password = "", source = "";
             try {
-                FileReader fin = new FileReader("src/Accounts.txt");
+                FileReader fin = new FileReader("src/temp.txt");
                 Scanner scan = new Scanner(fin);
 
                 while (scan.hasNextLine()) {
@@ -317,9 +324,24 @@ public class NavController {
                 File masterLoginFile = new File("src/MasterLogin.txt");
                 masterLoginFile.delete();
                 File accountsFile = new File("src/Accounts.txt");
+
                 accountsFile.delete();
 
                 System.out.println("deleted");
+
+                try {
+
+                    fout = new FileWriter("src/Accounts.txt");
+                    FileInputStream fis = new FileInputStream("src/Accounts.txt");
+
+                    FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
+                    tempE.encrypt(key, fis, fos);
+
+                } catch (FileNotFoundException ex) {
+                    System.out.println("LOL");
+                } catch (Throwable ex) {
+//                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 n_view.switchToCreateMasterLoginViewPanel(createMasterLogin_view);
             }
@@ -333,29 +355,29 @@ public class NavController {
             int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it is safe to exit program.");
 
             if (resp == JOptionPane.YES_OPTION) {
-              
-		try {
-			String key = "squirrel123"; // needs to be at least 8 characters for DES
 
-			FileInputStream fis = new FileInputStream("src/Accounts.txt");
-			FileOutputStream fos = new FileOutputStream("src/encrypted.txt");
-			tempE.encrypt(key, fis, fos);
+                try {
 
-			FileInputStream fis2 = new FileInputStream("src/encrypted.txt");
-			FileOutputStream fos2 = new FileOutputStream("src/Accounts.txt");
-			tempE.decrypt(key, fis2, fos2);
-		} catch (Throwable z) {
-			z.printStackTrace();
-		}
+                    FileInputStream fis = new FileInputStream("src/temp.txt");
+                    FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
+                    tempE.encrypt(key, fis, fos);
+
+//                    FileInputStream fis2 = new FileInputStream("src/encrypted.txt");
+//                    FileOutputStream fos2 = new FileOutputStream("src/Accounts.txt");
+//                    tempE.decrypt(key, fis2, fos2);
+                } catch (Throwable z) {
+                    z.printStackTrace();
+                }
+            }
         }
-    }}
+    }
 
     class CreateAccountButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
 
             try {
-                fout = new FileWriter("src/Accounts.txt", true);
+                fout = new FileWriter("src/temp.txt", true);
                 fout.write(c_view.getUserName().getText() + "\n");
                 fout.write(c_view.getPassword().getText() + "\n");
                 fout.write(c_view.getSource().getText() + "\n");
@@ -380,7 +402,7 @@ public class NavController {
             search_view.getAccountsArraySource().clear();
             viewAll_view.getModel().setRowCount(0);
             try {
-                FileReader fin = new FileReader("src/Accounts.txt");
+                FileReader fin = new FileReader("src/temp.txt");
                 Scanner scan = new Scanner(fin);
                 while (scan.hasNextLine()) {
 
@@ -466,6 +488,30 @@ public class NavController {
                 masterLogin_view.loginStatus.setText("Account Not Found");
             }
             if (masterLogin_view.getUserName().getText().equalsIgnoreCase(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equalsIgnoreCase(password)) {
+//
+//                try {
+//
+//                    Path source = Paths.get("src/Accounts.txt");
+//                    Path newdir = Paths.get("src/temp.txt");
+//                    Files.copy(source, newdir, REPLACE_EXISTING);
+//                } catch (IOException ex) {
+//                    System.out.println("Error");
+//// Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+
+                try {
+
+                    FileInputStream fis2 = new FileInputStream("src/Accounts.txt");
+
+                    FileOutputStream fos2 = new FileOutputStream("src/temp.txt");
+                    tempE.decrypt(key, fis2, fos2);
+
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Eror");
+// Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable ex) {
+                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 n_view.addCreateButtonListener(new CreateViewButtonListener());
                 c_view.addCreateAccountListener(new CreateAccountButtonListener());
@@ -483,30 +529,30 @@ public class NavController {
                 n_view.nVpanel.getMenu().getViewButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
-
-                File file = new File("src/Accounts1.txt");
-                file.delete();
-
-                try {
-                    FileReader fin1 = new FileReader("src/Accounts.txt");
-                    Scanner scn = new Scanner(fin1);
-                    while (scn.hasNextLine()) {
-                        fout = new FileWriter("src/Accounts1.txt", true);
-                        tempUsername = scn.nextLine();
-                        tempPassword = scn.nextLine();
-                        tempSource = scn.nextLine();
-
-                        fout.write(tempUsername + "\n");
-                        fout.write(tempPassword + "\n");
-                        fout.write(tempSource + "\n");
-                        fout.flush();
-                    }
-
-                } catch (FileNotFoundException ex) {
-
-                } catch (IOException ex) {
-
-                }
+//
+//                File file = new File("src/Accounts1.txt");
+//                file.delete();
+//
+//                try {
+//                    FileReader fin1 = new FileReader("src/temp.txt");
+//                    Scanner scn = new Scanner(fin1);
+//                    while (scn.hasNextLine()) {
+//                        fout = new FileWriter("src/Accounts1.txt", true);
+//                        tempUsername = scn.nextLine();
+//                        tempPassword = scn.nextLine();
+//                        tempSource = scn.nextLine();
+//
+//                        fout.write(tempUsername + "\n");
+//                        fout.write(tempPassword + "\n");
+//                        fout.write(tempSource + "\n");
+//                        fout.flush();
+//                    }
+//
+//                } catch (FileNotFoundException ex) {
+//
+//                } catch (IOException ex) {
+//
+//                }
 
                 masterLogin_view.getLoginStatus().setText("Logged In");
             } else {
