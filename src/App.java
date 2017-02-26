@@ -14,7 +14,7 @@ public class App {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Throwable {
         NavModel model = new NavModel();
         NavView view = new NavView(model);
         NavController controller = new NavController(model, view);
