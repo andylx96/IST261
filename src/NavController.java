@@ -64,11 +64,14 @@ public class NavController {
 
     ViewAllView viewAll_view;
     CreateMasterLoginView createMasterLogin_view;
-
+    EncryptionClass1 tempE;
+    
     public NavController(NavModel n_model, NavView n_view) {
         this.n_model = n_model;
         this.n_view = n_view;
 
+        tempE = new EncryptionClass1();
+        
         c_view = new CreateView();
         masterLogin_view = new MasterLoginView();
         g = new GeneratePass();
@@ -330,80 +333,22 @@ public class NavController {
             int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it is safe to exit program.");
 
             if (resp == JOptionPane.YES_OPTION) {
-                try {
-                    FileInputStream inFile = new FileInputStream("Account1.txt");
-                    FileOutputStream outFile = new FileOutputStream("encryptedfile.des");
-                    String password = "javapaper";
-                    byte[] salt = new byte[8];
-                    SecureRandom secureRandom = new SecureRandom();
-                    secureRandom.nextBytes(salt);
-                    FileOutputStream saltOutFile = new FileOutputStream("salt.enc");
-                    saltOutFile.write(salt);
-                    saltOutFile.close();
+              
+		try {
+			String key = "squirrel123"; // needs to be at least 8 characters for DES
 
-                    SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-                    KeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
-                    SecretKey secretKey = factory.generateSecret(keySpec);
-                    SecretKey secret = new SecretKeySpec(secretKey.getEncoded(), "AES");
+			FileInputStream fis = new FileInputStream("src/Accounts.txt");
+			FileOutputStream fos = new FileOutputStream("src/encrypted.txt");
+			tempE.encrypt(key, fis, fos);
 
-                    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                    cipher.init(Cipher.ENCRYPT_MODE, secret);
-                    AlgorithmParameters params = cipher.getParameters();
-
-                    FileOutputStream ivOutFile = new FileOutputStream("iv.enc");
-                    byte[] iv = params.getParameterSpec(IvParameterSpec.class).getIV();
-                    ivOutFile.write(iv);
-                    ivOutFile.close();
-
-                    byte[] input = new byte[64];
-                    int byteRead;
-
-                    while ((byteRead = inFile.read(input)) != -1) {
-                        byte[] output = cipher.update(input, 0, byteRead);
-                        if (output != null) {
-                            outFile.write(output);
-                        }
-                    }
-
-                    byte[] output = cipher.doFinal();
-                    if (output != null) {
-                        outFile.write(output);
-                    }
-
-                    inFile.close();
-                    outFile.flush();
-                    outFile.close();
-                } catch (FileNotFoundException ex) {
-                    System.out.println("Error1");                  
-//  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                      System.out.println("Error2");                  
-//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NoSuchAlgorithmException ex) {
-                      System.out.println("Error3");                  
-//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvalidKeySpecException ex) {
-                      System.out.println("Error4");                  
-//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NoSuchPaddingException ex) {
-                      System.out.println("Error5");                  
-//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvalidKeyException ex) {
-                      System.out.println("Error6");                  
-//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InvalidParameterSpecException ex) {
-                      System.out.println("Error7");                  
-//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalBlockSizeException ex) {
-                      System.out.println("Error8");                  
-//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (BadPaddingException ex) {
-                      System.out.println("Error9");                  
-//                  Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+			FileInputStream fis2 = new FileInputStream("src/encrypted.txt");
+			FileOutputStream fos2 = new FileOutputStream("src/Accounts.txt");
+			tempE.decrypt(key, fis2, fos2);
+		} catch (Throwable z) {
+			z.printStackTrace();
+		}
         }
-    }
+    }}
 
     class CreateAccountButtonListener implements ActionListener {
 
