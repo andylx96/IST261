@@ -1,10 +1,6 @@
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,46 +8,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import java.security.AlgorithmParameters;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.InvalidParameterSpecException;
-import java.security.spec.KeySpec;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.CipherInputStream;
-import javax.crypto.CipherOutputStream;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 
 public class NavController {
 
@@ -60,7 +23,7 @@ public class NavController {
 
     CreateView c_view;
     MasterLoginView masterLogin_view;
-    GeneratePass g;
+    GeneratePass generate;
     ArrayList<Accounts> accountsArray;
     Accounts masterAccount;
     SearchView search_view;
@@ -68,7 +31,7 @@ public class NavController {
 
     ViewAllView viewAll_view;
     CreateMasterLoginView createMasterLogin_view;
-    EncryptionClass1 tempE;
+    EncryptionClass encryption;
 
     String key = "squirrel123"; // needs to be at least 8 characters for DES
 
@@ -76,11 +39,11 @@ public class NavController {
         this.n_model = n_model;
         this.n_view = n_view;
 
-        tempE = new EncryptionClass1();
+        encryption = new EncryptionClass();
 
         c_view = new CreateView();
         masterLogin_view = new MasterLoginView();
-        g = new GeneratePass();
+        generate = new GeneratePass();
         search_view = new SearchView();
         viewAll_view = new ViewAllView();
         createMasterLogin_view = new CreateMasterLoginView();
@@ -95,7 +58,7 @@ public class NavController {
         viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
         viewAll_view.getViewAllSearchPanel().addEditButtonListener(new ViewAllEditButtonListener());
         viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
-
+        viewAll_view.getSearchArea().getDocument().addDocumentListener(new ViewAllViewSearchDocumentListener());
     }
 
     class CreateMasterLoginButtonListener implements ActionListener {
@@ -127,8 +90,8 @@ public class NavController {
             System.out.println("Delete Working");
             if (viewAll_view.getTable().getSelectedRow() != -1) {
                 int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
-                int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
-                System.out.println("Row, " + tempRow + ", " + tempColumn);
+                String tempString = viewAll_view.getSearchArea().getText();
+                viewAll_view.getSearchArea().setText("");
 
                 try {
                     fout = new FileWriter("src/temp.txt");
@@ -142,6 +105,7 @@ public class NavController {
                             }
                         }
                     }
+                    viewAll_view.getSearchArea().setText(tempString);
                     c_view.getCreateAccount().setText("Account Created");
                     fout.close();
                     fout.flush();
@@ -172,7 +136,6 @@ public class NavController {
                     viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
 
                 }
-
                 viewAll_view.setModel(viewAll_view.getModel());
                 fin.close();
 //                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
@@ -193,8 +156,6 @@ public class NavController {
             System.out.println("Delete Working");
             if (viewAll_view.getTable().getSelectedRow() != -1) {
                 int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
-                int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
-                System.out.println("Row, " + tempRow + ", " + tempColumn);
             }
             viewAll_view.getViewAllSearchPanel().getSaveEditButton().setVisible(true);
         }
@@ -209,8 +170,12 @@ public class NavController {
                 int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
                 System.out.println("Row, " + tempRow + ", " + tempColumn);
 
+                String tempString = viewAll_view.getSearchArea().getText();
+                viewAll_view.getSearchArea().setText("");
+
                 try {
                     fout = new FileWriter("src/temp.txt");
+
                     for (int i = 0; i < viewAll_view.getTable().getRowCount(); i++) {
 
                         for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
@@ -219,6 +184,8 @@ public class NavController {
                             fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
                         }
                     }
+
+                    viewAll_view.getSearchArea().setText(tempString);
                     c_view.getCreateAccount().setText("Account Created");
                     fout.close();
                     fout.flush();
@@ -251,8 +218,6 @@ public class NavController {
                 }
                 viewAll_view.setModel(viewAll_view.getModel());
                 fin.close();
-//                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
-//                viewAll_view.updateTableView(viewAll_view.getTable());
             } catch (FileNotFoundException ex) {
                 System.out.println("InfoNotFound");
             } catch (IOException ex) {
@@ -335,7 +300,7 @@ public class NavController {
                     FileInputStream fis = new FileInputStream("src/Accounts.txt");
 
                     FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
-                    tempE.encrypt(key, fis, fos);
+                    encryption.encrypt(key, fis, fos);
 
                 } catch (FileNotFoundException ex) {
                     System.out.println("LOL");
@@ -360,11 +325,11 @@ public class NavController {
 
                     FileInputStream fis = new FileInputStream("src/temp.txt");
                     FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
-                    tempE.encrypt(key, fis, fos);
+                    encryption.encrypt(key, fis, fos);
 
 //                    FileInputStream fis2 = new FileInputStream("src/encrypted.txt");
 //                    FileOutputStream fos2 = new FileOutputStream("src/Accounts.txt");
-//                    tempE.decrypt(key, fis2, fos2);
+//                    encryption.decrypt(key, fis2, fos2);
                 } catch (Throwable z) {
                     z.printStackTrace();
                 }
@@ -430,37 +395,37 @@ public class NavController {
 
         public void actionPerformed(ActionEvent e) {
             if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenPass(10));
+                c_view.getPassword().setText(generate.GenPass(10));
             } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerUpperNums(10));
+                c_view.getPassword().setText(generate.GenLowerUpperNums(10));
             } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerUpperSpecial(10));
+                c_view.getPassword().setText(generate.GenLowerUpperSpecial(10));
             } else if (c_view.getLower().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerNumsSpecial(10));
+                c_view.getPassword().setText(generate.GenLowerNumsSpecial(10));
             } else if (c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenUpperNumsSpecial(10));
+                c_view.getPassword().setText(generate.GenUpperNumsSpecial(10));
             } else if (c_view.getLower().isSelected() == true && c_view.getNumber().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerNums(10));
+                c_view.getPassword().setText(generate.GenLowerNums(10));
             } else if (c_view.getLower().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerSpecial(10));
+                c_view.getPassword().setText(generate.GenLowerSpecial(10));
             } else if (c_view.getUpper().isSelected() == true && c_view.getNumber().isSelected() == true) {
-                c_view.getPassword().setText(g.GenUpperNums(10));
+                c_view.getPassword().setText(generate.GenUpperNums(10));
             } else if (c_view.getUpper().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenUpperSpecial(10));
+                c_view.getPassword().setText(generate.GenUpperSpecial(10));
             } else if (c_view.getNumber().isSelected() == true && c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenNumsSpecial(10));
+                c_view.getPassword().setText(generate.GenNumsSpecial(10));
             } else if (c_view.getLower().isSelected() == true && c_view.getUpper().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLowerUpper(10));
+                c_view.getPassword().setText(generate.GenLowerUpper(10));
             } else if (c_view.getLower().isSelected() == true) {
-                c_view.getPassword().setText(g.GenLower(10));
+                c_view.getPassword().setText(generate.GenLower(10));
             } else if (c_view.getNumber().isSelected() == true) {
-                c_view.getPassword().setText(g.GenNum(10));
+                c_view.getPassword().setText(generate.GenNum(10));
             } else if (c_view.getUpper().isSelected() == true) {
-                c_view.getPassword().setText(g.GenUpper(10));
+                c_view.getPassword().setText(generate.GenUpper(10));
             } else if (c_view.getSpecial().isSelected() == true) {
-                c_view.getPassword().setText(g.GenSpecial(10));
+                c_view.getPassword().setText(generate.GenSpecial(10));
             } else {
-                c_view.getPassword().setText(g.GenPass(10));
+                c_view.getPassword().setText(generate.GenPass(10));
             }
         }
     }
@@ -468,7 +433,7 @@ public class NavController {
     class GenRandUserButtonListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            c_view.getUserName().setText(g.GenLowerUpperNums(10));
+            c_view.getUserName().setText(generate.GenLowerUpperNums(10));
         }
     }
 
@@ -487,30 +452,19 @@ public class NavController {
             } catch (FileNotFoundException ex) {
                 masterLogin_view.loginStatus.setText("Account Not Found");
             }
-            if (masterLogin_view.getUserName().getText().equalsIgnoreCase(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equalsIgnoreCase(password)) {
-//
-//                try {
-//
-//                    Path source = Paths.get("src/Accounts.txt");
-//                    Path newdir = Paths.get("src/temp.txt");
-//                    Files.copy(source, newdir, REPLACE_EXISTING);
-//                } catch (IOException ex) {
-//                    System.out.println("Error");
-//// Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+            if (masterLogin_view.getUserName().getText().equals(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equals(password)) {
 
                 try {
 
                     FileInputStream fis2 = new FileInputStream("src/Accounts.txt");
 
                     FileOutputStream fos2 = new FileOutputStream("src/temp.txt");
-                    tempE.decrypt(key, fis2, fos2);
+                    encryption.decrypt(key, fis2, fos2);
 
                 } catch (FileNotFoundException ex) {
                     System.out.println("Eror");
-// Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (Throwable ex) {
-                    Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Eror");
                 }
 
                 n_view.addCreateButtonListener(new CreateViewButtonListener());
@@ -529,30 +483,6 @@ public class NavController {
                 n_view.nVpanel.getMenu().getViewButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
-//
-//                File file = new File("src/Accounts1.txt");
-//                file.delete();
-//
-//                try {
-//                    FileReader fin1 = new FileReader("src/temp.txt");
-//                    Scanner scn = new Scanner(fin1);
-//                    while (scn.hasNextLine()) {
-//                        fout = new FileWriter("src/Accounts1.txt", true);
-//                        tempUsername = scn.nextLine();
-//                        tempPassword = scn.nextLine();
-//                        tempSource = scn.nextLine();
-//
-//                        fout.write(tempUsername + "\n");
-//                        fout.write(tempPassword + "\n");
-//                        fout.write(tempSource + "\n");
-//                        fout.flush();
-//                    }
-//
-//                } catch (FileNotFoundException ex) {
-//
-//                } catch (IOException ex) {
-//
-//                }
 
                 masterLogin_view.getLoginStatus().setText("Logged In");
             } else {
@@ -564,6 +494,38 @@ public class NavController {
                 }
             }
 
+        }
+    }
+
+    class ViewAllViewSearchDocumentListener implements DocumentListener {
+
+        @Override
+        public void insertUpdate(DocumentEvent e
+        ) {
+            String text = viewAll_view.getSearchArea().getText();
+
+            if (text.trim().length() == 0) {
+                viewAll_view.getRowSorter().setRowFilter(null);
+            } else {
+                viewAll_view.getRowSorter().setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            }
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e
+        ) {
+            String text = viewAll_view.getSearchArea().getText();
+
+            if (text.trim().length() == 0) {
+                viewAll_view.getRowSorter().setRowFilter(null);
+            } else {
+                viewAll_view.getRowSorter().setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            }
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            System.out.println("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
     }

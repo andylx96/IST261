@@ -12,8 +12,6 @@ public class NavView extends JFrame {
         this.model = model;
 
         setSize(700, 500);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         nVpanel = new NavViewPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

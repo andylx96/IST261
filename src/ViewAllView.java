@@ -44,10 +44,8 @@ public class ViewAllView extends JPanel {
 
     JPanel panel;
 
-
     public ViewAllView() {
         viewAllSearchPanel = new ViewAllSearchPanel();
-  //      table.setDefaultEditor(Object.class, null);
 
         searchArea = new JTextArea("");
 
@@ -60,45 +58,22 @@ public class ViewAllView extends JPanel {
                 BorderLayout.WEST);
         panel.add(searchArea, BorderLayout.CENTER);
 
-     
-
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+
         setLayout(new BorderLayout());
         add(panel, BorderLayout.SOUTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(viewAllSearchPanel, BorderLayout.WEST);
 
-        searchArea.getDocument().addDocumentListener(new DocumentListener() {
 
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                String text = searchArea.getText();
+    }
 
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
-            }
+    public TableRowSorter<TableModel> getRowSorter() {
+        return rowSorter;
+    }
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                String text = searchArea.getText();
-
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-        });
+    public void setRowSorter(TableRowSorter<TableModel> rowSorter) {
+        this.rowSorter = rowSorter;
     }
 
     public JPanel getPanel() {

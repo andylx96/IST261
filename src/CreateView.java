@@ -35,8 +35,8 @@ public class CreateView extends JPanel {
         add(upper);
         add(number);
         add(special);
-        add(genRandPass);
         add(genRandUser);
+        add(genRandPass);
         add(createAccount);
 
     }
