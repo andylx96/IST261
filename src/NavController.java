@@ -64,6 +64,7 @@ public class NavController {
         viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
         viewAll_view.getSearchArea().getDocument().addDocumentListener(new ViewAllViewSearchDocumentListener());
         n_view.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 JOptionPane pane = new JOptionPane("Do you want to exit?");
                 int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n Files WILL NOT be saved.");
