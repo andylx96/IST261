@@ -67,16 +67,10 @@ public class NavController {
             @Override
             public void windowClosing(WindowEvent e) {
                 JOptionPane pane = new JOptionPane("Do you want to exit?");
-                int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n Files WILL NOT be saved.");
+                int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n DID YOU REMEMBER TO SAVE?");
                 if (resp == JOptionPane.YES_OPTION) {
                     File tempFile = new File("src/temp.txt");
                     tempFile.delete();
-                    try {
-                        tempFile.createNewFile();
-                    } catch (IOException ex) {
-                        System.out.println("File not created");
-                    }
-
                     System.exit(0);
                 }
             }
@@ -339,7 +333,7 @@ public class NavController {
 
         public void actionPerformed(ActionEvent e) {
             JOptionPane pane = new JOptionPane("Do you want to save?");
-            int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it will exit the program.");
+            int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it is safe to exit the program.");
 
             if (resp == JOptionPane.YES_OPTION) {
 
@@ -349,11 +343,6 @@ public class NavController {
                     FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
                     encryption.encrypt(key, fis, fos);
 
-                    File tempFile = new File("src/temp.txt");
-                    tempFile.delete();
-                    tempFile.createNewFile();
-
-                    System.exit(0);
                 } catch (Throwable z) {
                     z.printStackTrace();
                 }
