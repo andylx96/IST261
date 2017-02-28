@@ -1,6 +1,8 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowAdapter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -59,6 +63,23 @@ public class NavController {
         viewAll_view.getViewAllSearchPanel().addEditButtonListener(new ViewAllEditButtonListener());
         viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
         viewAll_view.getSearchArea().getDocument().addDocumentListener(new ViewAllViewSearchDocumentListener());
+        n_view.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                JOptionPane pane = new JOptionPane("Do you want to exit?");
+                int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n Files WILL NOT be saved.");
+                if (resp == JOptionPane.YES_OPTION) {
+                    File tempFile = new File("src/temp.txt");
+                    tempFile.delete();
+                    try {
+                        tempFile.createNewFile();
+                    } catch (IOException ex) {
+                        System.out.println("File not created");
+                    }
+
+                    System.exit(0);
+                }
+            }
+        });
     }
 
     class CreateMasterLoginButtonListener implements ActionListener {
@@ -317,7 +338,7 @@ public class NavController {
 
         public void actionPerformed(ActionEvent e) {
             JOptionPane pane = new JOptionPane("Do you want to save?");
-            int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it is safe to exit program.");
+            int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it will exit the program.");
 
             if (resp == JOptionPane.YES_OPTION) {
 
@@ -327,9 +348,11 @@ public class NavController {
                     FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
                     encryption.encrypt(key, fis, fos);
 
-//                    FileInputStream fis2 = new FileInputStream("src/encrypted.txt");
-//                    FileOutputStream fos2 = new FileOutputStream("src/Accounts.txt");
-//                    encryption.decrypt(key, fis2, fos2);
+                    File tempFile = new File("src/temp.txt");
+                    tempFile.delete();
+                    tempFile.createNewFile();
+
+                    System.exit(0);
                 } catch (Throwable z) {
                     z.printStackTrace();
                 }

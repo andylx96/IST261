@@ -13,7 +13,7 @@ public class NavView extends JFrame {
 
         setSize(700, 500);
         nVpanel = new NavViewPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         add(nVpanel);
     }
