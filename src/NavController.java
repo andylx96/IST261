@@ -73,6 +73,7 @@ public class NavController {
                     tempFile.delete();
                     System.exit(0);
                 }
+
             }
         });
     }
@@ -395,11 +396,13 @@ public class NavController {
                     viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
 
                 }
+                fin.close();
                 viewAll_view.setModel(viewAll_view.getModel());
-//                viewAll_view.setTable(new JTable(viewAll_view.getModel()));
-//                viewAll_view.updateTableView(viewAll_view.getTable());
+
             } catch (FileNotFoundException ex) {
                 System.out.println("InfoNotFound");
+            } catch (IOException ex) {
+                System.out.println("cannot close");
             }
         }
     }
@@ -492,7 +495,7 @@ public class NavController {
 
                 n_view.nVpanel.getMenu().createMaster.setVisible(false);
                 n_view.nVpanel.getMenu().getCreateButton().setVisible(true);
-                n_view.nVpanel.getMenu().getDeleteButton().setVisible(true);
+//                n_view.nVpanel.getMenu().getDeleteButton().setVisible(true);
                 n_view.nVpanel.getMenu().getViewButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
