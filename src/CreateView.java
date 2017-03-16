@@ -1,11 +1,8 @@
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -16,7 +13,8 @@ public class CreateView extends JPanel {
     JCheckBox lower, upper, number, special;
 
     CreateView() {
-        setLayout(new GridLayout(10, 1));
+        
+        
         userName = new JTextArea("Enter Username");
         password = new JTextArea("Enter Password");
         source = new JTextArea("Enter Source");

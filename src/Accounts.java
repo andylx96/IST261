@@ -13,7 +13,6 @@ import javax.swing.JTextArea;
  */
 public class Accounts {
 
-    JTextArea textbox;
     ArrayList<ArrayList> accountsArray;
     ArrayList<String> accountsArrayUsername;
     ArrayList<String> accountsArrayPassword;

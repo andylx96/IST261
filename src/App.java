@@ -13,6 +13,7 @@ public class App {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Throwable
      */
     public static void main(String[] args) throws Throwable {
         NavModel model = new NavModel();

@@ -4,18 +4,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author zabuz
- */
 public class CreateMasterLoginView extends JPanel {
 
     JTextArea userName; 
@@ -46,7 +36,6 @@ public class CreateMasterLoginView extends JPanel {
         this.userName = userName;
     }
 
-   
     public JButton getCreateButton() {
         return createButton;
     }
@@ -70,11 +59,7 @@ public class CreateMasterLoginView extends JPanel {
     public void setPassword(JTextArea password) {
         this.password = password;
     }
-
     
-
-    
-   
     public void addCreateMasterLoginListener(ActionListener al) {
         this.createButton.addActionListener(al);
     }
