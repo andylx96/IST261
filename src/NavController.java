@@ -48,104 +48,10 @@ public class NavController {
         viewAll_view = new ViewAllView();
         createMasterLogin_view = new CreateMasterLoginView();
 
-        masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
-
         n_view.addMasterButtonListener(new MasterLoginViewListener());
         n_view.addCreateMasterButtonListener(new CreateNewMasterButtonListener());
         createMasterLogin_view.addCreateMasterLoginListener(new CreateMasterLoginButtonListener());
-        search_view.getFindButton().addActionListener(new FindButtonListener());
-
-    }
-
-    class CreateMasterLoginButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            try {
-                fout = new FileWriter("src/MasterLogin.txt", true);
-                fout.write(createMasterLogin_view.getUserName().getText() + "\n");
-                fout.write(createMasterLogin_view.getPassword().getText() + "\n");
-                createMasterLogin_view.getCreateStatus().setText("Account Created");
-                fout.close();
-                fout.flush();
-            } catch (IOException ex) {
-            }
-        }
-    }
-
-    class CreateViewButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            n_view.switchToCreateViewPanel(c_view);
-        }
-    }
-
-    class ViewAllDeleteButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
-            tableToFile(tempRow);
-            updateArrayAndTable();
-        }
-    }
-
-    class ViewAllSaveEditButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            tableToFile(-1);
-            updateArrayAndTable();
-        }
-    }
-
-    class ViewAllEditButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            if (viewAll_view.getTable().getSelectedRow() != -1) {
-                int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
-            }
-            viewAll_view.getViewAllSearchPanel().getSaveEditButton().setVisible(true);
-        }
-    }
-
-    class SearchButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            n_view.switchToSearchViewPanel(search_view);
-
-            search_view.getAccountsArrayUsername().clear();
-            search_view.getAccountsArrayPassword().clear();
-            search_view.getAccountsArraySource().clear();
-            search_view.getAccounts().removeAllItems();
-            String username = "", password = "", source = "";
-            try {
-                FileReader fin = new FileReader("src/temp.txt");
-                Scanner scan = new Scanner(fin);
-
-                while (scan.hasNextLine()) {
-
-                    username = scan.nextLine();
-                    password = scan.nextLine();
-                    source = scan.nextLine();
-
-                    search_view.getAccountsArray().get(0).add(username);
-                    search_view.getAccountsArray().get(1).add(password);
-                    search_view.getAccountsArray().get(2).add(source);
-
-                    search_view.accounts.addItem(username);
-
-                }
-            } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-
-            }
-        }
+        masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
     }
 
     class MasterLoginViewListener implements ActionListener {
@@ -153,16 +59,6 @@ public class NavController {
         @Override
         public void actionPerformed(ActionEvent e) {
             n_view.switchToMasterLoginViewPanel(masterLogin_view);
-        }
-    }
-
-    class FindButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int selected = search_view.getAccounts().getSelectedIndex();
-            search_view.getPasswords().setText(search_view.getAccountsArrayPassword().get(selected));
-            search_view.getSource().setText(search_view.getAccountsArraySource().get(selected));
         }
     }
 
@@ -197,24 +93,146 @@ public class NavController {
         }
     }
 
-    class SaveButtonListener implements ActionListener {
+    class CreateMasterLoginButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane pane = new JOptionPane("Do you want to save?");
-            int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it is safe to exit the program.");
-            if (resp == JOptionPane.YES_OPTION) {
+
+            try {
+                fout = new FileWriter("src/MasterLogin.txt", true);
+                fout.write(createMasterLogin_view.getUserName().getText() + "\n");
+                fout.write(createMasterLogin_view.getPassword().getText() + "\n");
+                createMasterLogin_view.getCreateStatus().setText("Account Created");
+                fout.close();
+                fout.flush();
+            } catch (IOException ex) {
+            }
+        }
+    }
+
+    class FindButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int selected = search_view.getAccounts().getSelectedIndex();
+            search_view.getPasswords().setText(search_view.getAccountsArrayPassword().get(selected));
+            search_view.getSource().setText(search_view.getAccountsArraySource().get(selected));
+        }
+    }
+
+    class MasterPassButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            String username = "", password = "";
+            String tempUsername, tempPassword, tempSource;
+            try {
+                FileReader fin = new FileReader("src/MasterLogin.txt");
+                Scanner scan = new Scanner(fin);
+
+                username = scan.nextLine();
+                password = scan.nextLine();
+            } catch (FileNotFoundException ex) {
+                masterLogin_view.loginStatus.setText("Account Not Found");
+            }
+            if (masterLogin_view.getUserName().getText().equals(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equals(password)) {
 
                 try {
-
-                    FileInputStream fis = new FileInputStream("src/temp.txt");
-                    FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
-                    encryption.encrypt(key, fis, fos);
-
-                } catch (Throwable z) {
-
-                    JOptionPane.showMessageDialog(null, z);
+                    FileInputStream fis2 = new FileInputStream("src/Accounts.txt");
+                    FileOutputStream fos2 = new FileOutputStream("src/temp.txt");
+                    encryption.decrypt(key, fis2, fos2);
+                } catch (FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(null, ex);
+                } catch (Throwable ex) {
+                    JOptionPane.showMessageDialog(null, ex);
                 }
+
+                n_view.addCreateButtonListener(new CreateViewButtonListener());
+                n_view.addSearchButtonListener(new SearchButtonListener());
+                n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
+                n_view.addSaveButtonListener(new SaveButtonListener());
+
+                c_view.addCreateAccountListener(new CreateAccountButtonListener());
+                c_view.addgenRandPassAccountListener(new GenRandPassButtonListener());
+                c_view.addgenRandUserAccountListener(new GenRandUserButtonListener());
+
+                search_view.getFindButton().addActionListener(new FindButtonListener());
+                viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
+                viewAll_view.getViewAllSearchPanel().addEditButtonListener(new ViewAllEditButtonListener());
+                viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
+                viewAll_view.getSearchArea().getDocument().addDocumentListener(new ViewAllViewSearchDocumentListener());
+                n_view.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        JOptionPane pane = new JOptionPane("Do you want to exit?");
+                        int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n DID YOU REMEMBER TO SAVE?");
+                        if (resp == JOptionPane.YES_OPTION) {
+                            File tempFile = new File("src/temp.txt");
+                            tempFile.delete();
+                            System.exit(0);
+                        }
+
+                    }
+                });
+                n_view.nVpanel.getMenu().getLoginButton().setVisible(false);
+                n_view.nVpanel.getMenu().createMaster.setVisible(false);
+                n_view.nVpanel.getMenu().getCreateButton().setVisible(true);
+                n_view.nVpanel.getMenu().getViewButton().setVisible(true);
+                n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
+                n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
+
+                masterLogin_view.getLoginStatus().setText("Logged In");
+            } else {
+                masterLogin_view.getLoginStatus().setText("Error, Wrong Password or Username");
+                try {
+                    FileReader fin = new FileReader("src/MasterLogin.txt");
+                } catch (FileNotFoundException ex) {
+                    masterLogin_view.loginStatus.setText("Account Not Found");
+                }
+            }
+
+        }
+    }
+
+    class CreateViewButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            n_view.switchToCreateViewPanel(c_view);
+        }
+    }
+
+    class SearchButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            n_view.switchToSearchViewPanel(search_view);
+
+            search_view.getAccountsArrayUsername().clear();
+            search_view.getAccountsArrayPassword().clear();
+            search_view.getAccountsArraySource().clear();
+            search_view.getAccounts().removeAllItems();
+            String username = "", password = "", source = "";
+            try {
+                FileReader fin = new FileReader("src/temp.txt");
+                Scanner scan = new Scanner(fin);
+                while (scan.hasNextLine()) {
+
+                    username = scan.nextLine();
+                    password = scan.nextLine();
+                    source = scan.nextLine();
+
+                    search_view.getAccountsArray().get(0).add(username);
+                    search_view.getAccountsArray().get(1).add(password);
+                    search_view.getAccountsArray().get(2).add(source);
+
+                    search_view.accounts.addItem(username);
+
+                }
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+
             }
         }
     }
@@ -233,6 +251,59 @@ public class NavController {
                 fout.close();
                 fout.flush();
             } catch (IOException ex) {
+            }
+        }
+    }
+
+    class ViewAllEditButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            if (viewAll_view.getTable().getSelectedRow() != -1) {
+                int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
+            }
+            viewAll_view.getViewAllSearchPanel().getSaveEditButton().setVisible(true);
+        }
+    }
+
+    class ViewAllDeleteButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
+            tableToFile(tempRow);
+            updateArrayAndTable();
+        }
+    }
+
+    class ViewAllSaveEditButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            tableToFile(-1);
+            updateArrayAndTable();
+        }
+    }
+
+    class SaveButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane pane = new JOptionPane("Do you want to save?");
+            int resp = JOptionPane.showConfirmDialog(null, "Do you want to save?\n After saving it is safe to exit the program.");
+            if (resp == JOptionPane.YES_OPTION) {
+
+                try {
+
+                    FileInputStream fis = new FileInputStream("src/temp.txt");
+                    FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
+                    encryption.encrypt(key, fis, fos);
+
+                } catch (Throwable z) {
+
+                    JOptionPane.showMessageDialog(null, z);
+                }
             }
         }
     }
@@ -278,7 +349,6 @@ public class NavController {
         }
     }
 
-
     class GenRandUserButtonListener implements ActionListener {
 
         @Override
@@ -286,8 +356,8 @@ public class NavController {
             c_view.getUserName().setText(generate.GenLowerUpperNums(10));
         }
     }
-    
-     class GenRandPassButtonListener implements ActionListener {
+
+    class GenRandPassButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -324,85 +394,6 @@ public class NavController {
             } else {
                 c_view.getPassword().setText(generate.GenPass(10));
             }
-        }
-    }
-
-    class MasterPassButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            String username = "", password = "";
-            String tempUsername, tempPassword, tempSource;
-            try {
-                FileReader fin = new FileReader("src/MasterLogin.txt");
-                Scanner scan = new Scanner(fin);
-
-                username = scan.nextLine();
-                password = scan.nextLine();
-            } catch (FileNotFoundException ex) {
-                masterLogin_view.loginStatus.setText("Account Not Found");
-            }
-            if (masterLogin_view.getUserName().getText().equals(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equals(password)) {
-
-                try {
-
-                    FileInputStream fis2 = new FileInputStream("src/Accounts.txt");
-
-                    FileOutputStream fos2 = new FileOutputStream("src/temp.txt");
-                    encryption.decrypt(key, fis2, fos2);
-
-                } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null, ex);
-                } catch (Throwable ex) {
-                    JOptionPane.showMessageDialog(null, ex);
-                }
-
-                n_view.addCreateButtonListener(new CreateViewButtonListener());
-                c_view.addCreateAccountListener(new CreateAccountButtonListener());
-                c_view.addgenRandPassAccountListener(new GenRandPassButtonListener());
-                c_view.addgenRandUserAccountListener(new GenRandUserButtonListener());
-                n_view.addSearchButtonListener(new SearchButtonListener());
-                n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
-                n_view.addSaveButtonListener(new SaveButtonListener());
-                
-                viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
-                viewAll_view.getViewAllSearchPanel().addEditButtonListener(new ViewAllEditButtonListener());
-                viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
-                viewAll_view.getSearchArea().getDocument().addDocumentListener(new ViewAllViewSearchDocumentListener());
-                n_view.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        JOptionPane pane = new JOptionPane("Do you want to exit?");
-                        int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n DID YOU REMEMBER TO SAVE?");
-                        if (resp == JOptionPane.YES_OPTION) {
-                            File tempFile = new File("src/temp.txt");
-                            tempFile.delete();
-                            System.exit(0);
-                        }
-
-                    }
-                });
-
-                n_view.nVpanel.getMenu().getLoginButton().setVisible(false);
-
-                n_view.nVpanel.getMenu().createMaster.setVisible(false);
-                n_view.nVpanel.getMenu().getCreateButton().setVisible(true);
-//                n_view.nVpanel.getMenu().getDeleteButton().setVisible(true);
-                n_view.nVpanel.getMenu().getViewButton().setVisible(true);
-                n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
-                n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
-
-                masterLogin_view.getLoginStatus().setText("Logged In");
-            } else {
-                masterLogin_view.getLoginStatus().setText("Error, Wrong Password or Username");
-                try {
-                    FileReader fin = new FileReader("src/MasterLogin.txt");
-                } catch (FileNotFoundException ex) {
-                    masterLogin_view.loginStatus.setText("Account Not Found");
-                }
-            }
-
         }
     }
 

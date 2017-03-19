@@ -50,7 +50,6 @@ public class ViewAllView extends JPanel {
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(viewAllSearchPanel, BorderLayout.WEST);
 
-
     }
 
     public TableRowSorter<TableModel> getRowSorter() {
@@ -96,8 +95,6 @@ public class ViewAllView extends JPanel {
     public void updateTableView(JTable table) {
 
         this.table = table;
-//        this.remove(table);
-//        this.add(table);
     }
 
     public JScrollPane getScrollPane() {
