@@ -73,21 +73,16 @@ public class NavController {
                 File masterLoginFile = new File("src/MasterLogin.txt");
                 masterLoginFile.delete();
                 File accountsFile = new File("src/Accounts.txt");
-
                 accountsFile.delete();
 
                 try {
-
                     fout = new FileWriter("src/Accounts.txt");
                     FileInputStream fis = new FileInputStream("src/Accounts.txt");
-
                     FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
                     encryption.encrypt(key, fis, fos);
-
                 } catch (FileNotFoundException ex) {
                 } catch (Throwable ex) {
                 }
-
                 n_view.switchToCreateMasterLoginViewPanel(createMasterLogin_view);
             }
         }
@@ -124,7 +119,6 @@ public class NavController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
             String username = "", password = "";
             String tempUsername, tempPassword, tempSource;
             try {
@@ -453,7 +447,6 @@ public class NavController {
                 search_view.getAccountsArray().get(2).add(tempSource);
 
                 viewAll_view.getModel().addRow(new Object[]{tempUsername, tempPassword, tempSource});
-
             }
             viewAll_view.setModel(viewAll_view.getModel());
             fin.close();
