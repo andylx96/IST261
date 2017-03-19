@@ -52,6 +52,20 @@ public class NavController {
         n_view.addCreateMasterButtonListener(new CreateNewMasterButtonListener());
         createMasterLogin_view.addCreateMasterLoginListener(new CreateMasterLoginButtonListener());
         masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
+
+        n_view.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                JOptionPane pane = new JOptionPane("Do you want to exit?");
+                int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n DID YOU REMEMBER TO SAVE?");
+                if (resp == JOptionPane.YES_OPTION) {
+                    File tempFile = new File("src/temp.txt");
+                    tempFile.delete();
+                    System.exit(0);
+                }
+
+            }
+        });
     }
 
     class MasterLoginViewListener implements ActionListener {
@@ -143,7 +157,7 @@ public class NavController {
                 }
 
                 n_view.addCreateButtonListener(new CreateViewButtonListener());
-                n_view.addSearchButtonListener(new SearchButtonListener());
+                //    n_view.addSearchButtonListener(new SearchButtonListener());
                 n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
                 n_view.addSaveButtonListener(new SaveButtonListener());
 
@@ -151,29 +165,17 @@ public class NavController {
                 c_view.addgenRandPassAccountListener(new GenRandPassButtonListener());
                 c_view.addgenRandUserAccountListener(new GenRandUserButtonListener());
 
-                search_view.getFindButton().addActionListener(new FindButtonListener());
+                //        search_view.getFindButton().addActionListener(new FindButtonListener());
                 viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
                 viewAll_view.getViewAllSearchPanel().addEditButtonListener(new ViewAllEditButtonListener());
                 viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
                 viewAll_view.getSearchArea().getDocument().addDocumentListener(new ViewAllViewSearchDocumentListener());
-                n_view.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-                        JOptionPane pane = new JOptionPane("Do you want to exit?");
-                        int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n DID YOU REMEMBER TO SAVE?");
-                        if (resp == JOptionPane.YES_OPTION) {
-                            File tempFile = new File("src/temp.txt");
-                            tempFile.delete();
-                            System.exit(0);
-                        }
 
-                    }
-                });
                 n_view.nVpanel.getMenu().getLoginButton().setVisible(false);
                 n_view.nVpanel.getMenu().createMaster.setVisible(false);
                 n_view.nVpanel.getMenu().getCreateButton().setVisible(true);
                 n_view.nVpanel.getMenu().getViewButton().setVisible(true);
-                n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
+//                n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
 
                 masterLogin_view.getLoginStatus().setText("Logged In");

@@ -11,7 +11,7 @@ public class NavView extends JFrame {
         super("Account Manager");
         this.model = model;
 
-        setSize(700, 500);
+        setSize(380, 600);
         nVpanel = new NavViewPanel();
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
