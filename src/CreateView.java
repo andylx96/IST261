@@ -14,7 +14,7 @@ public class CreateView extends JPanel {
 
     CreateView() {
         
-        
+        setLayout(new GridLayout (10,3));
         userName = new JTextArea("Enter Username");
         password = new JTextArea("Enter Password");
         source = new JTextArea("Enter Source");

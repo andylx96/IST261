@@ -55,23 +55,6 @@ public class NavController {
         createMasterLogin_view.addCreateMasterLoginListener(new CreateMasterLoginButtonListener());
         search_view.getFindButton().addActionListener(new FindButtonListener());
 
-        viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
-        viewAll_view.getViewAllSearchPanel().addEditButtonListener(new ViewAllEditButtonListener());
-        viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
-        viewAll_view.getSearchArea().getDocument().addDocumentListener(new ViewAllViewSearchDocumentListener());
-        n_view.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                JOptionPane pane = new JOptionPane("Do you want to exit?");
-                int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n DID YOU REMEMBER TO SAVE?");
-                if (resp == JOptionPane.YES_OPTION) {
-                    File tempFile = new File("src/temp.txt");
-                    tempFile.delete();
-                    System.exit(0);
-                }
-
-            }
-        });
     }
 
     class CreateMasterLoginButtonListener implements ActionListener {
@@ -103,30 +86,17 @@ public class NavController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (viewAll_view.getTable().getSelectedRow() != -1) {
-                int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
-                String tempString = viewAll_view.getSearchArea().getText();
-                viewAll_view.getSearchArea().setText("");
+            int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
+            tableToFile(tempRow);
+            updateArrayAndTable();
+        }
+    }
 
-                try {
-                    fout = new FileWriter("src/temp.txt");
-                    for (int i = 0; i < viewAll_view.getTable().getRowCount(); i++) {
+    class ViewAllSaveEditButtonListener implements ActionListener {
 
-                        for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
-
-                            if (i != tempRow) {
-                                fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
-                            }
-                        }
-                    }
-                    viewAll_view.getSearchArea().setText(tempString);
-                    c_view.getCreateAccount().setText("Account Created");
-                    fout.close();
-                    fout.flush();
-                } catch (IOException ex) {
-                }
-
-            }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            tableToFile(-1);
             updateArrayAndTable();
         }
     }
@@ -140,39 +110,6 @@ public class NavController {
                 int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
             }
             viewAll_view.getViewAllSearchPanel().getSaveEditButton().setVisible(true);
-        }
-    }
-
-    class ViewAllSaveEditButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (viewAll_view.getTable().getSelectedRow() != -1) {
-                int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
-                int tempColumn = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedColumn());
-
-                String tempString = viewAll_view.getSearchArea().getText();
-                viewAll_view.getSearchArea().setText("");
-
-                try {
-                    fout = new FileWriter("src/temp.txt");
-
-                    for (int i = 0; i < viewAll_view.getTable().getRowCount(); i++) {
-
-                        for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
-
-                            fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
-                        }
-                    }
-
-                    viewAll_view.getSearchArea().setText(tempString);
-                    c_view.getCreateAccount().setText("Account Created");
-                    fout.close();
-                    fout.flush();
-                } catch (IOException ex) {
-                }
-            }
-            updateArrayAndTable();
         }
     }
 
@@ -275,8 +212,8 @@ public class NavController {
                     encryption.encrypt(key, fis, fos);
 
                 } catch (Throwable z) {
-                    
-                     JOptionPane.showMessageDialog(null, z);
+
+                    JOptionPane.showMessageDialog(null, z);
                 }
             }
         }
@@ -334,14 +271,23 @@ public class NavController {
                 viewAll_view.setModel(viewAll_view.getModel());
 
             } catch (FileNotFoundException ex) {
-                
-                     JOptionPane.showMessageDialog(null, ex);
+
+                JOptionPane.showMessageDialog(null, ex);
             } catch (IOException ex) {
             }
         }
     }
 
-    class GenRandPassButtonListener implements ActionListener {
+
+    class GenRandUserButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            c_view.getUserName().setText(generate.GenLowerUpperNums(10));
+        }
+    }
+    
+     class GenRandPassButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -381,14 +327,6 @@ public class NavController {
         }
     }
 
-    class GenRandUserButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            c_view.getUserName().setText(generate.GenLowerUpperNums(10));
-        }
-    }
-
     class MasterPassButtonListener implements ActionListener {
 
         @Override
@@ -415,9 +353,9 @@ public class NavController {
                     encryption.decrypt(key, fis2, fos2);
 
                 } catch (FileNotFoundException ex) {
-                   JOptionPane.showMessageDialog(null, ex);
+                    JOptionPane.showMessageDialog(null, ex);
                 } catch (Throwable ex) {
-                     JOptionPane.showMessageDialog(null, ex);
+                    JOptionPane.showMessageDialog(null, ex);
                 }
 
                 n_view.addCreateButtonListener(new CreateViewButtonListener());
@@ -427,6 +365,24 @@ public class NavController {
                 n_view.addSearchButtonListener(new SearchButtonListener());
                 n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
                 n_view.addSaveButtonListener(new SaveButtonListener());
+                
+                viewAll_view.getViewAllSearchPanel().addDeleteButtonListener(new ViewAllDeleteButtonListener());
+                viewAll_view.getViewAllSearchPanel().addEditButtonListener(new ViewAllEditButtonListener());
+                viewAll_view.getViewAllSearchPanel().addSaveEditButtonListener(new ViewAllSaveEditButtonListener());
+                viewAll_view.getSearchArea().getDocument().addDocumentListener(new ViewAllViewSearchDocumentListener());
+                n_view.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        JOptionPane pane = new JOptionPane("Do you want to exit?");
+                        int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n DID YOU REMEMBER TO SAVE?");
+                        if (resp == JOptionPane.YES_OPTION) {
+                            File tempFile = new File("src/temp.txt");
+                            tempFile.delete();
+                            System.exit(0);
+                        }
+
+                    }
+                });
 
                 n_view.nVpanel.getMenu().getLoginButton().setVisible(false);
 
@@ -478,7 +434,7 @@ public class NavController {
 
         @Override
         public void changedUpdate(DocumentEvent e) {
-            JOptionPane.showMessageDialog(null,"Not supported yet.");
+            JOptionPane.showMessageDialog(null, "Not supported yet.");
         }
 
     }
@@ -513,6 +469,34 @@ public class NavController {
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, ex);
         } catch (IOException ex) {
+        }
+    }
+
+    public void tableToFile(int tempRow) {
+
+        if (viewAll_view.getTable().getSelectedRow() != -1) {
+
+            String tempString = viewAll_view.getSearchArea().getText();
+            viewAll_view.getSearchArea().setText("");
+
+            try {
+                fout = new FileWriter("src/temp.txt");
+                for (int i = 0; i < viewAll_view.getTable().getRowCount(); i++) {
+
+                    for (int j = 0; j < viewAll_view.getTable().getColumnCount(); j++) {
+
+                        if (i != tempRow) {
+                            fout.write(viewAll_view.getTable().getValueAt(i, j) + "\n");
+                        }
+                    }
+                }
+                viewAll_view.getSearchArea().setText(tempString);
+                c_view.getCreateAccount().setText("Account Created");
+                fout.close();
+                fout.flush();
+            } catch (IOException ex) {
+            }
+
         }
     }
 
