@@ -1,5 +1,6 @@
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,6 +42,7 @@ public class ViewAllView extends JPanel {
         panel = new JPanel(new BorderLayout());
         panel.add(new JLabel("Specify a word to match:"),
                 BorderLayout.WEST);
+        panel.setBackground(Color.YELLOW);
         panel.add(searchArea, BorderLayout.CENTER);
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

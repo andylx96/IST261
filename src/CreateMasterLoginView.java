@@ -1,30 +1,74 @@
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 public class CreateMasterLoginView extends JPanel {
 
-    JTextArea userName; 
+    JTextArea userName;
     JTextArea password;
-    
+
     JButton createButton;
     JLabel createStatus;
+    GridBagConstraints gbc = new GridBagConstraints();
+
+    JLabel usernameLabel, passwordLabel;
 
     CreateMasterLoginView() {
-        setLayout(new GridLayout(10, 1));
+
+        setLayout(new GridBagLayout());
+
+        usernameLabel = new JLabel("Username");
+        passwordLabel = new JLabel("Password");
         userName = new JTextArea("UserName");
         password = new JTextArea("Password");
         createButton = new JButton("Create Account");
-        createStatus = new JLabel("Account Not Created");
+        createStatus = new JLabel("Account Not Created", SwingConstants.CENTER);
+        
+        usernameLabel.setForeground(Color.BLUE);
+        passwordLabel.setForeground(Color.BLUE);
 
-        add(userName);
-        add(password);
-        add(createButton);
-        add(createStatus);
+        gbc.insets = new Insets(1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        gbc.weighty = 0.0;
+        gbc.weightx = 0.0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(usernameLabel, gbc);
+
+        gbc.weightx = 0.3;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        add(userName, gbc);
+
+        gbc.weightx = 0.0;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(passwordLabel, gbc);
+
+        gbc.weightx = 0.3;
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        add(password, gbc);
+
+        gbc.weightx = 0.0;
+        gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(createStatus, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        add(createButton, gbc);
 
     }
 
@@ -59,7 +103,7 @@ public class CreateMasterLoginView extends JPanel {
     public void setPassword(JTextArea password) {
         this.password = password;
     }
-    
+
     public void addCreateMasterLoginListener(ActionListener al) {
         this.createButton.addActionListener(al);
     }
