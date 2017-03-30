@@ -18,13 +18,14 @@ public class MasterLoginView extends JPanel {
     JTextArea userName;
     JPasswordField password;
     JButton loginButton;
-    JLabel loginStatus, usernameLabel, passwordLabel;
+    JLabel loginStatus, usernameLabel, passwordLabel, userHint;
 
     GridBagConstraints gbc = new GridBagConstraints();
     MasterLoginView() {
 
         usernameLabel = new JLabel("Username");
         passwordLabel = new JLabel("Password");
+        userHint = new JLabel("Please Enter Your Username and Password for the Application\nThis is your master password");
         
         setLayout(new GridBagLayout());
         userName = new JTextArea("UserName");
@@ -36,12 +37,20 @@ public class MasterLoginView extends JPanel {
         passwordLabel.setForeground(Color.BLUE);
         
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+      gbc.anchor = GridBagConstraints.LAST_LINE_END;  
         gbc.insets = new Insets(1,1,1,1);
       
         gbc.weighty = 0.0;
         gbc.weightx = 0.0;
         gbc.gridx = 0;
         gbc.gridy = 0;
+     //   add(userHint, gbc);
+        
+        gbc.weighty = 0.0;
+        gbc.weightx = 0.0;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         add(usernameLabel, gbc);
         
         gbc.weightx = 1.0;
@@ -50,7 +59,7 @@ public class MasterLoginView extends JPanel {
         
         gbc.weightx = 0.0;
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         add(passwordLabel,gbc);
      
         gbc.weightx = 1.0;
@@ -59,13 +68,13 @@ public class MasterLoginView extends JPanel {
         
         gbc.weightx = 0.0;
         gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 3;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
         add(loginStatus, gbc);
         
         gbc.anchor = GridBagConstraints.PAGE_END;
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         add(loginButton, gbc);
         
 

@@ -25,6 +25,7 @@ public class NavView extends JFrame {
         nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
+        nVpanel.removeSucessfulLogin();
         nVpanel.addCreate(create_view);
     }
     
@@ -35,6 +36,7 @@ public class NavView extends JFrame {
         nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
+        nVpanel.removeSucessfulLogin();
         nVpanel.addCreateMasterLoginView(createMasterLogin_view);
     }
 
@@ -45,6 +47,7 @@ public class NavView extends JFrame {
         nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
+        nVpanel.removeSucessfulLogin();
         nVpanel.addMasterView(masterView);
     }
     
@@ -55,6 +58,7 @@ public class NavView extends JFrame {
         nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
+        nVpanel.removeSucessfulLogin();
         nVpanel.addSearch(search_view);
     }
     
@@ -65,7 +69,19 @@ public class NavView extends JFrame {
         nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
+        nVpanel.removeSucessfulLogin();
         nVpanel.addViewAllView(viewAll_view);
+    }
+    
+        public void switchToSucessfulLoginView(SucessfulLoginView sucessfulLogin_view) {
+        nVpanel.removeSplash();
+        nVpanel.removeMaster();
+        nVpanel.removeCreate();
+        nVpanel.removeSearch();
+        nVpanel.removeViewAll();
+        nVpanel.removeCreateMasterLoginView();
+        nVpanel.removeSucessfulLogin();
+        nVpanel.addSucessfulLoginView(sucessfulLogin_view);
     }
 
     public void addMasterButtonListener(ActionListener al) {

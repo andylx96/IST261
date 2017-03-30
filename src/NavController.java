@@ -33,6 +33,7 @@ public class NavController {
     ViewAllView viewAll_view;
     CreateMasterLoginView createMasterLogin_view;
     EncryptionClass encryption;
+    SucessfulLoginView sucessfulLogin_view;
 
     String key = "squirrel123"; // needs to be at least 8 characters for DES
 
@@ -42,6 +43,7 @@ public class NavController {
 
         encryption = new EncryptionClass();
 
+        sucessfulLogin_view = new SucessfulLoginView();
         c_view = new CreateView();
         masterLogin_view = new MasterLoginView();
         generate = new GeneratePass();
@@ -179,7 +181,7 @@ public class NavController {
 //                n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
 
-                masterLogin_view.getLoginStatus().setText("Logged In");
+                n_view.switchToSucessfulLoginView(sucessfulLogin_view);
             } else {
                 masterLogin_view.getLoginStatus().setText("Error, Wrong Password or Username");
                 try {
