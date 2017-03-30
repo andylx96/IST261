@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -388,7 +389,7 @@ public class NavController {
             } else if (c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(generate.GenSpecial(10));
             } else {
-                c_view.getPassword().setText(generate.GenPass(10));
+                c_view.getInstruLabel().setForeground(Color.RED);
             }
         }
     }
