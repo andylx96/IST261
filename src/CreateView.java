@@ -43,6 +43,7 @@ public class CreateView extends JPanel {
         usernameLabel.setForeground(Color.BLUE);
         passwordLabel.setForeground(Color.BLUE);
         sourceLabel.setForeground(Color.BLUE);
+        instruLabel.setForeground(Color.red);
         
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(1,1,1,1);
@@ -50,7 +51,7 @@ public class CreateView extends JPanel {
         gbc.weighty = 0.0;
         gbc.weightx = 0.0;
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 5;
         add(usernameLabel, gbc);
         
         gbc.weightx = 1.0;
@@ -59,7 +60,7 @@ public class CreateView extends JPanel {
         
         gbc.weightx = 0.0;
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 6;
         add(passwordLabel,gbc);
         
         gbc.weightx = 1.0;
@@ -68,7 +69,7 @@ public class CreateView extends JPanel {
         
         gbc.weightx = 0.0;
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 7;
         add(sourceLabel,gbc);
         
         gbc.weightx = 1.0;
@@ -77,31 +78,34 @@ public class CreateView extends JPanel {
         
         gbc.weightx = 0.0;
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 0;
         add(instruLabel,gbc);
         
-        gbc.gridy = 4;
+        gbc.gridy = 1;
         add(lower, gbc);
         
         gbc.gridx = 1;
         add(upper, gbc);
         
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 2;
         add(number, gbc);
         
         gbc.gridx = 1;
         add(special, gbc);
         
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
         add(genRandUser,gbc);
         
-        gbc.gridy = 7;
+        gbc.gridy = 4;
         add(genRandPass,gbc);
-        
+
         gbc.gridy = 8;
+        gbc.weighty = 1.0;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.PAGE_END;
         add(createAccount,gbc);
 
     }

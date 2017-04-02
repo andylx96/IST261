@@ -13,6 +13,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -35,6 +36,10 @@ public class NavController {
     EncryptionClass encryption;
     SucessfulLoginView sucessfulLogin_view;
 
+    HelpModel help_model;
+    HelpFrame help_frame;
+    HelpController help_controller;
+
     String key = "squirrel123"; // needs to be at least 8 characters for DES
 
     public NavController(NavModel n_model, NavView n_view) throws Throwable {
@@ -55,6 +60,7 @@ public class NavController {
         n_view.addCreateMasterButtonListener(new CreateNewMasterButtonListener());
         createMasterLogin_view.addCreateMasterLoginListener(new CreateMasterLoginButtonListener());
         masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
+        sucessfulLogin_view.getClickHere().addActionListener(new HelpButtonListener());
 
         n_view.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -115,6 +121,8 @@ public class NavController {
                 fout.write(createMasterLogin_view.getUserName().getText() + "\n");
                 fout.write(createMasterLogin_view.getPassword().getText() + "\n");
                 createMasterLogin_view.getCreateStatus().setText("Account Created");
+                JOptionPane.showMessageDialog(null, "Master Login Has Been Created!");
+                n_view.switchToMasterLoginViewPanel(masterLogin_view);
                 fout.close();
                 fout.flush();
             } catch (IOException ex) {
@@ -146,6 +154,8 @@ public class NavController {
                 password = scan.nextLine();
             } catch (FileNotFoundException ex) {
                 masterLogin_view.loginStatus.setText("Account Not Found");
+
+                masterLogin_view.getLoginStatus().setForeground(Color.red);
             }
             if (masterLogin_view.getUserName().getText().equals(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equals(password)) {
 
@@ -160,7 +170,7 @@ public class NavController {
                 }
 
                 n_view.addCreateButtonListener(new CreateViewButtonListener());
-                //    n_view.addSearchButtonListener(new SearchButtonListener());
+                n_view.addSearchButtonListener(new SearchButtonListener());
                 n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
                 n_view.addSaveButtonListener(new SaveButtonListener());
 
@@ -178,11 +188,14 @@ public class NavController {
                 n_view.nVpanel.getMenu().createMaster.setVisible(false);
                 n_view.nVpanel.getMenu().getCreateButton().setVisible(true);
                 n_view.nVpanel.getMenu().getViewButton().setVisible(true);
-//                n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
+                n_view.nVpanel.getMenu().getSearchButton().setVisible(true);
                 n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
 
-                n_view.switchToSucessfulLoginView(sucessfulLogin_view);
+//                n_view.switchToSucessfulLoginView(sucessfulLogin_view);
+                masterLogin_view.setBackground(Color.green);
+                masterLogin_view.getLoginStatus().setText("You Have Sucessfully Logged In");
             } else {
+                masterLogin_view.getLoginStatus().setForeground(Color.red);
                 masterLogin_view.getLoginStatus().setText("Error, Wrong Password or Username");
                 try {
                     FileReader fin = new FileReader("src/MasterLogin.txt");
@@ -206,33 +219,33 @@ public class NavController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            n_view.switchToSearchViewPanel(search_view);
-
-            search_view.getAccountsArrayUsername().clear();
-            search_view.getAccountsArrayPassword().clear();
-            search_view.getAccountsArraySource().clear();
-            search_view.getAccounts().removeAllItems();
-            String username = "", password = "", source = "";
-            try {
-                FileReader fin = new FileReader("src/temp.txt");
-                Scanner scan = new Scanner(fin);
-                while (scan.hasNextLine()) {
-
-                    username = scan.nextLine();
-                    password = scan.nextLine();
-                    source = scan.nextLine();
-
-                    search_view.getAccountsArray().get(0).add(username);
-                    search_view.getAccountsArray().get(1).add(password);
-                    search_view.getAccountsArray().get(2).add(source);
-
-                    search_view.accounts.addItem(username);
-
-                }
-            } catch (FileNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, ex);
-
-            }
+            n_view.switchToSucessfulLoginView(sucessfulLogin_view);
+//
+//            search_view.getAccountsArrayUsername().clear();
+//            search_view.getAccountsArrayPassword().clear();
+//            search_view.getAccountsArraySource().clear();
+//            search_view.getAccounts().removeAllItems();
+//            String username = "", password = "", source = "";
+//            try {
+//                FileReader fin = new FileReader("src/temp.txt");
+//                Scanner scan = new Scanner(fin);
+//                while (scan.hasNextLine()) {
+//
+//                    username = scan.nextLine();
+//                    password = scan.nextLine();
+//                    source = scan.nextLine();
+//
+//                    search_view.getAccountsArray().get(0).add(username);
+//                    search_view.getAccountsArray().get(1).add(password);
+//                    search_view.getAccountsArray().get(2).add(source);
+//
+//                    search_view.accounts.addItem(username);
+//
+//                }
+//            } catch (FileNotFoundException ex) {
+//                JOptionPane.showMessageDialog(null, ex);
+//
+//            }
         }
     }
 
@@ -246,7 +259,7 @@ public class NavController {
                 fout.write(c_view.getUserName().getText() + "\n");
                 fout.write(c_view.getPassword().getText() + "\n");
                 fout.write(c_view.getSource().getText() + "\n");
-                c_view.getCreateAccount().setText("Account Created");
+                JOptionPane.showMessageDialog(null, "Account Created");
                 fout.close();
                 fout.flush();
             } catch (IOException ex) {
@@ -262,7 +275,6 @@ public class NavController {
             if (viewAll_view.getTable().getSelectedRow() != -1) {
                 int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
             }
-            viewAll_view.getViewAllSearchPanel().getSaveEditButton().setVisible(true);
         }
     }
 
@@ -280,8 +292,14 @@ public class NavController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            tableToFile(-1);
-            updateArrayAndTable();
+
+            viewAll_view.getTable().changeSelection(-1, -1, true, true);
+            int temp = JOptionPane.showConfirmDialog(null, "Are you sure?");
+
+            if (temp == JOptionPane.YES_OPTION) {
+                tableToFile(-1);
+                updateArrayAndTable();
+            }
         }
     }
 
@@ -356,6 +374,18 @@ public class NavController {
         }
     }
 
+    class HelpButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            help_model = new HelpModel();
+            help_frame = new HelpFrame(help_model);
+            help_controller = new HelpController(help_model, help_frame);
+            help_frame.setVisible(true);
+
+        }
+    }
+
     class GenRandPassButtonListener implements ActionListener {
 
         @Override
@@ -391,7 +421,7 @@ public class NavController {
             } else if (c_view.getSpecial().isSelected() == true) {
                 c_view.getPassword().setText(generate.GenSpecial(10));
             } else {
-                c_view.getInstruLabel().setForeground(Color.RED);
+                JOptionPane.showMessageDialog(null, "Please select your password criteria");
             }
         }
     }

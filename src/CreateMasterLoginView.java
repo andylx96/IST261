@@ -31,7 +31,7 @@ public class CreateMasterLoginView extends JPanel {
         userName = new JTextArea("UserName");
         password = new JTextArea("Password");
         createButton = new JButton("Create Account");
-        createStatus = new JLabel("Account Not Created", SwingConstants.CENTER);
+        createStatus = new JLabel("This Account Will Be Used To Login To The Application", SwingConstants.CENTER);
         
         usernameLabel.setForeground(Color.BLUE);
         passwordLabel.setForeground(Color.BLUE);

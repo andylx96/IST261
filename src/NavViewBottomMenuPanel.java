@@ -11,7 +11,7 @@ public class NavViewBottomMenuPanel extends JPanel {
         loginButton = new JButton("LOGIN");
         createButton = new JButton("Create Account");
         deleteButton = new JButton("Delete Account");
-        searchButton = new JButton("Search Account");
+        searchButton = new JButton("Instructions");
         saveButton = new JButton("Save Accounts");
         viewButton = new JButton("View All");
         createMaster = new JButton("Sign Up");

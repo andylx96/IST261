@@ -23,9 +23,8 @@ public class ViewAllSearchPanel extends JPanel {
         editButton = new JButton("Edit");
         saveEditButton = new JButton("Save\nEdits");
         add(deleteButton);
-        add(editButton);
+//        add(editButton);
         add(saveEditButton);
-        saveEditButton.setVisible(false);
     }
 
     public void addDeleteButtonListener(ActionListener al) {

@@ -22,7 +22,8 @@ public class MasterLoginView extends JPanel {
 
     GridBagConstraints gbc = new GridBagConstraints();
     MasterLoginView() {
-
+        
+        setBackground(Color.red);
         usernameLabel = new JLabel("Username");
         passwordLabel = new JLabel("Password");
         userHint = new JLabel("Please Enter Your Username and Password for the Application\nThis is your master password");
