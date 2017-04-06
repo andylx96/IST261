@@ -21,6 +21,7 @@ public class NavViewBottomMenuPanel extends JPanel {
         viewButton.setVisible(false);
         searchButton.setVisible(false);
         saveButton.setVisible(false);
+        createMaster.setVisible(false);
         
         
         add(loginButton);

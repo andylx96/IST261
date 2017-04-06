@@ -38,6 +38,7 @@ public class CreateMasterLoginView extends JPanel {
 
         gbc.insets = new Insets(1, 1, 1, 1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 40;
         
         gbc.weighty = 0.0;
         gbc.weightx = 0.0;

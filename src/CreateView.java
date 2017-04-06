@@ -20,7 +20,7 @@ public class CreateView extends JPanel {
     GridBagConstraints gbc = new GridBagConstraints();
 
     CreateView() {
-        
+
         setLayout(new GridBagLayout());
         usernameLabel = new JLabel("Username");
         passwordLabel = new JLabel("Password");
@@ -44,69 +44,72 @@ public class CreateView extends JPanel {
         passwordLabel.setForeground(Color.BLUE);
         sourceLabel.setForeground(Color.BLUE);
         instruLabel.setForeground(Color.red);
-        
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(1,1,1,1);
 
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(1, 1, 1, 1);
+        gbc.ipady = 35;
+        
+        gbc.weightx = 0.0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(instruLabel, gbc);
+
+        gbc.gridy = 1;
+        add(lower, gbc);
+
+        gbc.gridx = 1;
+        add(upper, gbc);
+
+        gbc.weightx = 1.0;
+        gbc.gridx = 1;
+        add(source, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(number, gbc);
+
+        gbc.gridx = 1;
+        add(special, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        add(genRandUser, gbc);
+
+        gbc.gridy = 4;
+        add(genRandPass, gbc);
+
+        gbc.gridwidth = 1;
         gbc.weighty = 0.0;
         gbc.weightx = 0.0;
         gbc.gridx = 0;
         gbc.gridy = 5;
         add(usernameLabel, gbc);
-        
+
         gbc.weightx = 1.0;
         gbc.gridx = 1;
         add(userName, gbc);
-        
+
         gbc.weightx = 0.0;
         gbc.gridx = 0;
         gbc.gridy = 6;
-        add(passwordLabel,gbc);
-        
+        add(passwordLabel, gbc);
+
         gbc.weightx = 1.0;
         gbc.gridx = 1;
         add(password, gbc);
-        
+
         gbc.weightx = 0.0;
         gbc.gridx = 0;
         gbc.gridy = 7;
-        add(sourceLabel,gbc);
-        
-        gbc.weightx = 1.0;
-        gbc.gridx = 1;
-        add(source, gbc);
-        
-        gbc.weightx = 0.0;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        add(instruLabel,gbc);
-        
-        gbc.gridy = 1;
-        add(lower, gbc);
-        
-        gbc.gridx = 1;
-        add(upper, gbc);
-        
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        add(number, gbc);
-        
-        gbc.gridx = 1;
-        add(special, gbc);
-        
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        add(genRandUser,gbc);
-        
-        gbc.gridy = 4;
-        add(genRandPass,gbc);
+        add(sourceLabel, gbc);
 
+        gbc.gridwidth = 2;
         gbc.gridy = 8;
         gbc.weighty = 1.0;
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.PAGE_END;
-        add(createAccount,gbc);
+        add(createAccount, gbc);
 
     }
 
@@ -117,12 +120,12 @@ public class CreateView extends JPanel {
     public void setGenRandPass(JButton genRandPass) {
         this.genRandPass = genRandPass;
     }
-    
-    public JButton getGenRandUser(){
+
+    public JButton getGenRandUser() {
         return genRandUser;
     }
-    
-    public void setGenRandUser(JButton genRandUser){
+
+    public void setGenRandUser(JButton genRandUser) {
         this.genRandUser = genRandUser;
     }
 
@@ -165,7 +168,7 @@ public class CreateView extends JPanel {
     public void addgenRandPassAccountListener(ActionListener al) {
         this.genRandPass.addActionListener(al);
     }
-    
+
     public void addgenRandUserAccountListener(ActionListener al) {
         this.genRandUser.addActionListener(al);
     }

@@ -57,7 +57,7 @@ public class NavController {
         createMasterLogin_view = new CreateMasterLoginView();
 
         n_view.addMasterButtonListener(new MasterLoginViewListener());
-        n_view.addCreateMasterButtonListener(new CreateNewMasterButtonListener());
+        masterLogin_view.getSignup().addActionListener(new CreateNewMasterButtonListener());
         createMasterLogin_view.addCreateMasterLoginListener(new CreateMasterLoginButtonListener());
         masterLogin_view.addMasterLoginListener(new MasterPassButtonListener());
         sucessfulLogin_view.getClickHere().addActionListener(new HelpButtonListener());
@@ -82,6 +82,8 @@ public class NavController {
         @Override
         public void actionPerformed(ActionEvent e) {
             n_view.switchToMasterLoginViewPanel(masterLogin_view);
+            n_view.nVpanel.getMenu().getLoginButton().setVisible(false);
+            
         }
     }
 
@@ -155,7 +157,7 @@ public class NavController {
             } catch (FileNotFoundException ex) {
                 masterLogin_view.loginStatus.setText("Account Not Found");
 
-                masterLogin_view.getLoginStatus().setForeground(Color.red);
+//                masterLogin_view.getLoginStatus().setForeground(Color.red);
             }
             if (masterLogin_view.getUserName().getText().equals(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equals(password)) {
 
@@ -192,10 +194,11 @@ public class NavController {
                 n_view.nVpanel.getMenu().getSaveButton().setVisible(true);
 
 //                n_view.switchToSucessfulLoginView(sucessfulLogin_view);
-                masterLogin_view.setBackground(Color.green);
+                masterLogin_view.getLoginStatus().setBackground(Color.GREEN);
                 masterLogin_view.getLoginStatus().setText("You Have Sucessfully Logged In");
+                masterLogin_view.getSignup().setVisible(false);
+                masterLogin_view.getLoginButton().setVisible(false);
             } else {
-                masterLogin_view.getLoginStatus().setForeground(Color.red);
                 masterLogin_view.getLoginStatus().setText("Error, Wrong Password or Username");
                 try {
                     FileReader fin = new FileReader("src/MasterLogin.txt");

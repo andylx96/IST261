@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -12,18 +13,19 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 public class MasterLoginView extends JPanel {
 
     JTextArea userName;
     JPasswordField password;
-    JButton loginButton;
+    JButton loginButton, signup;
     JLabel loginStatus, usernameLabel, passwordLabel, userHint;
 
     GridBagConstraints gbc = new GridBagConstraints();
     MasterLoginView() {
         
-        setBackground(Color.red);
+        signup = new JButton("SignUp");
         usernameLabel = new JLabel("Username");
         passwordLabel = new JLabel("Password");
         userHint = new JLabel("Please Enter Your Username and Password for the Application\nThis is your master password");
@@ -36,12 +38,23 @@ public class MasterLoginView extends JPanel {
         
         usernameLabel.setForeground(Color.BLUE);
         passwordLabel.setForeground(Color.BLUE);
+        loginStatus.setOpaque(true);
+        loginStatus.setBackground(Color.red);
+        
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+userName.setBorder(BorderFactory.createCompoundBorder(border, 
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+password.setBorder(BorderFactory.createCompoundBorder(border, 
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        
+        
         
         gbc.fill = GridBagConstraints.HORIZONTAL;
         
       gbc.anchor = GridBagConstraints.LAST_LINE_END;  
         gbc.insets = new Insets(1,1,1,1);
       
+//        gbc.ipady = 20;
         gbc.weighty = 0.0;
         gbc.weightx = 0.0;
         gbc.gridx = 0;
@@ -68,18 +81,33 @@ public class MasterLoginView extends JPanel {
         add(password, gbc);
         
         gbc.weightx = 0.0;
+                
+        gbc.gridwidth = 1;
+        gbc.gridx = 3;
+        gbc.gridy = 1;
+        add(loginButton, gbc);
+        gbc.gridy = 2;
+        add(signup, gbc);
+        
+        
+        
+        gbc.ipady = 40;
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 4;
         add(loginStatus, gbc);
         
-        gbc.anchor = GridBagConstraints.PAGE_END;
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        add(loginButton, gbc);
         
 
 
+    }
+
+    public JButton getSignup() {
+        return signup;
+    }
+
+    public void setSignup(JButton signup) {
+        this.signup = signup;
     }
 
    
