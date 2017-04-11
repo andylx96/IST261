@@ -22,8 +22,8 @@ public class SucessfulLoginView extends JPanel {
     public SucessfulLoginView(){
         setLayout(new BorderLayout(10,1));
     textArea = new JTextArea("You Have Sucessfully Logged In\n Please Choice And Option Below");
-    menu = new JTextArea("1. Create Account\n   Create a New Account to store into your libary."
-            + "\n2 .ViewAll\n   To View, Search, Edit, and Deleted Saved Accounts in your libary"
+    menu = new JTextArea("1. Create Account\n   Create a New Account to store into your library."
+            + "\n2 .ViewAll\n   To View, Search, Edit, and Deleted Saved Accounts in your library"
             + "\n3 . Save\n  You Must Press This Button before Exiting, \n   Otherwise all progress will be deleted\n\n\n\n"
             + "Remeber, YOU MUST SAVE before exiting the program!"
             + "\n   Or you WILL LOSE all your changes!");
