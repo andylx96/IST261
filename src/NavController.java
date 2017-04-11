@@ -13,6 +13,8 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
@@ -69,7 +71,9 @@ public class NavController {
                 int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n DID YOU REMEMBER TO SAVE?");
                 if (resp == JOptionPane.YES_OPTION) {
                     File tempFile = new File("src/temp.txt");
+                    File tempFile2= new File("src/MasterTemp.txt");
                     tempFile.delete();
+                    tempFile2.delete();
                     System.exit(0);
                 }
 
@@ -83,7 +87,7 @@ public class NavController {
         public void actionPerformed(ActionEvent e) {
             n_view.switchToMasterLoginViewPanel(masterLogin_view);
             n_view.nVpanel.getMenu().getLoginButton().setVisible(false);
-            
+
         }
     }
 
@@ -101,13 +105,29 @@ public class NavController {
                 accountsFile.delete();
 
                 try {
-                    fout = new FileWriter("src/Accounts.txt");
+                    FileWriter accfout = new FileWriter("src/Accounts.txt");
+                    FileWriter passfout = new FileWriter("src/MasterLogin.txt");
                     FileInputStream fis = new FileInputStream("src/Accounts.txt");
                     FileOutputStream fos = new FileOutputStream("src/Accounts.txt");
+
+                    FileInputStream fis4 = new FileInputStream("src/MasterLogin.txt");
+                    FileOutputStream fos4 = new FileOutputStream("src/MasterLogin.txt");
+
                     encryption.encrypt(key, fis, fos);
+                    encryption.encrypt(key, fis4, fos4);
+
+                    accfout.flush();
+                    accfout.close();
+                    passfout.flush();
+                    passfout.close();
+                    fis.close();
+                    fos.close();
+                    fis4.close();
+                    fos4.close();
                 } catch (FileNotFoundException ex) {
                 } catch (Throwable ex) {
                 }
+
                 n_view.switchToCreateMasterLoginViewPanel(createMasterLogin_view);
             }
         }
@@ -119,14 +139,43 @@ public class NavController {
         public void actionPerformed(ActionEvent e) {
 
             try {
-                fout = new FileWriter("src/MasterLogin.txt", true);
+
+                try {
+                    FileInputStream fis3Master = new FileInputStream("src/MasterLogin.txt");
+                    FileOutputStream fos3Master = new FileOutputStream("src/MasterTemp.txt");
+                    encryption.decrypt(key, fis3Master, fos3Master);
+                    fis3Master.close();
+                    fos3Master.close();
+                } catch (FileNotFoundException ex) {
+                } catch (Throwable ex) {
+                }
+
+                fout = new FileWriter("src/MasterTemp.txt", true);
+
                 fout.write(createMasterLogin_view.getUserName().getText() + "\n");
                 fout.write(createMasterLogin_view.getPassword().getText() + "\n");
                 createMasterLogin_view.getCreateStatus().setText("Account Created");
                 JOptionPane.showMessageDialog(null, "Master Login Has Been Created!");
                 n_view.switchToMasterLoginViewPanel(masterLogin_view);
-                fout.close();
+           
                 fout.flush();
+     fout.close();
+                try {
+
+                    FileInputStream fis5 = new FileInputStream("src/MasterTemp.txt");
+                    FileOutputStream fos5 = new FileOutputStream("src/MasterLogin.txt");
+
+                    encryption.encrypt(key, fis5, fos5);
+
+                    fis5.close();
+                    fos5.close();
+                } catch (FileNotFoundException ex) {
+                } catch (Throwable ex) {
+                }
+
+                File tempFile4 = new File("src/masterTemp.txt");
+                tempFile4.delete();
+
             } catch (IOException ex) {
             }
         }
@@ -146,29 +195,48 @@ public class NavController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
+            try {
+                FileInputStream fisMaster = new FileInputStream("src/MasterLogin.txt");
+                FileOutputStream fosMaster = new FileOutputStream("src/MasterTemp.txt");
+                encryption.decrypt(key, fisMaster, fosMaster);
+                fisMaster.close();
+                fosMaster.close();
+            } catch (FileNotFoundException ex) {
+            } catch (Throwable ex) {
+            }
+
             String username = "", password = "";
             String tempUsername, tempPassword, tempSource;
             try {
-                FileReader fin = new FileReader("src/MasterLogin.txt");
+                FileReader fin = new FileReader("src/MasterTemp.txt");
                 Scanner scan = new Scanner(fin);
 
                 username = scan.nextLine();
                 password = scan.nextLine();
+                fin.close();
             } catch (FileNotFoundException ex) {
                 masterLogin_view.loginStatus.setText("Account Not Found");
 
 //                masterLogin_view.getLoginStatus().setForeground(Color.red);
+            } catch (IOException ex) {
+//                Logger.getLogger(NavController.class.getName()).log(Level.SEVERE, null, ex);
             }
+
             if (masterLogin_view.getUserName().getText().equals(username) && String.valueOf(masterLogin_view.getPassword().getPassword()).equals(password)) {
 
+                File tempMasterFile = new File("src/MasterTemp.txt");
+                tempMasterFile.delete();
                 try {
                     FileInputStream fis2 = new FileInputStream("src/Accounts.txt");
                     FileOutputStream fos2 = new FileOutputStream("src/temp.txt");
                     encryption.decrypt(key, fis2, fos2);
+                    fis2.close();
+                    fos2.close();
                 } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null, ex);
+                    masterLogin_view.loginStatus.setText("Account Not Found");
                 } catch (Throwable ex) {
-                    JOptionPane.showMessageDialog(null, ex);
+                    masterLogin_view.loginStatus.setText("Account Not Found");
                 }
 
                 n_view.addCreateButtonListener(new CreateViewButtonListener());
@@ -200,11 +268,11 @@ public class NavController {
                 masterLogin_view.getLoginButton().setVisible(false);
             } else {
                 masterLogin_view.getLoginStatus().setText("Error, Wrong Password or Username");
-                try {
-                    FileReader fin = new FileReader("src/MasterLogin.txt");
-                } catch (FileNotFoundException ex) {
-                    masterLogin_view.loginStatus.setText("Account Not Found");
-                }
+//                try {
+//                    FileReader fin = new FileReader("src/MasterLogin.txt");
+//                } catch (FileNotFoundException ex) {
+//                    masterLogin_view.loginStatus.setText("Account Not Found");
+//                }
             }
 
         }
