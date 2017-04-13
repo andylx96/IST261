@@ -1,4 +1,7 @@
 
+import java.awt.Dimension;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -8,12 +11,21 @@ public class NavViewBottomMenuPanel extends JPanel {
     public NavViewBottomMenuPanel() {
         super();
         
+        //icon soruce https://www.iconfinder.com/icons/1902269/contact_directory_icon#size=128
+
+ 
         loginButton = new JButton("LOGIN");
         createButton = new JButton("Create Account");
+        createButton.setIcon(new ImageIcon("src/Images/create.png"));
+        
         deleteButton = new JButton("Delete Account");
-        searchButton = new JButton("Instructions");
+        deleteButton.setIcon(new ImageIcon("src/Images/delete.png"));
+        searchButton = new JButton("Help");
+        searchButton.setIcon(new ImageIcon("src/Images/help.png"));
         saveButton = new JButton("Save Accounts");
+        saveButton.setIcon(new ImageIcon("src/Images/save.png"));
         viewButton = new JButton("View All");
+        viewButton.setIcon(new ImageIcon("src/Images/search.png"));
         createMaster = new JButton("Sign Up");
         
         createButton.setVisible(false);

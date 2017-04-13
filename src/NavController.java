@@ -71,7 +71,7 @@ public class NavController {
                 int resp = JOptionPane.showConfirmDialog(null, "Do you want to exit?\n DID YOU REMEMBER TO SAVE?");
                 if (resp == JOptionPane.YES_OPTION) {
                     File tempFile = new File("src/temp.txt");
-                    File tempFile2= new File("src/MasterTemp.txt");
+                    File tempFile2 = new File("src/MasterTemp.txt");
                     tempFile.delete();
                     tempFile2.delete();
                     System.exit(0);
@@ -157,9 +157,9 @@ public class NavController {
                 createMasterLogin_view.getCreateStatus().setText("Account Created");
                 JOptionPane.showMessageDialog(null, "Master Login Has Been Created!");
                 n_view.switchToMasterLoginViewPanel(masterLogin_view);
-           
+
                 fout.flush();
-     fout.close();
+                fout.close();
                 try {
 
                     FileInputStream fis5 = new FileInputStream("src/MasterTemp.txt");
@@ -264,6 +264,8 @@ public class NavController {
 //                n_view.switchToSucessfulLoginView(sucessfulLogin_view);
                 masterLogin_view.getLoginStatus().setBackground(Color.GREEN);
                 masterLogin_view.getLoginStatus().setText("You Have Sucessfully Logged In");
+
+                n_view.switchToSucessfulLoginView(sucessfulLogin_view);
                 masterLogin_view.getSignup().setVisible(false);
                 masterLogin_view.getLoginButton().setVisible(false);
             } else {
