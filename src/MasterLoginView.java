@@ -38,8 +38,8 @@ public class MasterLoginView extends JPanel {
         
         usernameLabel.setForeground(Color.BLUE);
         passwordLabel.setForeground(Color.BLUE);
-        loginStatus.setOpaque(true);
-        loginStatus.setBackground(Color.red);
+        
+        setBackground(Color.WHITE);
         
         Border border = BorderFactory.createLineBorder(Color.BLACK);
 userName.setBorder(BorderFactory.createCompoundBorder(border, 

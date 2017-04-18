@@ -14,7 +14,9 @@ public class NavViewBottomMenuPanel extends JPanel {
         //icon soruce https://www.iconfinder.com/icons/1902269/contact_directory_icon#size=128
 
  
-        loginButton = new JButton("LOGIN");
+        loginButton = new JButton("Click Here To Start");
+        loginButton.setIcon(new ImageIcon("src/Images/start.png"));
+        
         createButton = new JButton("Create Account");
         createButton.setIcon(new ImageIcon("src/Images/create.png"));
         

@@ -5,11 +5,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 public class CreateMasterLoginView extends JPanel {
 
@@ -26,6 +28,8 @@ public class CreateMasterLoginView extends JPanel {
 
         setLayout(new GridBagLayout());
 
+        
+        
         usernameLabel = new JLabel("Username");
         passwordLabel = new JLabel("Password");
         userName = new JTextArea("UserName");
@@ -71,6 +75,15 @@ public class CreateMasterLoginView extends JPanel {
         gbc.gridy = 3;
         add(createButton, gbc);
 
+        setBackground(Color.WHITE);
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+userName.setBorder(BorderFactory.createCompoundBorder(border, 
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+password.setBorder(BorderFactory.createCompoundBorder(border, 
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+
+        
+        
     }
 
     public JTextArea getUserName() {

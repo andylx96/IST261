@@ -5,11 +5,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 
 public class CreateView extends JPanel {
 
@@ -48,13 +50,13 @@ public class CreateView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(1, 1, 1, 1);
         gbc.ipady = 35;
-        
+
         gbc.weightx = 0.0;
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         add(instruLabel, gbc);
 
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         add(lower, gbc);
 
         gbc.gridx = 1;
@@ -65,14 +67,14 @@ public class CreateView extends JPanel {
         add(source, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         add(number, gbc);
 
         gbc.gridx = 1;
         add(special, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 0;
         gbc.gridwidth = 2;
         add(genRandUser, gbc);
 
@@ -104,12 +106,27 @@ public class CreateView extends JPanel {
         gbc.gridy = 7;
         add(sourceLabel, gbc);
 
+        gbc.weightx = 1.0;
+        gbc.gridx = 1;
+        add(source, gbc);
+
+        gbc.gridx = 0;
         gbc.gridwidth = 2;
         gbc.gridy = 8;
         gbc.weighty = 1.0;
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.PAGE_END;
         add(createAccount, gbc);
+
+        setBackground(Color.WHITE);
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        userName.setBorder(BorderFactory.createCompoundBorder(border,
+                BorderFactory.createEmptyBorder(1, 1, 1, 1)));
+        password.setBorder(BorderFactory.createCompoundBorder(border,
+                BorderFactory.createEmptyBorder(1, 1, 1, 1)));
+
+        source.setBorder(BorderFactory.createCompoundBorder(border,
+                BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 
     }
 

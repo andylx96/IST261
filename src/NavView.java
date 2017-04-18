@@ -115,6 +115,8 @@ public class NavView extends JFrame {
     public void addSaveButtonListener(ActionListener al) {
         nVpanel.menu.saveButton.addActionListener(al);
     }
+    
+    
 
     public NavViewPanel getnVpanel() {
         return nVpanel;

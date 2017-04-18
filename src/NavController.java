@@ -275,6 +275,9 @@ public class NavController {
 //                } catch (FileNotFoundException ex) {
 //                    masterLogin_view.loginStatus.setText("Account Not Found");
 //                }
+                
+            File tempMasterFile2 = new File("src/MasterTemp.txt");
+            tempMasterFile2.delete();
             }
 
         }

@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class SplashScreenView extends JPanel {
 
@@ -14,13 +15,13 @@ public class SplashScreenView extends JPanel {
     SplashScreenView() {
         setLayout(new BorderLayout());
         splashLabel = new JLabel(new ImageIcon("src/Images/key.png"));
-        welcomeButton = new JButton("Welcome");
-        descriptionLabel = new JLabel("Welcome");
+//        welcomeButton = new JButton("Click Here For");
+        descriptionLabel = new JLabel("Welcome to our Credential Manager Application.", SwingConstants.CENTER);
         
         
-        add(welcomeButton, BorderLayout.NORTH);
+//        add(welcomeButton, BorderLayout.NORTH);
         add(splashLabel, BorderLayout.CENTER);
-        add(descriptionLabel, BorderLayout.SOUTH);
+        add(descriptionLabel, BorderLayout.NORTH);
         setSize(900, 700);
         
     }
