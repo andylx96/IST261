@@ -16,10 +16,10 @@ import javax.swing.JTextArea;
  *
  * @author ajl5735
  */
-public class SucessfulLoginView extends JPanel {
+public class InstructionView extends JPanel {
     JTextArea textArea, menu;
     JButton clickHere;
-    public SucessfulLoginView(){
+    public InstructionView(){
         setLayout(new BorderLayout(10,1));
     textArea = new JTextArea("You Have Sucessfully Logged In\n Please Choice And Option Below");
     menu = new JTextArea("1. Create Account\n   Create a New Account to store into your library."

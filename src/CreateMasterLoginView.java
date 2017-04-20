@@ -42,7 +42,7 @@ public class CreateMasterLoginView extends JPanel {
 
         gbc.insets = new Insets(1, 1, 1, 1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 40;
+//       
         
         gbc.weighty = 0.0;
         gbc.weightx = 0.0;
@@ -73,6 +73,7 @@ public class CreateMasterLoginView extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 3;
+         gbc.ipady = 40;
         add(createButton, gbc);
 
         setBackground(Color.WHITE);

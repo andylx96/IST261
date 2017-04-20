@@ -51,16 +51,16 @@ public class NavView extends JFrame {
         nVpanel.addMasterView(masterView);
     }
     
-    public void switchToSearchViewPanel(SearchView search_view) {
-        nVpanel.removeSplash();
-        nVpanel.removeMaster();
-        nVpanel.removeCreate();
-        nVpanel.removeSearch();
-        nVpanel.removeViewAll();
-        nVpanel.removeCreateMasterLoginView();
-        nVpanel.removeSucessfulLogin();
-        nVpanel.addSearch(search_view);
-    }
+//    public void switchToSearchViewPanel(SearchView search_view) {
+//        nVpanel.removeSplash();
+//        nVpanel.removeMaster();
+//        nVpanel.removeCreate();
+//        nVpanel.removeSearch();
+//        nVpanel.removeViewAll();
+//        nVpanel.removeCreateMasterLoginView();
+//        nVpanel.removeSucessfulLogin();
+//        nVpanel.addSearch(search_view);
+//    }
     
     public void switchToViewAllViewPanel(ViewAllView viewAll_view) {
         nVpanel.removeSplash();
@@ -73,7 +73,7 @@ public class NavView extends JFrame {
         nVpanel.addViewAllView(viewAll_view);
     }
     
-        public void switchToSucessfulLoginView(SucessfulLoginView sucessfulLogin_view) {
+        public void switchToInstructionView(InstructionView instruction_view) {
         nVpanel.removeSplash();
         nVpanel.removeMaster();
         nVpanel.removeCreate();
@@ -81,7 +81,7 @@ public class NavView extends JFrame {
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
         nVpanel.removeSucessfulLogin();
-        nVpanel.addSucessfulLoginView(sucessfulLogin_view);
+        nVpanel.addInstructionView(instruction_view);
     }
 
     public void addMasterButtonListener(ActionListener al) {
@@ -97,11 +97,11 @@ public class NavView extends JFrame {
     }
 
     public void addDeleteButtonLIstener(ActionListener al) {
-        nVpanel.menu.searchButton.addActionListener(al);
+        nVpanel.menu.instructionButton.addActionListener(al);
     }
 
-    public void addSearchButtonListener(ActionListener al) {
-        nVpanel.menu.searchButton.addActionListener(al);
+    public void addInstructionButtonListener(ActionListener al) {
+        nVpanel.menu.instructionButton.addActionListener(al);
     }
       
     public void addCreateMasterButtonListener(ActionListener al) {

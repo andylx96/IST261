@@ -20,7 +20,7 @@ public class NavViewPanel extends JPanel {
     SearchView search_view;
     ViewAllView viewAll_view;
     CreateMasterLoginView createMasterLogin_view;
-    SucessfulLoginView sucessfulLogin_view;
+    InstructionView instruction_view;
 
     public NavViewPanel() {
         super();
@@ -76,16 +76,16 @@ public class NavViewPanel extends JPanel {
     }
 
          
-     public void addSucessfulLoginView(SucessfulLoginView sucessfulLogin_view) {
-        this.sucessfulLogin_view = sucessfulLogin_view;
-        add(sucessfulLogin_view, BorderLayout.CENTER);
+     public void addInstructionView(InstructionView instruction_view) {
+        this.instruction_view = instruction_view;
+        add(instruction_view, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
 
     public void removeSucessfulLogin() {
-        if (this.sucessfulLogin_view != null) {
-            remove(this.sucessfulLogin_view);
+        if (this.instruction_view != null) {
+            remove(this.instruction_view);
         }
     }
      

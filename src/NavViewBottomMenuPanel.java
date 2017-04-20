@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class NavViewBottomMenuPanel extends JPanel {
     
-    JButton createButton, loginButton, deleteButton, searchButton, viewButton, createMaster, saveButton;
+    JButton createButton, loginButton, deleteButton, instructionButton, viewButton, createMaster, saveButton;
     public NavViewBottomMenuPanel() {
         super();
         
@@ -22,8 +22,8 @@ public class NavViewBottomMenuPanel extends JPanel {
         
         deleteButton = new JButton("Delete Account");
         deleteButton.setIcon(new ImageIcon("src/Images/delete.png"));
-        searchButton = new JButton("Help");
-        searchButton.setIcon(new ImageIcon("src/Images/help.png"));
+        instructionButton = new JButton("Help");
+        instructionButton.setIcon(new ImageIcon("src/Images/help.png"));
         saveButton = new JButton("Save Accounts");
         saveButton.setIcon(new ImageIcon("src/Images/save.png"));
         viewButton = new JButton("View All");
@@ -33,7 +33,7 @@ public class NavViewBottomMenuPanel extends JPanel {
         createButton.setVisible(false);
         deleteButton.setVisible(false);
         viewButton.setVisible(false);
-        searchButton.setVisible(false);
+        instructionButton.setVisible(false);
         saveButton.setVisible(false);
         createMaster.setVisible(false);
         
@@ -42,7 +42,7 @@ public class NavViewBottomMenuPanel extends JPanel {
         add(createButton);
         add(deleteButton);
         add(viewButton);
-        add(searchButton);
+        add(instructionButton);
         add(saveButton);
         add(createMaster);
     }
@@ -79,12 +79,12 @@ public class NavViewBottomMenuPanel extends JPanel {
         this.deleteButton = deleteButton;
     }
 
-    public JButton getSearchButton() {
-        return searchButton;
+    public JButton getInstructionButton() {
+        return instructionButton;
     }
 
-    public void setSearchButton(JButton searchButton) {
-        this.searchButton = searchButton;
+    public void setInstructionButton(JButton instructionButton) {
+        this.instructionButton = instructionButton;
     }
 
     public JButton getViewButton() {

@@ -17,8 +17,21 @@ public class Accounts {
     ArrayList<String> accountsArrayUsername;
     ArrayList<String> accountsArrayPassword;
     ArrayList<String> accountsArraySource;
-
+    
+    
     public Accounts() {
+        
+        
+        
+        accountsArray = new ArrayList();
+        accountsArrayUsername = new ArrayList();
+        accountsArrayPassword = new ArrayList();
+        accountsArraySource = new ArrayList();
+
+        accountsArray.add(accountsArrayUsername);
+        accountsArray.add(accountsArrayPassword);
+        accountsArray.add(accountsArraySource);
+
  
    }
 
@@ -53,6 +66,7 @@ public class Accounts {
     public void setAccountsArraySource(ArrayList<String> accountsArraySource) {
         this.accountsArraySource = accountsArraySource;
     }
+
 
   
 }
