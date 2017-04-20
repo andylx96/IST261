@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class NavViewBottomMenuPanel extends JPanel {
     
-    JButton createButton, loginButton, deleteButton, instructionButton, viewButton, createMaster, saveButton;
+    JButton createButton, loginButton, instructionButton, viewButton, createMaster, saveButton;
     public NavViewBottomMenuPanel() {
         super();
         
@@ -19,9 +19,9 @@ public class NavViewBottomMenuPanel extends JPanel {
         
         createButton = new JButton("Create Account");
         createButton.setIcon(new ImageIcon("src/Images/create.png"));
-        
-        deleteButton = new JButton("Delete Account");
-        deleteButton.setIcon(new ImageIcon("src/Images/delete.png"));
+//        
+//        deleteButton = new JButton("Delete Account");
+//        deleteButton.setIcon(new ImageIcon("src/Images/delete.png"));
         instructionButton = new JButton("Help");
         instructionButton.setIcon(new ImageIcon("src/Images/help.png"));
         saveButton = new JButton("Save Accounts");
@@ -31,7 +31,7 @@ public class NavViewBottomMenuPanel extends JPanel {
         createMaster = new JButton("Sign Up");
         
         createButton.setVisible(false);
-        deleteButton.setVisible(false);
+//        deleteButton.setVisible(false);
         viewButton.setVisible(false);
         instructionButton.setVisible(false);
         saveButton.setVisible(false);
@@ -40,7 +40,7 @@ public class NavViewBottomMenuPanel extends JPanel {
         
         add(loginButton);
         add(createButton);
-        add(deleteButton);
+//        add(deleteButton);
         add(viewButton);
         add(instructionButton);
         add(saveButton);
@@ -71,13 +71,13 @@ public class NavViewBottomMenuPanel extends JPanel {
         this.loginButton = loginButton;
     }
 
-    public JButton getDeleteButton() {
-        return deleteButton;
-    }
-
-    public void setDeleteButton(JButton deleteButton) {
-        this.deleteButton = deleteButton;
-    }
+//    public JButton getDeleteButton() {
+//        return deleteButton;
+//    }
+//
+//    public void setDeleteButton(JButton deleteButton) {
+//        this.deleteButton = deleteButton;
+//    }
 
     public JButton getInstructionButton() {
         return instructionButton;

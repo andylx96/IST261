@@ -208,7 +208,7 @@ public class NavController {
                 } catch (Throwable ex) {
                     masterLogin_view.loginStatus.setText("Account Not Found");
                 }
-                
+
                 n_view.addCreateButtonListener(new CreateViewButtonListener());
                 n_view.addInstructionButtonListener(new InstructionButtonListener());
                 n_view.addViewAllViewButtonListener(new ViewAllViewButtonListener());
@@ -289,9 +289,12 @@ public class NavController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
-            tableToFile(tempRow);
-            updateArrayAndTable();
+            int resp = JOptionPane.showConfirmDialog(null, "Are You Sure You Want To Delete This Line?");
+            if (resp == JOptionPane.YES_OPTION) {
+                int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
+                tableToFile(tempRow);
+                updateArrayAndTable();
+            }
         }
     }
 

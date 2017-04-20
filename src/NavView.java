@@ -22,7 +22,6 @@ public class NavView extends JFrame {
         nVpanel.removeSplash();
         nVpanel.removeMaster();
         nVpanel.removeCreate();
-        nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
         nVpanel.removeSucessfulLogin();
@@ -33,7 +32,6 @@ public class NavView extends JFrame {
         nVpanel.removeSplash();
         nVpanel.removeMaster();
         nVpanel.removeCreate();
-        nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
         nVpanel.removeSucessfulLogin();
@@ -44,29 +42,17 @@ public class NavView extends JFrame {
         nVpanel.removeSplash();
         nVpanel.removeMaster();
         nVpanel.removeCreate(); 
-        nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
         nVpanel.removeSucessfulLogin();
         nVpanel.addMasterView(masterView);
     }
-    
-//    public void switchToSearchViewPanel(SearchView search_view) {
-//        nVpanel.removeSplash();
-//        nVpanel.removeMaster();
-//        nVpanel.removeCreate();
-//        nVpanel.removeSearch();
-//        nVpanel.removeViewAll();
-//        nVpanel.removeCreateMasterLoginView();
-//        nVpanel.removeSucessfulLogin();
-//        nVpanel.addSearch(search_view);
-//    }
+
     
     public void switchToViewAllViewPanel(ViewAllView viewAll_view) {
         nVpanel.removeSplash();
         nVpanel.removeMaster();
         nVpanel.removeCreate();
-        nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
         nVpanel.removeSucessfulLogin();
@@ -77,7 +63,6 @@ public class NavView extends JFrame {
         nVpanel.removeSplash();
         nVpanel.removeMaster();
         nVpanel.removeCreate();
-        nVpanel.removeSearch();
         nVpanel.removeViewAll();
         nVpanel.removeCreateMasterLoginView();
         nVpanel.removeSucessfulLogin();
@@ -115,8 +100,6 @@ public class NavView extends JFrame {
     public void addSaveButtonListener(ActionListener al) {
         nVpanel.menu.saveButton.addActionListener(al);
     }
-    
-    
 
     public NavViewPanel getnVpanel() {
         return nVpanel;
