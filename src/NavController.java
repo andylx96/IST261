@@ -39,6 +39,7 @@ public class NavController {
     HelpFrame help_frame;
     HelpController help_controller;
     Accounts accounts;
+//    CalendarOverView calendar;
 
     String key = "squirrel123"; // needs to be at least 8 characters for DES
 
@@ -55,6 +56,7 @@ public class NavController {
         viewAll_view = new ViewAllView();
         createMasterLogin_view = new CreateMasterLoginView();
         accounts = new Accounts();
+//        calendar = new CalendarOverView();
 
         n_view.addMasterButtonListener(new MasterLoginViewListener());
         masterLogin_view.getSignup().addActionListener(new CreateNewMasterButtonListener());
