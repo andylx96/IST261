@@ -27,7 +27,16 @@ public class HelpView extends JPanel {
                 + "\n       b. upper case letters"
                 + "\n       c. numbers"
                 + "\n       d. special characters"
-                + "\nII.");
+                + "\nII. View All"
+                + "\n   This section is where the user can see all their stored usernames and passwords."
+                + "\n   The user can also make edits to their account information by double clicking on the desire text field"
+                + "\n   After making changes, be sure to press enter to confirm changes and then pressing the 'Save Edits' button"
+                + "\n   The user is also allowed to delete existing creditials by highlightning the row they want to delete"
+                + "\n   Then pressing the 'delete' Button"
+                + "\nIII. Save Accounts"
+                + "\n   This section is the most important section."
+                + "\n   The user should click on this button after saving all changes or creating accounts"
+                + "\n   Because if the user were to exit the program, any unsaved changes will be discarded.");
         add(label);
         label.setBackground(Color.YELLOW);
         setBackground(Color.YELLOW);
