@@ -1,11 +1,11 @@
-    /*
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 import java.util.ArrayList;
-import javax.swing.JTextArea;
 
 /**
  *
@@ -17,12 +17,8 @@ public class Accounts {
     ArrayList<String> accountsArrayUsername;
     ArrayList<String> accountsArrayPassword;
     ArrayList<String> accountsArraySource;
-    
-    
+
     public Accounts() {
-        
-        
-        
         accountsArray = new ArrayList();
         accountsArrayUsername = new ArrayList();
         accountsArrayPassword = new ArrayList();
@@ -32,8 +28,7 @@ public class Accounts {
         accountsArray.add(accountsArrayPassword);
         accountsArray.add(accountsArraySource);
 
- 
-   }
+    }
 
     public ArrayList<ArrayList> getAccountsArray() {
         return accountsArray;
@@ -67,6 +62,4 @@ public class Accounts {
         this.accountsArraySource = accountsArraySource;
     }
 
-
-  
 }

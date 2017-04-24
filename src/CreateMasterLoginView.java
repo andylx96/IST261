@@ -2,7 +2,6 @@
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
@@ -27,9 +26,6 @@ public class CreateMasterLoginView extends JPanel {
     CreateMasterLoginView() {
 
         setLayout(new GridBagLayout());
-
-        
-        
         usernameLabel = new JLabel("Username");
         passwordLabel = new JLabel("Password");
         userName = new JTextArea("UserName");

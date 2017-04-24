@@ -11,19 +11,16 @@ public class SplashScreenView extends JPanel {
     JLabel splashLabel;
     JButton welcomeButton;
     JLabel descriptionLabel;
-   
+
     SplashScreenView() {
         setLayout(new BorderLayout());
         splashLabel = new JLabel(new ImageIcon("src/Images/key.png"));
-//        welcomeButton = new JButton("Click Here For");
         descriptionLabel = new JLabel("Welcome to our Credential Manager Application.", SwingConstants.CENTER);
-        
-        
-//        add(welcomeButton, BorderLayout.NORTH);
+
         add(splashLabel, BorderLayout.CENTER);
         add(descriptionLabel, BorderLayout.NORTH);
         setSize(900, 700);
-        
+
     }
 
     public JLabel getSplashLabel() {
@@ -49,7 +46,5 @@ public class SplashScreenView extends JPanel {
     public void setDescriptionLabel(JLabel descriptionLabel) {
         this.descriptionLabel = descriptionLabel;
     }
-    
-    
 
 }

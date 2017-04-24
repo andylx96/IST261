@@ -1,27 +1,21 @@
 
-import java.awt.Dimension;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class NavViewBottomMenuPanel extends JPanel {
-    
+
     JButton createButton, loginButton, instructionButton, viewButton, createMaster, saveButton;
+
     public NavViewBottomMenuPanel() {
         super();
-        
-        //icon soruce https://www.iconfinder.com/icons/1902269/contact_directory_icon#size=128
 
- 
+        //icon soruce https://www.iconfinder.com/icons/1902269/contact_directory_icon#size=128
         loginButton = new JButton("Click Here To Start");
         loginButton.setIcon(new ImageIcon("src/Images/start.png"));
-        
+
         createButton = new JButton("Create Account");
         createButton.setIcon(new ImageIcon("src/Images/create.png"));
-//        
-//        deleteButton = new JButton("Delete Account");
-//        deleteButton.setIcon(new ImageIcon("src/Images/delete.png"));
         instructionButton = new JButton("Help");
         instructionButton.setIcon(new ImageIcon("src/Images/help.png"));
         saveButton = new JButton("Save Accounts");
@@ -29,29 +23,26 @@ public class NavViewBottomMenuPanel extends JPanel {
         viewButton = new JButton("View All");
         viewButton.setIcon(new ImageIcon("src/Images/search.png"));
         createMaster = new JButton("Sign Up");
-        
+
         createButton.setVisible(false);
-//        deleteButton.setVisible(false);
         viewButton.setVisible(false);
         instructionButton.setVisible(false);
         saveButton.setVisible(false);
         createMaster.setVisible(false);
-        
-        
+
         add(loginButton);
         add(createButton);
-//        add(deleteButton);
         add(viewButton);
         add(instructionButton);
         add(saveButton);
         add(createMaster);
     }
-    
-    public JButton getSaveButton(){
+
+    public JButton getSaveButton() {
         return saveButton;
     }
-    
-    public void setSaveButton(JButton saveButton){
+
+    public void setSaveButton(JButton saveButton) {
         this.saveButton = saveButton;
     }
 
@@ -70,14 +61,6 @@ public class NavViewBottomMenuPanel extends JPanel {
     public void setLoginButton(JButton loginButton) {
         this.loginButton = loginButton;
     }
-
-//    public JButton getDeleteButton() {
-//        return deleteButton;
-//    }
-//
-//    public void setDeleteButton(JButton deleteButton) {
-//        this.deleteButton = deleteButton;
-//    }
 
     public JButton getInstructionButton() {
         return instructionButton;
@@ -102,6 +85,5 @@ public class NavViewBottomMenuPanel extends JPanel {
     public void setCreateMaster(JButton createMaster) {
         this.createMaster = createMaster;
     }
-
 
 }

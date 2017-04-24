@@ -1,5 +1,5 @@
 
-import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -39,7 +39,6 @@ public class NavController {
     HelpFrame help_frame;
     HelpController help_controller;
     Accounts accounts;
-//    CalendarOverView calendar;
 
     String key = "squirrel123"; // needs to be at least 8 characters for DES
 
@@ -52,11 +51,9 @@ public class NavController {
         create_view = new CreateView();
         masterLogin_view = new MasterLoginView();
         generate = new GeneratePass();
-//        search_view = new SearchView();
         viewAll_view = new ViewAllView();
         createMasterLogin_view = new CreateMasterLoginView();
         accounts = new Accounts();
-//        calendar = new CalendarOverView();
 
         n_view.addMasterButtonListener(new MasterLoginViewListener());
         masterLogin_view.getSignup().addActionListener(new CreateNewMasterButtonListener());
@@ -293,9 +290,14 @@ public class NavController {
         public void actionPerformed(ActionEvent e) {
             int resp = JOptionPane.showConfirmDialog(null, "Are You Sure You Want To Delete This Line?");
             if (resp == JOptionPane.YES_OPTION) {
-                int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
-                tableToFile(tempRow);
-                updateArrayAndTable();
+
+                if (viewAll_view.getTable().getSelectedRow() != -1) {
+                    int tempRow = viewAll_view.getTable().convertRowIndexToModel(viewAll_view.getTable().getSelectedRow());
+                    tableToFile(tempRow);
+                    updateArrayAndTable();
+                }
+                else if(viewAll_view.getTable().getSelectedRow() == -1)
+                {JOptionPane.showMessageDialog(null, "Please Selected A Row First");}
             }
         }
     }

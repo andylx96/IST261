@@ -50,23 +50,22 @@ public class NavViewPanel extends JPanel {
         revalidate();
         repaint();
     }
-    
+
     public void addViewAllView(ViewAllView viewAllView) {
         this.viewAll_view = viewAllView;
         add(viewAllView, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
-    
-     public void addCreateMasterLoginView(CreateMasterLoginView createMasterLogin_view) {
+
+    public void addCreateMasterLoginView(CreateMasterLoginView createMasterLogin_view) {
         this.createMasterLogin_view = createMasterLogin_view;
         add(createMasterLogin_view, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
 
-         
-     public void addInstructionView(InstructionView instruction_view) {
+    public void addInstructionView(InstructionView instruction_view) {
         this.instruction_view = instruction_view;
         add(instruction_view, BorderLayout.CENTER);
         revalidate();
@@ -78,26 +77,25 @@ public class NavViewPanel extends JPanel {
             remove(this.instruction_view);
         }
     }
-     
+
     public void removeCreate() {
         if (this.create_view != null) {
             remove(this.create_view);
         }
     }
 
-    
-        public void removeViewAll() {
+    public void removeViewAll() {
         if (this.viewAll_view != null) {
             remove(this.viewAll_view);
         }
     }
 
-              public void removeCreateMasterLoginView() {
+    public void removeCreateMasterLoginView() {
         if (this.createMasterLogin_view != null) {
             remove(this.createMasterLogin_view);
         }
     }
-        
+
     public void removeMaster() {
         if (this.masterLogin_view != null) {
             remove(this.masterLogin_view);
